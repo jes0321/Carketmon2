@@ -7,9 +7,9 @@ public:
 	Object();
 	virtual ~Object();
 public:
-	virtual void Update() =0;
+	virtual void Update() {}
 	virtual void LateUpdate();
-	virtual void Render(HDC _hdc) =0;
+	virtual void Render(HDC _hdc) {};
 	void ComponentRender(HDC _hdc);
 public:
 	// public «Ô∆€

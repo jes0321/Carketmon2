@@ -8,8 +8,9 @@ public:
 	~UnitData();
 public:
 	CardData* GetCardRandom();
-	void SetCard(CardData* card, int cnt = 1);
+	void SetCard(CardData* card, int cnt);
 	void UseCard(int index);
+	Texture* GetTexture() const { return m_pTexture; }
 private:
 	wstring m_name;
 	int m_maxHp;

@@ -8,12 +8,12 @@
 void UnitManager::Init()
 {
 	CardManager* cardManager = GET_SINGLE(CardManager);
-	UnitData* data = RegisterUnit(L"Hero", L"HeroTex", 30, ElementType::Fire);
+	UnitData* data = RegisterUnit(L"불꽃부기", L"HeroTex", 30, ElementType::Fire);
 
 	data->SetCard(cardManager->GetCard(L"파이어볼"),5);
 	data->SetCard(cardManager->GetCard(L"화염방사"),3);
 
-	data = RegisterUnit(L"Slime", L"SlimeTex", 10, ElementType::Fire);
+	data = RegisterUnit(L"파이츄", L"SlimeTex", 10, ElementType::Fire);
 
 	data->SetCard(cardManager->GetCard(L"파이어볼"), 3);
 	data->SetCard(cardManager->GetCard(L"화염방사"), 5);

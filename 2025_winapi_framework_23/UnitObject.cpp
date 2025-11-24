@@ -1,15 +1,14 @@
 #include "pch.h"
-#include "CardData.h"
 #include "Texture.h"
-#include "CardObject.h"
+#include "UnitData.h"
+#include "UnitObject.h"
 
-
-void CardObject::Render(HDC _hdc)
+void UnitObject::Render(HDC _hdc)
 {
 	Vec2 pos = GetPos();
 	Vec2 size = GetSize();
 
-	Texture* tex = m_cardData->GetTexture();
+	Texture* tex = m_unitData->GetTexture();
 	LONG width = tex->GetWidth();
 	LONG height = tex->GetHeight();
 

@@ -50,7 +50,7 @@ CardData* UnitData::GetCardRandom()
 	return m_deck[chosenDeckIndex];
 }
 
-void UnitData::SetCard(CardData* card,int cnt=1)
+void UnitData::SetCard(CardData* card,int cnt)
 {
 	for (int i = 0; i < cnt; ++i) {
 		if (card != nullptr)
