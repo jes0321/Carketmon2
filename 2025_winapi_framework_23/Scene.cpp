@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "Scene.h"
 #include "Object.h"
-#include "CollisionManager.h"
 #include "Rigidbody.h"
 #include "Object.h"
 Scene::Scene()
@@ -72,7 +71,7 @@ void Scene::Release()
 			SAFE_DELETE(obj);
 		vec.clear();
 	}
-	GET_SINGLE(CollisionManager)->CheckReset();
+	//GET_SINGLE(CollisionManager)->CheckReset();
 }
 
 void Scene::FlushEvent()
@@ -95,11 +94,11 @@ void Scene::RequestDestroy(Object* obj)
 {
 	if (obj == nullptr)
 		return;
-	if (!obj->GetIsDead())
-	{
-		obj->SetDead();
-		m_killObject.push_back(obj);
-	}
+	//if (!obj->GetIsDead())
+	//{
+	//	obj->SetDead();
+	//	m_killObject.push_back(obj);
+	//}
 }
 
 void Scene::RemoveObject(Object* _obj)

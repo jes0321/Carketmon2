@@ -21,6 +21,7 @@ void SceneManager::Init()
 {
 	m_curScene = nullptr;
 
+	LoadScene(L"StageSelectScene");
 	// MenuScene 등록
 }
 void SceneManager::Update()

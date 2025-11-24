@@ -115,9 +115,6 @@
     <ClInclude Include="TimeManager.h">
       <Filter>Engine\02. Manager\Framework</Filter>
     </ClInclude>
-    <ClInclude Include="CollisionManager.h">
-      <Filter>Engine\02. Manager\Framework</Filter>
-    </ClInclude>
     <ClInclude Include="Animator.h">
       <Filter>Engine\06. Component\Animation</Filter>
     </ClInclude>
@@ -129,6 +126,15 @@
     </ClInclude>
     <ClInclude Include="CardData.h">
       <Filter>Engine\09.Data</Filter>
+    </ClInclude>
+    <ClInclude Include="StageSelectScene.h">
+      <Filter>Engine\04. Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage.h">
+      <Filter>Engine\03. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="StageSpawner.h">
+      <Filter>Engine\03. Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -169,9 +175,6 @@
     <ClCompile Include="Texture.cpp">
       <Filter>Engine\05. Resource</Filter>
     </ClCompile>
-    <ClCompile Include="ResourceManager.cpp">
-      <Filter>Engine\02. Manager</Filter>
-    </ClCompile>
     <ClCompile Include="Component.cpp">
       <Filter>Engine\06. Component</Filter>
     </ClCompile>
@@ -187,9 +190,6 @@
     <ClCompile Include="TimeManager.cpp">
       <Filter>Engine\02. Manager\Framework</Filter>
     </ClCompile>
-    <ClCompile Include="CollisionManager.cpp">
-      <Filter>Engine\02. Manager\Framework</Filter>
-    </ClCompile>
     <ClCompile Include="Animator.cpp">
       <Filter>Engine\06. Component\Animation</Filter>
     </ClCompile>
@@ -201,6 +201,18 @@
     </ClCompile>
     <ClCompile Include="CardData.cpp">
       <Filter>Engine\09.Data</Filter>
+    </ClCompile>
+    <ClCompile Include="StageSelectScene.cpp">
+      <Filter>Engine\04. Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage.cpp">
+      <Filter>Engine\03. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="StageSpawner.cpp">
+      <Filter>Engine\03. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceManager.cpp">
+      <Filter>Engine\02. Manager\Framework</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
