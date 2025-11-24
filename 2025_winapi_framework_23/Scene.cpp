@@ -20,8 +20,7 @@ void Scene::Update()
 	{
 		auto& vec = m_vecObj[i];
 		for (auto* obj : vec)
-			if(!obj->GetIsDead())
-				obj->Update();
+			obj->Update();
 	}
 }
 
@@ -31,8 +30,7 @@ void Scene::LateUpdate()
 	{
 		auto& vec = m_vecObj[i];
 		for (auto* obj : vec)
-			if (!obj->GetIsDead())
-				obj->LateUpdate();
+			obj->LateUpdate();
 	}
 }
 
@@ -59,8 +57,7 @@ void Scene::Render(HDC _hdc)
 	{
 		auto& vec = m_vecObj[i];
 		for (auto* obj : vec)
-			if (!obj->GetIsDead())
-				obj->Render(_hdc);
+			obj->Render(_hdc);
 	}
 }
 
