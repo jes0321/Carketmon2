@@ -5,7 +5,6 @@
 Object::Object()
 	: m_pos{}
 	, m_size{}
-	, m_isDie(false)
 {
 
 }

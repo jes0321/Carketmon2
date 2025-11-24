@@ -6,9 +6,9 @@ public:
 	Component();
 	virtual ~Component();
 public:
-	virtual void Init() abstract;
-	virtual void LateUpdate() abstract;
-	virtual void Render(HDC _hdc) abstract;
+	virtual void Init() =0;
+	virtual void LateUpdate() = 0;
+	virtual void Render(HDC _hdc) = 0;
 public:
 	void SetOwner(Object* _owner)
 	{

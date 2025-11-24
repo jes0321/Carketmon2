@@ -5,7 +5,8 @@ enum class Layer
 	BACKGROUND,
 	PLAYER,
 	ENEMY,
-	PROJECTILE,
+	CARD,
+	UI,
 	END
 };
 enum class PenType
@@ -20,6 +21,23 @@ enum class BrushType
 enum class FontType
 {
 	UI, TITLE, END
+};
+enum class ElementType {
+	Fire,Water,Ice,Grace
+};
+enum class CardEffectType {
+	Damage,
+	Heal,
+	Buff,
+	Debuff,
+	Utility,
+	AoE,
+	Shield
+};
+enum class CardValueType {
+	IntValue,
+	MultiplyValue,
+	PercentageValue
 };
 
 enum class PlayMode

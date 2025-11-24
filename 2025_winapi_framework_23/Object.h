@@ -7,13 +7,10 @@ public:
 	Object();
 	virtual ~Object();
 public:
-	virtual void Update() abstract;
+	virtual void Update() =0;
 	virtual void LateUpdate();
-	virtual void Render(HDC _hdc) abstract;
+	virtual void Render(HDC _hdc) =0;
 	void ComponentRender(HDC _hdc);
-	virtual void EnterCollision(Collider* _other) {}
-	virtual void StayCollision(Collider* _other) {}
-	virtual void ExitCollision(Collider* _other) {}
 public:
 	// public «Ô∆€
 	void Translate(Vec2 _delta)
@@ -33,8 +30,6 @@ public:
 	void SetSize(Vec2 _size) { m_size = _size; }
 	const Vec2& GetPos() const { return m_pos; }
 	const Vec2& GetSize()const { return m_size; }
-	bool GetIsDead() const { return m_isDie; }
-	void SetDead() { m_isDie = true; }
 public:
 	template<typename T>
 	T* AddComponent()
@@ -62,6 +57,5 @@ private:
 	Vec2 m_pos;
 	Vec2 m_size;
 	vector<Component*> m_vecComponents;
-	bool m_isDie;
 };
 

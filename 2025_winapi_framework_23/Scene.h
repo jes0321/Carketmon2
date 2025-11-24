@@ -13,7 +13,7 @@ public:
 	Scene();
 	virtual ~Scene();
 public:
-	virtual void Init() abstract;
+	virtual void Init() =0;
 	virtual void Update();
 	virtual void LateUpdate();
 	virtual void FixedUpdate(float _fixedDT);

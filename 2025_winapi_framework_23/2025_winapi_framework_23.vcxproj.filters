@@ -47,6 +47,9 @@
     <Filter Include="Engine\02. Manager\Framework">
       <UniqueIdentifier>{3117f2d1-76b5-4d4e-9c99-0359d91c25d9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\09.Data">
+      <UniqueIdentifier>{65d5ca3e-1fec-426a-bb7e-665a13e12125}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="2025_winapi_framework_23.h">
@@ -88,21 +91,6 @@
     <ClInclude Include="Enums.h">
       <Filter>Engine\99. Headers</Filter>
     </ClInclude>
-    <ClInclude Include="DevScene.h">
-      <Filter>Engine\04. Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Engine\03. Object</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>Engine\03. Object</Filter>
-    </ClInclude>
-    <ClInclude Include="TestScene.h">
-      <Filter>Engine\04. Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Projectile.h">
-      <Filter>Engine\03. Object</Filter>
-    </ClInclude>
     <ClInclude Include="ResourceBase.h">
       <Filter>Engine\05. Resource</Filter>
     </ClInclude>
@@ -139,8 +127,8 @@
     <ClInclude Include="Rigidbody.h">
       <Filter>Engine\06. Component\Physics</Filter>
     </ClInclude>
-    <ClInclude Include="Floor.h">
-      <Filter>Engine\03. Object</Filter>
+    <ClInclude Include="CardData.h">
+      <Filter>Engine\09.Data</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -174,21 +162,6 @@
     </ClCompile>
     <ClCompile Include="Scene.cpp">
       <Filter>Engine\04. Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="DevScene.cpp">
-      <Filter>Engine\04. Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Engine\03. Object</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>Engine\03. Object</Filter>
-    </ClCompile>
-    <ClCompile Include="TestScene.cpp">
-      <Filter>Engine\04. Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Projectile.cpp">
-      <Filter>Engine\03. Object</Filter>
     </ClCompile>
     <ClCompile Include="ResourceBase.cpp">
       <Filter>Engine\05. Resource</Filter>
@@ -226,8 +199,8 @@
     <ClCompile Include="Rigidbody.cpp">
       <Filter>Engine\06. Component\Physics</Filter>
     </ClCompile>
-    <ClCompile Include="Floor.cpp">
-      <Filter>Engine\03. Object</Filter>
+    <ClCompile Include="CardData.cpp">
+      <Filter>Engine\09.Data</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

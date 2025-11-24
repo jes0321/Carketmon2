@@ -4,7 +4,7 @@
 #include "InputManager.h"
 #include "SceneManager.h"
 #include "ResourceManager.h"
-#include "CollisionManager.h"
+#include "CardManager.h"
 bool Core::Init(HWND _hWnd)
 {
     m_hWnd = _hWnd;
@@ -33,6 +33,7 @@ bool Core::Init(HWND _hWnd)
     if (!GET_SINGLE(ResourceManager)->Init())
         return false;
     GET_SINGLE(SceneManager)->Init();
+    GET_SINGLE(CardManager)->Init();
     return true;
 }
 
@@ -41,6 +42,7 @@ void Core::CleanUp()
     ::DeleteDC(m_hBackDC);
     ::DeleteObject(m_hBackBit);
     ::ReleaseDC(m_hWnd, m_hDC);
+	GET_SINGLE(CardManager)->Release();
     GET_SINGLE(ResourceManager)->Release();
 }
 
@@ -56,7 +58,6 @@ void Core::MainUpdate()
         while (accmulator >= fixedDT)
         {
             GET_SINGLE(SceneManager)->FixedUpdate(fixedDT);
-            GET_SINGLE(CollisionManager)->Update();
             accmulator -= fixedDT;
         }
     }
