@@ -3,6 +3,12 @@
 #include "UnitData.h"
 #include "UnitObject.h"
 
+void UnitObject::SetUnitData(UnitData* _data)
+{
+	m_unitData = _data;
+	m_currentHp = m_unitData->GetMaxHp();
+}
+
 void UnitObject::Render(HDC _hdc)
 {
 	Vec2 pos = GetPos();

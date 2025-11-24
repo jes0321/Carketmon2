@@ -8,6 +8,7 @@ public:
 	~UnitData();
 public:
 	CardData* GetCardRandom();
+	int GetMaxHp() const { return m_maxHp; }
 	void SetCard(CardData* card, int cnt);
 	void UseCard(int index);
 	Texture* GetTexture() const { return m_pTexture; }
