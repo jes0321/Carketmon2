@@ -46,7 +46,5 @@ private:
 	void RemoveObject(Object* _obj);
 private:
 	vector<Object*> m_vecObj[(UINT)Layer::END];
-	vector<Object*> m_killObject;
-	vector<SpawnObject> m_spawnObject;
 };
 
