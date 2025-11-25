@@ -25,4 +25,5 @@ void UnitObject::Render(HDC _hdc)
 		, size.y
 		, tex->GetTextureDC()
 		, 0, 0, width, height, RGB(255, 0, 255));
+
 }

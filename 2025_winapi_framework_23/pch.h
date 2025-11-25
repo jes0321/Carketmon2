@@ -11,6 +11,7 @@
 #include<unordered_map>
 #include<set>
 #include<string>
+#include<stack>
 #include<algorithm>
 #include<functional>
 #include<ctime>
