@@ -103,9 +103,6 @@
     <ClInclude Include="Component.h">
       <Filter>Engine\06. Component</Filter>
     </ClInclude>
-    <ClInclude Include="Collider.h">
-      <Filter>Engine\06. Component\Physics</Filter>
-    </ClInclude>
     <ClInclude Include="GDISelector.h">
       <Filter>Engine\08. Module</Filter>
     </ClInclude>
@@ -115,20 +112,35 @@
     <ClInclude Include="TimeManager.h">
       <Filter>Engine\02. Manager\Framework</Filter>
     </ClInclude>
-    <ClInclude Include="CollisionManager.h">
-      <Filter>Engine\02. Manager\Framework</Filter>
-    </ClInclude>
     <ClInclude Include="Animator.h">
       <Filter>Engine\06. Component\Animation</Filter>
     </ClInclude>
     <ClInclude Include="Animation.h">
       <Filter>Engine\06. Component\Animation</Filter>
     </ClInclude>
-    <ClInclude Include="Rigidbody.h">
-      <Filter>Engine\06. Component\Physics</Filter>
-    </ClInclude>
     <ClInclude Include="CardData.h">
       <Filter>Engine\09.Data</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionData.h">
+      <Filter>Engine\09.Data</Filter>
+    </ClInclude>
+    <ClInclude Include="UnitObject.h">
+      <Filter>Engine\03. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="CardObject.h">
+      <Filter>Engine\03. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="CardManager.h">
+      <Filter>Engine\02. Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="CombatScene.h">
+      <Filter>Engine\04. Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="UnitData.h">
+      <Filter>Engine\09.Data</Filter>
+    </ClInclude>
+    <ClInclude Include="UnitManager.h">
+      <Filter>Engine\02. Manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -175,9 +187,6 @@
     <ClCompile Include="Component.cpp">
       <Filter>Engine\06. Component</Filter>
     </ClCompile>
-    <ClCompile Include="Collider.cpp">
-      <Filter>Engine\06. Component\Physics</Filter>
-    </ClCompile>
     <ClCompile Include="GDISelector.cpp">
       <Filter>Engine\08. Module</Filter>
     </ClCompile>
@@ -187,20 +196,35 @@
     <ClCompile Include="TimeManager.cpp">
       <Filter>Engine\02. Manager\Framework</Filter>
     </ClCompile>
-    <ClCompile Include="CollisionManager.cpp">
-      <Filter>Engine\02. Manager\Framework</Filter>
-    </ClCompile>
     <ClCompile Include="Animator.cpp">
       <Filter>Engine\06. Component\Animation</Filter>
     </ClCompile>
     <ClCompile Include="Animation.cpp">
       <Filter>Engine\06. Component\Animation</Filter>
     </ClCompile>
-    <ClCompile Include="Rigidbody.cpp">
-      <Filter>Engine\06. Component\Physics</Filter>
-    </ClCompile>
     <ClCompile Include="CardData.cpp">
       <Filter>Engine\09.Data</Filter>
+    </ClCompile>
+    <ClCompile Include="ActionData.cpp">
+      <Filter>Engine\09.Data</Filter>
+    </ClCompile>
+    <ClCompile Include="UnitObject.cpp">
+      <Filter>Engine\03. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="CardObject.cpp">
+      <Filter>Engine\03. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="CardManager.cpp">
+      <Filter>Engine\02. Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="CombatScene.cpp">
+      <Filter>Engine\04. Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="UnitData.cpp">
+      <Filter>Engine\09.Data</Filter>
+    </ClCompile>
+    <ClCompile Include="UnitManager.cpp">
+      <Filter>Engine\02. Manager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
