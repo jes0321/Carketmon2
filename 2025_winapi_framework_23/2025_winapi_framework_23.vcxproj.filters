@@ -29,9 +29,6 @@
     <Filter Include="Engine\06. Component\Animation">
       <UniqueIdentifier>{eabc1fd4-bde6-49ab-90d7-1cbd0735fff5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\06. Component\Physics">
-      <UniqueIdentifier>{56b0fd93-642b-4a55-bc1b-688901475ff2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\07. UI">
       <UniqueIdentifier>{3c544cd1-5bd3-4ca0-bc4b-aea94e4d35d0}</UniqueIdentifier>
     </Filter>
@@ -103,9 +100,6 @@
     <ClInclude Include="Component.h">
       <Filter>Engine\06. Component</Filter>
     </ClInclude>
-    <ClInclude Include="Collider.h">
-      <Filter>Engine\06. Component\Physics</Filter>
-    </ClInclude>
     <ClInclude Include="GDISelector.h">
       <Filter>Engine\08. Module</Filter>
     </ClInclude>
@@ -121,9 +115,6 @@
     <ClInclude Include="Animation.h">
       <Filter>Engine\06. Component\Animation</Filter>
     </ClInclude>
-    <ClInclude Include="Rigidbody.h">
-      <Filter>Engine\06. Component\Physics</Filter>
-    </ClInclude>
     <ClInclude Include="CardData.h">
       <Filter>Engine\09.Data</Filter>
     </ClInclude>
@@ -138,6 +129,27 @@
     </ClInclude>
     <ClInclude Include="TestEffect.h">
       <Filter>Engine\03. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionData.h">
+      <Filter>Engine\09.Data</Filter>
+    </ClInclude>
+    <ClInclude Include="CardManager.h">
+      <Filter>Engine\02. Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="CardObject.h">
+      <Filter>Engine\03. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="CombatScene.h">
+      <Filter>Engine\04. Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="UnitData.h">
+      <Filter>Engine\09.Data</Filter>
+    </ClInclude>
+    <ClInclude Include="UnitObject.h">
+      <Filter>Engine\03. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="UnitManager.h">
+      <Filter>Engine\02. Manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -181,9 +193,6 @@
     <ClCompile Include="Component.cpp">
       <Filter>Engine\06. Component</Filter>
     </ClCompile>
-    <ClCompile Include="Collider.cpp">
-      <Filter>Engine\06. Component\Physics</Filter>
-    </ClCompile>
     <ClCompile Include="GDISelector.cpp">
       <Filter>Engine\08. Module</Filter>
     </ClCompile>
@@ -198,9 +207,6 @@
     </ClCompile>
     <ClCompile Include="Animation.cpp">
       <Filter>Engine\06. Component\Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="Rigidbody.cpp">
-      <Filter>Engine\06. Component\Physics</Filter>
     </ClCompile>
     <ClCompile Include="CardData.cpp">
       <Filter>Engine\09.Data</Filter>
@@ -218,6 +224,27 @@
       <Filter>Engine\02. Manager\Framework</Filter>
     </ClCompile>
     <ClCompile Include="TestEffect.cpp">
+      <Filter>Engine\03. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="ActionData.cpp">
+      <Filter>Engine\09.Data</Filter>
+    </ClCompile>
+    <ClCompile Include="CardManager.cpp">
+      <Filter>Engine\02. Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="CardObject.cpp">
+      <Filter>Engine\03. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="CombatScene.cpp">
+      <Filter>Engine\04. Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="UnitData.cpp">
+      <Filter>Engine\09.Data</Filter>
+    </ClCompile>
+    <ClCompile Include="UnitManager.cpp">
+      <Filter>Engine\02. Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="UnitObject.cpp">
       <Filter>Engine\03. Object</Filter>
     </ClCompile>
   </ItemGroup>
