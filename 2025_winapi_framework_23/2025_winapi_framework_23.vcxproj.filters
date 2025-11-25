@@ -121,6 +121,7 @@
     <ClInclude Include="CardData.h">
       <Filter>Engine\09.Data</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="ActionData.h">
       <Filter>Engine\09.Data</Filter>
     </ClInclude>
@@ -141,6 +142,19 @@
     </ClInclude>
     <ClInclude Include="UnitManager.h">
       <Filter>Engine\02. Manager</Filter>
+=======
+    <ClInclude Include="StageSelectScene.h">
+      <Filter>Engine\04. Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage.h">
+      <Filter>Engine\03. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="StageSpawner.h">
+      <Filter>Engine\03. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="TestEffect.h">
+      <Filter>Engine\03. Object</Filter>
+>>>>>>> main
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -181,9 +195,6 @@
     <ClCompile Include="Texture.cpp">
       <Filter>Engine\05. Resource</Filter>
     </ClCompile>
-    <ClCompile Include="ResourceManager.cpp">
-      <Filter>Engine\02. Manager</Filter>
-    </ClCompile>
     <ClCompile Include="Component.cpp">
       <Filter>Engine\06. Component</Filter>
     </ClCompile>
@@ -205,6 +216,7 @@
     <ClCompile Include="CardData.cpp">
       <Filter>Engine\09.Data</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="ActionData.cpp">
       <Filter>Engine\09.Data</Filter>
     </ClCompile>
@@ -225,6 +237,22 @@
     </ClCompile>
     <ClCompile Include="UnitManager.cpp">
       <Filter>Engine\02. Manager</Filter>
+=======
+    <ClCompile Include="StageSelectScene.cpp">
+      <Filter>Engine\04. Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage.cpp">
+      <Filter>Engine\03. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="StageSpawner.cpp">
+      <Filter>Engine\03. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceManager.cpp">
+      <Filter>Engine\02. Manager\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="TestEffect.cpp">
+      <Filter>Engine\03. Object</Filter>
+>>>>>>> main
     </ClCompile>
   </ItemGroup>
 </Project>

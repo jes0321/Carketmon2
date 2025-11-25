@@ -65,9 +65,9 @@ void Scene::Release()
 
 void Scene::FlushEvent()
 {
-	// »èÁ¦
+	// ï¿½ï¿½ï¿½ï¿½
 
-	// »ý¼º
+	// ï¿½ï¿½ï¿½ï¿½
 }
 
 void Scene::RequestDestroy(Object* obj)

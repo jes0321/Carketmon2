@@ -33,7 +33,7 @@ bool Core::Init(HWND _hWnd)
     if (!GET_SINGLE(ResourceManager)->Init())
         return false;
     GET_SINGLE(SceneManager)->Init();
-    GET_SINGLE(CardManager)->Init();
+    //GET_SINGLE(CardManager)->Init();
     return true;
 }
 
@@ -42,7 +42,7 @@ void Core::CleanUp()
     ::DeleteDC(m_hBackDC);
     ::DeleteObject(m_hBackBit);
     ::ReleaseDC(m_hWnd, m_hDC);
-	GET_SINGLE(CardManager)->Release();
+	//GET_SINGLE(CardManager)->Release();
     GET_SINGLE(ResourceManager)->Release();
 }
 

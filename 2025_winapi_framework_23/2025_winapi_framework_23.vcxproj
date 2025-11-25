@@ -165,11 +165,18 @@
     <ClInclude Include="Animator.h" />
     <ClInclude Include="BaseWindow.h" />
     <ClInclude Include="CardData.h" />
+<<<<<<< HEAD
     <ClInclude Include="CardManager.h" />
     <ClInclude Include="CardObject.h" />
+=======
+    <ClInclude Include="Collider.h" />
+>>>>>>> main
     <ClInclude Include="Component.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="Defines.h" />
+    <ClInclude Include="Stage.h" />
+    <ClInclude Include="StageSpawner.h" />
+    <ClInclude Include="StageSelectScene.h" />
     <ClInclude Include="Enums.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="GDISelector.h" />
@@ -182,12 +189,18 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="targetver.h" />
+<<<<<<< HEAD
     <ClInclude Include="CombatScene.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="UnitData.h" />
     <ClInclude Include="UnitManager.h" />
     <ClInclude Include="UnitObject.h" />
+=======
+    <ClInclude Include="TestEffect.h" />
+    <ClInclude Include="Texture.h" />
+    <ClInclude Include="TimeManager.h" />
+>>>>>>> main
     <ClInclude Include="Vec2.h" />
   </ItemGroup>
   <ItemGroup>
@@ -196,10 +209,17 @@
     <ClCompile Include="Animator.cpp" />
     <ClCompile Include="BaseWindow.cpp" />
     <ClCompile Include="CardData.cpp" />
+<<<<<<< HEAD
     <ClCompile Include="CardManager.cpp" />
     <ClCompile Include="CardObject.cpp" />
+=======
+    <ClCompile Include="Collider.cpp" />
+>>>>>>> main
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Core.cpp" />
+    <ClCompile Include="Stage.cpp" />
+    <ClCompile Include="StageSpawner.cpp" />
+    <ClCompile Include="StageSelectScene.cpp" />
     <ClCompile Include="GDISelector.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="main.cpp" />
@@ -208,12 +228,18 @@
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+<<<<<<< HEAD
     <ClCompile Include="CombatScene.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="UnitData.cpp" />
     <ClCompile Include="UnitManager.cpp" />
     <ClCompile Include="UnitObject.cpp" />
+=======
+    <ClCompile Include="TestEffect.cpp" />
+    <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="TimeManager.cpp" />
+>>>>>>> main
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2025_winapi_framework_23.rc" />
