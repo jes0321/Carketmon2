@@ -9,5 +9,7 @@ public:
 public:
 	void Render(HDC _hdc);
 	void Update() override;
+public:
+	bool isSeleted = false;
 };
 

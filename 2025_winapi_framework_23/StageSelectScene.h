@@ -1,5 +1,6 @@
 #pragma once
 #include "Scene.h"
+#include "Stage.h"
 
 class Stage;
 class StageSelectScene : public Scene
@@ -11,10 +12,18 @@ public:
 private:
 	bool ChangeStage(int _stageIndex)
 	{
-		if (_stageIndex > 4 || _stageIndex < 0)
-			return true;
+		if (_stageIndex > 4)
+		{
+			m_currentStageIndex = 4;
+			return false;
+		}
+		if (_stageIndex < 0)
+		{
+			m_currentStageIndex = 0;
+			return false;
+		}
 
-		return false;
+		return true;
 	};
 private:
 	Stage* _stages[5];

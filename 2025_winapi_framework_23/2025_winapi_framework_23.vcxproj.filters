@@ -136,6 +136,9 @@
     <ClInclude Include="StageSpawner.h">
       <Filter>Engine\03. Object</Filter>
     </ClInclude>
+    <ClInclude Include="TestEffect.h">
+      <Filter>Engine\03. Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2025_winapi_framework_23.rc">
@@ -213,6 +216,9 @@
     </ClCompile>
     <ClCompile Include="ResourceManager.cpp">
       <Filter>Engine\02. Manager\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="TestEffect.cpp">
+      <Filter>Engine\03. Object</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
