@@ -39,7 +39,7 @@ enum class CardValueType {
 	MultiplyValue,
 	PercentageValue
 };
-enum class TurnType {
+enum class UnitType {
 	PLAYER1, PLAYER2, ENEMY
 };
 

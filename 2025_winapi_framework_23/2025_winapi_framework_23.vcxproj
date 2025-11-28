@@ -167,6 +167,7 @@
     <ClInclude Include="CardData.h" />
     <ClInclude Include="CardManager.h" />
     <ClInclude Include="CardObject.h" />
+    <ClInclude Include="CombatManager.h" />
     <ClInclude Include="CombatScene.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Core.h" />
@@ -202,6 +203,7 @@
     <ClCompile Include="CardData.cpp" />
     <ClCompile Include="CardManager.cpp" />
     <ClCompile Include="CardObject.cpp" />
+    <ClCompile Include="CombatManager.cpp" />
     <ClCompile Include="CombatScene.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Core.cpp" />
