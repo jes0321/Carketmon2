@@ -164,11 +164,11 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Animator.h" />
     <ClInclude Include="BaseWindow.h" />
+    <ClInclude Include="BattleScene.h" />
     <ClInclude Include="CardData.h" />
     <ClInclude Include="CardManager.h" />
     <ClInclude Include="CardObject.h" />
     <ClInclude Include="CombatManager.h" />
-    <ClInclude Include="CombatScene.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="Defines.h" />
@@ -200,11 +200,11 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Animator.cpp" />
     <ClCompile Include="BaseWindow.cpp" />
+    <ClCompile Include="BattleScene.cpp" />
     <ClCompile Include="CardData.cpp" />
     <ClCompile Include="CardManager.cpp" />
     <ClCompile Include="CardObject.cpp" />
     <ClCompile Include="CombatManager.cpp" />
-    <ClCompile Include="CombatScene.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="Stage.cpp" />

@@ -37,7 +37,7 @@ void StageSelectScene::Update()
 	if (GET_KEY(KEY_TYPE::ENTER))
 	{
 		cout << "ÀüÅõ¾À ÀÌµ¿" << endl;
-		//GET_SINGLE(SceneManager)->LoadScene(L"TestScene");
+		GET_SINGLE(SceneManager)->LoadScene(L"BattleScene");
 	}
 
 	cout << m_currentStageIndex << endl;

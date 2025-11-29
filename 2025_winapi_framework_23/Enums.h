@@ -42,6 +42,12 @@ enum class CardValueType {
 enum class UnitType {
 	PLAYER1, PLAYER2, ENEMY
 };
+enum class UIType {
+	NONE,
+	HAND,
+	INFO,
+	DECK
+};
 
 enum class PlayMode
 {
