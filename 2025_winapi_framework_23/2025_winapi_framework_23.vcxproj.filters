@@ -139,9 +139,6 @@
     <ClInclude Include="CardObject.h">
       <Filter>Engine\03. Object</Filter>
     </ClInclude>
-    <ClInclude Include="CombatScene.h">
-      <Filter>Engine\04. Scene</Filter>
-    </ClInclude>
     <ClInclude Include="UnitData.h">
       <Filter>Engine\09.Data</Filter>
     </ClInclude>
@@ -151,12 +148,10 @@
     <ClInclude Include="UnitManager.h">
       <Filter>Engine\02. Manager</Filter>
     </ClInclude>
-    <ClInclude Include="Button.h">
-      <Filter>Engine\07. UI</Filter>
+    <ClInclude Include="CombatManager.h">
+      <Filter>Engine\02. Manager</Filter>
     </ClInclude>
-    <ClInclude Include="ButtonSwitcher.h">
-      <Filter>Engine\07. UI</Filter>
-    </ClInclude>
+    <ClInclude Include="BattleScene.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2025_winapi_framework_23.rc">
@@ -241,9 +236,6 @@
     <ClCompile Include="CardObject.cpp">
       <Filter>Engine\03. Object</Filter>
     </ClCompile>
-    <ClCompile Include="CombatScene.cpp">
-      <Filter>Engine\04. Scene</Filter>
-    </ClCompile>
     <ClCompile Include="UnitData.cpp">
       <Filter>Engine\09.Data</Filter>
     </ClCompile>
@@ -253,11 +245,9 @@
     <ClCompile Include="UnitObject.cpp">
       <Filter>Engine\03. Object</Filter>
     </ClCompile>
-    <ClCompile Include="Button.cpp">
-      <Filter>Engine\07. UI</Filter>
+    <ClCompile Include="CombatManager.cpp">
+      <Filter>Engine\02. Manager</Filter>
     </ClCompile>
-    <ClCompile Include="ButtonSwitcher.cpp">
-      <Filter>Engine\07. UI</Filter>
-    </ClCompile>
+    <ClCompile Include="BattleScene.cpp" />
   </ItemGroup>
 </Project>

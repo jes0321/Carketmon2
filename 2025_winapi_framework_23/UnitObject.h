@@ -1,6 +1,7 @@
 #pragma once
 #include "Object.h"
 #include "UnitData.h"
+class CardData;
 class UnitObject : public Object
 {
 public:
@@ -11,7 +12,9 @@ public:
 	void Damage(int dmg) { m_currentHp -= dmg; if (m_currentHp < 0) m_currentHp = 0; }
 	UnitData* GetUnitData() const { return m_unitData; }
 	CardData* GetCardRandom() const { return m_unitData->GetCardRandom(); }
+	CardData* GetCardInHand(int index) const { return m_handCards[index]; }
 private :
+	vector<CardData*> m_handCards;
 	int m_currentHp;
 	UnitData* m_unitData;
 };

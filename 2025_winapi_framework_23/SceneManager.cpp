@@ -3,6 +3,7 @@
 #include "Object.h"
 #include "Collider.h"
 #include "StageSelectScene.h"
+#include "BattleScene.h"
 void SceneManager::PhysicsSyncColliders()
 {
 	for (UINT i = 0; i < (UINT)Layer::END; ++i)
@@ -22,6 +23,7 @@ void SceneManager::Init()
 {
 	m_curScene = nullptr;
 	RegisterScene(L"StageSelectScene", std::make_shared<StageSelectScene>());
+	RegisterScene(L"BattleScene", std::make_shared<BattleScene>());
 	LoadScene(L"StageSelectScene");
 	// MenuScene 등록
 }
