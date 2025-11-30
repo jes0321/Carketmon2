@@ -54,8 +54,22 @@ void ResourceManager::RegisterTexture()
 	LoadTexture(L"Plane", L"Texture\\planem.bmp");
 	LoadTexture(L"Bullet", L"Texture\\Bullet.bmp");
 	LoadTexture(L"Jiwoo", L"Texture\\jiwoo.bmp");
-	LoadTexture(L"TestEffect_128_32", L"Texture\\TestEffect_128_32.bmp");
 
+#pragma region Cacketmons
+	LoadTexture(L"Fire_Rat", L"Texture\\Cacketmons\\Fire_Rat_32x32.bmp");
+	LoadTexture(L"Fire_Turtle", L"Texture\\Cacketmons\\Fire_Turtle_32x32.bmp");
+	LoadTexture(L"Water_FishFox", L"Texture\\Cacketmons\\Water_FishFox_32x32.bmp");
+	LoadTexture(L"Water_FishKing", L"Texture\\Cacketmons\\Water_FishKing_32x32.bmp");
+	LoadTexture(L"Water_SquidGirl", L"Texture\\Cacketmons\\Water_SquidGirl_32x32.bmp");
+#pragma endregion
+
+#pragma region Card
+	LoadTexture(L"Fireball", L"Texture\\Cards\\Fireball_48x64.bmp");
+	LoadTexture(L"Flamethrower", L"Texture\\Cards\\Flamethrower_48x64.bmp");
+	LoadTexture(L"WaterSurfing", L"Texture\\Cards\\Surfing_48x64.bmp");
+	LoadTexture(L"WaterCannon", L"Texture\\Cards\\WaterCannon_48x64.bmp");
+	LoadTexture(L"WaterShuriken", L"Texture\\Cards\\WaterShuriken_48x64.bmp");
+#pragma endregion
 
 }
 void ResourceManager::RegisterGDI()
