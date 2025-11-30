@@ -15,30 +15,6 @@ void ButtonTest()
 
 void StageSelectScene::Init()
 {
-	// Object 배치;
-
-	ButtonSwitcher* buttonSwitcher = new ButtonSwitcher;
-	buttonSwitcher->SetPos({ WINDOW_WIDTH / 6, 300 });
-	buttonSwitcher->SetSize({ 100,100 });
-	AddObject(buttonSwitcher, Layer::DEFAULT);
-
-	vector<Button*> buttons;
-
-	for (int i = 0; i < 5; i++)
-	{
-		Button* obj = new Button;
-		obj->SetPos({ WINDOW_WIDTH / 4, (120 * i) - -100 });
-		obj->SetSize({ 10,10 });
-		AddObject(obj, Layer::DEFAULT);
-
-		if(i == 0)
-			obj->SetOnClick(ButtonTest);
-
-		buttons.push_back(obj);
-	}
-
-	buttonSwitcher->SetButtons(buttons);
-
 	for (int i = 0; i < 5; i++)
 	{
 		Stage* obj = new Stage;
@@ -60,7 +36,7 @@ void StageSelectScene::Update()
 	if (GET_KEY(KEY_TYPE::ENTER))
 	{
 		//cout << "전투씬 이동" << endl;
-		//GET_SINGLE(SceneManager)->LoadScene(L"TestScene");
+		GET_SINGLE(SceneManager)->LoadScene(L"BattleScene");
 	}
 
 	if (GET_KEYUP(KEY_TYPE::UP) || GET_KEYUP(KEY_TYPE::W))

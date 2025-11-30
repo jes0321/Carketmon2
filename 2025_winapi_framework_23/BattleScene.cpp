@@ -2,6 +2,8 @@
 #include "BattleScene.h"
 #include "InputManager.h"
 #include "CardObject.h"
+#include "Button.h"
+#include "ButtonSwitcher.h"
 
 void BattleScene::Init()
 {
@@ -26,10 +28,57 @@ void BattleScene::Init()
     m_handIndex = 0;
     if (!m_cardObjs.empty())
         m_cardObjs[0]->SetSelect(true);
+
+    #pragma region ButtonSwitcher Setting
+    ButtonSwitcher* buttonSwitcher = new ButtonSwitcher;
+    AddObject(buttonSwitcher, Layer::UI);
+
+    vector<Button*> buttons;
+    for (int i = 0; i < 3; i++)
+    {
+        Button* obj = new Button;
+        obj->SetPos({ WINDOW_WIDTH - 80, (45 * i) + 560 });
+        obj->SetSize({ 150,40 });
+        AddObject(obj, Layer::DEFAULT);
+
+        switch (i)
+        {
+            case 0:
+            {
+                obj->SetOnClick([this]() {
+                    m_uiType = UIType::HAND;
+                    }, "UIType::HAND으로 변경");
+			}
+            break;
+            case 1:
+            {
+                obj->SetOnClick([this]() {
+                    m_uiType = UIType::INFO;
+                    }, "UIType::INFO으로 변경");
+            }
+            break;
+            case 2:
+            {
+                obj->SetOnClick([this]() {
+                    m_uiType = UIType::DECK;
+                    }, "UIType::DECK으로 변경");
+            }
+			break;
+        default:
+            break;
+        }
+
+        buttons.push_back(obj);
+    }
+
+    buttonSwitcher->SetButtons(buttons);
+    #pragma endregion
 }
 
 void BattleScene::Update()
 {
+    Scene::Update();
+
     if (m_uiType == UIType::HAND)
         SelectHand();
 }

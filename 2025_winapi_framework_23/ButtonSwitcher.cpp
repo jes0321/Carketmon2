@@ -26,7 +26,6 @@ void ButtonSwitcher::Update()
 	}
 	else if (GET_KEYUP(KEY_TYPE::ENTER))
 	{
-		cout << "버튼 실행" << endl;
 		m_buttons[m_currentStageIndex]->Click();
 		m_buttons[m_currentStageIndex]->m_buttonState = ButtonState::Selected;
 	}
