@@ -5,16 +5,39 @@
 #include "SceneManager.h"
 #include "ResourceManager.h"
 #include "Stage.h"
-#include "TestEffect.h"
+#include "Button.h"
+#include "ButtonSwitcher.h"
+
+void ser()
+{
+	cout << "ser";
+}
 
 void StageSelectScene::Init()
 {
 	// Object 배치;
 
-	TestEffect* obj = new TestEffect;
-	obj->SetPos({ WINDOW_WIDTH / 6, 300 });
-	obj->SetSize({ 100,100 });
-	AddObject(obj, Layer::DEFAULT);
+	ButtonSwitcher* buttonSwitcher = new ButtonSwitcher;
+	buttonSwitcher->SetPos({ WINDOW_WIDTH / 6, 300 });
+	buttonSwitcher->SetSize({ 100,100 });
+	AddObject(buttonSwitcher, Layer::DEFAULT);
+
+	vector<Button*> buttons;
+
+	for (int i = 0; i < 5; i++)
+	{
+		Button* obj = new Button;
+		obj->SetPos({ WINDOW_WIDTH / 4, (120 * i) - -100 });
+		obj->SetSize({ 10,10 });
+		AddObject(obj, Layer::DEFAULT);
+
+		if(i == 0)
+			obj->SetOnClick(ser);
+
+		buttons.push_back(obj);
+	}
+
+	buttonSwitcher->SetButtons(buttons);
 
 	for (int i = 0; i < 5; i++)
 	{
@@ -36,11 +59,9 @@ void StageSelectScene::Update()
 	// 엔터가 눌리면 씬을 변경
 	if (GET_KEY(KEY_TYPE::ENTER))
 	{
-		cout << "전투씬 이동" << endl;
+		//cout << "전투씬 이동" << endl;
 		//GET_SINGLE(SceneManager)->LoadScene(L"TestScene");
 	}
-
-	cout << m_currentStageIndex << endl;
 
 	if (GET_KEYUP(KEY_TYPE::UP) || GET_KEYUP(KEY_TYPE::W))
 	{
