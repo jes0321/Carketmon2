@@ -8,9 +8,9 @@
 #include "Button.h"
 #include "ButtonSwitcher.h"
 
-void ser()
+void ButtonTest()
 {
-	cout << "ser";
+	cout << "첫 번째 버튼 클릭";
 }
 
 void StageSelectScene::Init()
@@ -32,7 +32,7 @@ void StageSelectScene::Init()
 		AddObject(obj, Layer::DEFAULT);
 
 		if(i == 0)
-			obj->SetOnClick(ser);
+			obj->SetOnClick(ButtonTest);
 
 		buttons.push_back(obj);
 	}
