@@ -81,6 +81,7 @@ void ResourceManager::RegisterGDI()
 
 	// 폰트 등록
 	RegisterFont(FontType::TITLE, L"나눔손글씨 암스테르담", 0);
+	RegisterFont(FontType::UI, L"나눔손글씨 암스테르담", 0);
 }
 void ResourceManager::ReleaseGDI()
 {

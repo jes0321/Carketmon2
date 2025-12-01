@@ -5,6 +5,8 @@
 #include "SceneManager.h"
 #include "ResourceManager.h"
 #include "CardManager.h"
+#include "UnitManager.h"
+#include "CombatManager.h"
 bool Core::Init(HWND _hWnd)
 {
     m_hWnd = _hWnd;
@@ -33,7 +35,9 @@ bool Core::Init(HWND _hWnd)
     if (!GET_SINGLE(ResourceManager)->Init())
         return false;
     GET_SINGLE(SceneManager)->Init();
-    //GET_SINGLE(CardManager)->Init();
+    GET_SINGLE(CardManager)->Init();
+	GET_SINGLE(UnitManager)->Init();
+	GET_SINGLE(CombatManager)->Init();
     return true;
 }
 

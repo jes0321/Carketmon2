@@ -10,7 +10,8 @@ class BattleScene : public Scene
 public:
     void Init() override;
     void Update() override;
-    void SetCardData(vector<CardData*> _hands);
+	void Render(HDC _hdc) override;
+    void SetCardData();
 
 private:
 	void OnOffHand(bool _isOn);
