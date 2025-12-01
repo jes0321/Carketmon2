@@ -10,23 +10,36 @@ public:
 	void Init() override;
 	void Update() override;
 private:
+	void SetCurrentStage(Stage* _stages)
+	{
+		if (m_currentStage != nullptr)
+		{
+			m_currentStage->IsSeleted = false;
+		}
+
+		m_currentStage = _stages;
+		m_currentStage->IsSeleted = true;
+	}
 	bool ChangeStage(int _stageIndex)
 	{
-		if (_stageIndex > 4)
+		if (_stageIndex > m_maxStageIndex)
 		{
-			m_currentStageIndex = 4;
+			m_currentStageLength = m_maxStageIndex;
 			return false;
 		}
 		if (_stageIndex < 0)
 		{
-			m_currentStageIndex = 0;
+			m_currentStageLength = 0;
 			return false;
 		}
 
 		return true;
 	};
 private:
-	Stage* _stages[5];
+	vector<vector<Stage*>> _stages;
+	Stage* m_currentStage = nullptr;
+	int m_maxStageIndex = 0;
+	int m_currentStageLength = 0;
 	int m_currentStageIndex = 0;
 };
 

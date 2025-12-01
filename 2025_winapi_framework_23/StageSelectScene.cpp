@@ -8,23 +8,48 @@
 #include "Button.h"
 #include "ButtonSwitcher.h"
 
-void ButtonTest()
-{
-	cout << "첫 번째 버튼 클릭";
-}
+const int minStageCount = 2, maxStageCount = 4, stageLength = 10;
 
 void StageSelectScene::Init()
 {
-	for (int i = 0; i < 5; i++)
+	m_maxStageIndex = stageLength - 1;
+
+	for (int i = 0; i < stageLength; i++)
 	{
-		Stage* obj = new Stage;
-		obj->SetPos({ WINDOW_WIDTH / 2, (120 * i) - 300 });
-		obj->SetSize({ 100,100 });
-		AddObject(obj, Layer::DEFAULT);
-		_stages[4 - i] = obj;
+		int stageCount = rand() % maxStageCount + minStageCount;
+
+		if (i == stageLength - 1 || i == 0)
+			stageCount = 2;
+
+		cout << stageCount << endl;
+
+		vector<Stage*> stageRow;
+
+		for (int j = 1; j < stageCount; j++)
+		{
+			int posX = (WINDOW_WIDTH / stageCount + 1) * j;
+
+			Stage* obj = new Stage;
+			obj->SetPos({ posX , (120 * i) - 600 });
+			obj->SetSize({ 100,100 });
+			AddObject(obj, Layer::DEFAULT);
+			stageRow.push_back(obj);
+
+			if (i == 0) break;
+
+			Stage* before = _stages[i - 1][rand() % _stages[i - 1].size()];
+			obj->SettingBeforeStage(before);
+
+			for (auto prevStage : _stages[i - 1])
+			{
+				prevStage->AddNextStage(obj);
+			}
+		}
+
+		_stages.push_back(stageRow);
 	}
 
-	_stages[m_currentStageIndex]->isSeleted = true;
+	SetCurrentStage(_stages[0][0]);
 
 	GET_SINGLE(ResourceManager)->Play(L"BGM");
 }
@@ -35,42 +60,48 @@ void StageSelectScene::Update()
 	// 엔터가 눌리면 씬을 변경
 	if (GET_KEY(KEY_TYPE::ENTER))
 	{
-		//cout << "전투씬 이동" << endl;
 		GET_SINGLE(SceneManager)->LoadScene(L"BattleScene");
 	}
 
 	if (GET_KEYUP(KEY_TYPE::UP) || GET_KEYUP(KEY_TYPE::W))
 	{
-		if (ChangeStage(++m_currentStageIndex) == false) return;
+		if (ChangeStage(++m_currentStageLength) == false) return;
 
-		int prevVis = 4 - (m_currentStageIndex - 1);
-		int currVis = 4 - m_currentStageIndex;
-		_stages[prevVis]->isSeleted = false;
-		_stages[currVis]->isSeleted = true;
+		m_currentStageIndex = 0;
 
+		SetCurrentStage(_stages[(stageLength - 1) - m_currentStageLength][m_currentStageIndex]);
 
-
-		for (int i = 0; i < 5; i++)
+		for (int i = 0; i < stageLength; i++)
 		{
-			_stages[i]->SetPos({WINDOW_WIDTH / 2, (120 * i) - 300 + (m_currentStageIndex * 120) });
-			_stages[i]->SetSize({ 100,100 });
+			for(auto stage : _stages[i])
+			{
+				stage->SetPos({ (int)stage->GetPos().x, (120 * i) - 600 + (m_currentStageLength * 120) });
+			}
 		}
 	}
-	if (GET_KEYUP(KEY_TYPE::DOWN) || GET_KEYUP(KEY_TYPE::S))
+	else if (GET_KEYUP(KEY_TYPE::DOWN) || GET_KEYUP(KEY_TYPE::S))
 	{
-		if(ChangeStage(--m_currentStageIndex) == false) return;
+		if(ChangeStage(--m_currentStageLength) == false) return;
 
-		int prevVis = 4 - (m_currentStageIndex + 1);
-		int currVis = 4 - m_currentStageIndex;
-		_stages[prevVis]->isSeleted = false;
-		_stages[currVis]->isSeleted = true;
+		m_currentStageIndex = 0;
 
+		SetCurrentStage(_stages[(stageLength - 1) - m_currentStageLength][m_currentStageIndex]);
 
-		for (int i = 0; i < 5; i++)
+		for (int i = 0; i < stageLength; i++)
 		{
-			_stages[i]->SetPos({ WINDOW_WIDTH / 2, (120 * i) - 300 + (m_currentStageIndex * 120) });
-			_stages[i]->SetSize({ 100,100 });
+			for (auto stage : _stages[i])
+			{
+				stage->SetPos({ (int)stage->GetPos().x, (120 * i) - 600 + (m_currentStageLength * 120) });
+			}
 		}
+	}
+	else if (GET_KEYUP(KEY_TYPE::RIGHT) || GET_KEYUP(KEY_TYPE::D))
+	{
+		m_currentStage->GetNextStages();
+	}
+	else if (GET_KEYUP(KEY_TYPE::LEFT) || GET_KEYUP(KEY_TYPE::A))
+	{
+
 	}
 }
 
