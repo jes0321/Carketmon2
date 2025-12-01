@@ -40,3 +40,8 @@ UnitObject* CombatManager::GetUnit(UnitType type)
 {
 	return m_units[static_cast<int>(type)];
 }
+
+vector<CardData*> CombatManager::GetHandCard()
+{
+	return m_units[static_cast<int>(m_currentTurn)]->GetHandCards();
+}

@@ -13,6 +13,7 @@ public:
 	UnitData* GetUnitData() const { return m_unitData; }
 	CardData* GetCardRandom() const { return m_unitData->GetCardRandom(); }
 	CardData* GetCardInHand(int index) const { return m_handCards[index]; }
+	vector<CardData*> GetHandCards() const { return m_handCards; }
 private :
 	vector<CardData*> m_handCards;
 	int m_currentHp;
