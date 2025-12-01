@@ -8,6 +8,7 @@ public:
 	void Release();
 public :
 	UnitData* GetUnit(const wstring _unitName);
+	UnitData* GetUnitRandom();
 private:
 	UnitData* RegisterUnit(wstring _name, wstring _texName, int _maxHp, ElementType _type);
 private:

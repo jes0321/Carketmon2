@@ -16,8 +16,10 @@ void Scene::Update()
 	for (UINT i = 0; i < (UINT)Layer::END; ++i)
 	{
 		auto& vec = m_vecObj[i];
-		for (auto* obj : vec)
-			obj->Update();
+		for (auto* obj : vec) {
+			if (obj->IsActive())
+				obj->Update();
+		}
 	}
 }
 
@@ -26,8 +28,10 @@ void Scene::LateUpdate()
 	for (UINT i = 0; i < (UINT)Layer::END; ++i)
 	{
 		auto& vec = m_vecObj[i];
-		for (auto* obj : vec)
-			obj->LateUpdate();
+		for (auto* obj : vec) {
+			if (obj->IsActive())
+				obj->LateUpdate();
+		}
 	}
 }
 
@@ -45,8 +49,10 @@ void Scene::Render(HDC _hdc)
 	for (UINT i = 0; i < (UINT)Layer::END; ++i)
 	{
 		auto& vec = m_vecObj[i];
-		for (auto* obj : vec)
-			obj->Render(_hdc);
+		for (auto* obj : vec) {
+			if (obj->IsActive())
+				obj->Render(_hdc);
+		}
 	}
 }
 

@@ -1,8 +1,20 @@
 #include "pch.h"
 #include "CombatManager.h"
+#include "UnitManager.h"
 #include "ACtionData.h"
 #include "UnitObject.h"
 
+void CombatManager::Init()
+{
+	m_currentTurn = UnitType::PLAYER1;
+	m_units.resize(3);
+	for (int i = 0; i < 3; ++i)
+	{
+		m_units[i] = new UnitObject();
+		m_units[i]->SetUnitData(GET_SINGLE(UnitManager)->GetUnitRandom());
+	}
+	
+}
 
 void CombatManager::AddAction(UnitType _target, int index)
 {

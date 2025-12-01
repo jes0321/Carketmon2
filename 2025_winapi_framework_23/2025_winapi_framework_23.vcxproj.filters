@@ -160,6 +160,9 @@
     <ClInclude Include="BattleScene.h">
       <Filter>Engine\04. Scene</Filter>
     </ClInclude>
+    <ClInclude Include="Random.h">
+      <Filter>Engine\99. Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2025_winapi_framework_23.rc">

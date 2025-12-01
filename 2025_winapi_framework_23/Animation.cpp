@@ -4,6 +4,9 @@
 #include "Object.h"
 #include "Texture.h"
 
+#undef max
+#undef min
+
 Animation::Animation()
     : m_owner(nullptr)
     , m_tex(nullptr)

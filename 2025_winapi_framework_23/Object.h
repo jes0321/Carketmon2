@@ -28,8 +28,10 @@ public:
 public:
 	void SetPos(Vec2 _pos) { m_pos = _pos; }
 	void SetSize(Vec2 _size) { m_size = _size; }
+	void SetActive(bool _isActive) { m_isActive = _isActive; }
 	const Vec2& GetPos() const { return m_pos; }
 	const Vec2& GetSize()const { return m_size; }
+	const bool IsActive() const { return m_isActive; }
 public:
 	template<typename T>
 	T* AddComponent()
@@ -54,6 +56,7 @@ public:
 		return compo;
 	}
 private:
+	bool m_isActive=true;
 	Vec2 m_pos;
 	Vec2 m_size;
 	vector<Component*> m_vecComponents;

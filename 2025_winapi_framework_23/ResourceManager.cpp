@@ -51,10 +51,6 @@ void ResourceManager::Release()
 }
 void ResourceManager::RegisterTexture()
 {
-	LoadTexture(L"Plane", L"Texture\\planem.bmp");
-	LoadTexture(L"Bullet", L"Texture\\Bullet.bmp");
-	LoadTexture(L"Jiwoo", L"Texture\\jiwoo.bmp");
-
 #pragma region Cacketmons
 	LoadTexture(L"Fire_Rat", L"Texture\\Cacketmons\\Fire_Rat_32x32.bmp");
 	LoadTexture(L"Fire_Turtle", L"Texture\\Cacketmons\\Fire_Turtle_32x32.bmp");

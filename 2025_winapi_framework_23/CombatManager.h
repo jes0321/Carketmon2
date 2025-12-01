@@ -7,6 +7,8 @@ class CombatManager
 {
 	DECLARE_SINGLE(CombatManager);
 public:
+	void Init();
+public:
 	void AddAction(UnitType _target,int index);
 	void CancelAction(UnitType _ownerType);
 	UnitObject* GetUnit(UnitType type);

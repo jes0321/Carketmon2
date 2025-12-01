@@ -10,6 +10,12 @@ void CardManager::Init()
 		ElementType::Fire, CardEffectType::Damage, 30);
 	RegisterCard(L"화염방사", L"적에게 20 데미지를 입힙니다.", L"Flamethrower",
 		ElementType::Fire, CardEffectType::Damage, 20);
+	RegisterCard(L"서핑", L"적에게 40 데미지를 입힙니다.", L"WaterSurfing",
+		ElementType::Water, CardEffectType::Damage, 20);
+	RegisterCard(L"물대포", L"적에게 10 데미지를 입힙니다.", L"WaterCannon",
+		ElementType::Water, CardEffectType::Damage, 20);
+	RegisterCard(L"물수리검", L"적에게 30 데미지를 입힙니다.", L"WaterShuriken",
+		ElementType::Water, CardEffectType::Damage, 20);
 }
 void CardManager::Release()
 {

@@ -1,14 +1,15 @@
 #include "pch.h"
 #include "BattleScene.h"
 #include "InputManager.h"
+#include "CombatManager.h"
 #include "CardObject.h"
 #include "Button.h"
 #include "ButtonSwitcher.h"
 
 void BattleScene::Init()
 {
-    int cardWidth = 40 * 3;
-    int cardHeight = 60 * 3;
+    int cardWidth = 48 * 4;
+    int cardHeight = 64 * 4;
     int margin = 15;
 
     for (int i = 0; i < 4; ++i)
@@ -47,6 +48,7 @@ void BattleScene::Init()
             {
                 obj->SetOnClick([this]() {
                     m_uiType = UIType::HAND;
+                    OnOffHand(true);
                     }, "UIType::HAND으로 변경");
 			}
             break;
@@ -54,6 +56,7 @@ void BattleScene::Init()
             {
                 obj->SetOnClick([this]() {
                     m_uiType = UIType::INFO;
+                    OnOffHand(false);
                     }, "UIType::INFO으로 변경");
             }
             break;
@@ -61,6 +64,7 @@ void BattleScene::Init()
             {
                 obj->SetOnClick([this]() {
                     m_uiType = UIType::DECK;
+					OnOffHand(false);
                     }, "UIType::DECK으로 변경");
             }
 			break;
@@ -83,20 +87,28 @@ void BattleScene::Update()
         SelectHand();
 }
 
+void BattleScene::OnOffHand(bool _isOn)
+{
+    for (auto card : m_cardObjs)
+    {
+        card->SetActive(_isOn);
+	}
+}
+
 void BattleScene::SelectHand()
 {
     if (m_cardObjs.size() < 4) return;
 
-    if (GET_KEYUP(KEY_TYPE::LEFT))
+    if (GET_KEYUP(KEY_TYPE::LEFT)|| GET_KEYUP(KEY_TYPE::A))
     {
         m_handIndex = (m_handIndex + 3) % 4;
     }
-    else if (GET_KEYUP(KEY_TYPE::RIGHT))
+    else if (GET_KEYUP(KEY_TYPE::RIGHT)|| GET_KEYUP(KEY_TYPE::D))
     {
         m_handIndex = (m_handIndex + 1) % 4;
     }
 
-    if (GET_KEYUP(KEY_TYPE::LEFT) || GET_KEYUP(KEY_TYPE::RIGHT))
+    if (GET_KEYUP(KEY_TYPE::LEFT) || GET_KEYUP(KEY_TYPE::RIGHT) || GET_KEYUP(KEY_TYPE::D) || GET_KEYUP(KEY_TYPE::A))
     {
         for (int i = 0; i < 4; ++i)
             m_cardObjs[i]->SetSelect(i == m_handIndex);
@@ -104,8 +116,8 @@ void BattleScene::SelectHand()
 
     if (GET_KEYUP(KEY_TYPE::C))
     {
-        UnitType chosen = AskTargetUnit();
-        m_lastChosenUnit = chosen;
+        UnitType target = AskTargetUnit();
+		GET_SINGLE(CombatManager)->AddAction(target, m_handIndex);
     }
 }
 

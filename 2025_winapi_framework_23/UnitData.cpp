@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "UnitData.h"
 
-#include <random>
 #include <unordered_set>
 #include <algorithm>
 #include <vector>
@@ -40,10 +39,8 @@ CardData* UnitData::GetCardRandom()
 	if (candidates.empty())
 		return nullptr;
 
-	// 랜덤 선택 (static으로 RNG를 유지)
-	static std::mt19937 rng(std::random_device{}());
 	std::uniform_int_distribution<size_t> dist(0, candidates.size() - 1);
-	int chosenDeckIndex = candidates[dist(rng)];
+	int chosenDeckIndex = candidates[dist(Random::Engine())];
 
 	// 선택한 인덱스를 사용중 목록에 추가하고 카드 포인터 반환
 	m_usedIndexs.push_back(chosenDeckIndex);

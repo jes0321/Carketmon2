@@ -27,6 +27,7 @@ namespace fs = std::filesystem;
 #include "Enums.h"
 #include "GDISelector.h"
 #include "TimeManager.h"
+#include "Random.h"
 
 //#include "InputManager.h"
 // ���� ���̺귯��
@@ -65,5 +66,3 @@ using std::wstring;
 using std::cout;
 using std::endl;
 
-#undef max;
-#undef min;
