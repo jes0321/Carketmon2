@@ -15,7 +15,7 @@ void CardObject::Render(HDC _hdc)
 		GDISelector brushSel(_hdc, BrushType::HOLLOW);
 
 
-		RECT_RENDER(_hdc, pos.x, pos.y, size.x * 1.05, size.y * 1.05);
+		RECT_RENDER(_hdc, pos.x, pos.y, size.x * 1.03, size.y * 1.03);
 	}
 	if (m_cardData == nullptr || m_cardData->GetTexture() == nullptr)
 	{

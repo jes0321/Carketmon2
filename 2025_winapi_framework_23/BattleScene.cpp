@@ -76,6 +76,8 @@ void BattleScene::Init()
     }
 
     buttonSwitcher->SetButtons(buttons);
+    SetCardData();
+
     #pragma endregion
 }
 
@@ -85,6 +87,12 @@ void BattleScene::Update()
 
     if (m_uiType == UIType::HAND)
         SelectHand();
+}
+
+void BattleScene::Render(HDC _hdc)
+{
+	Scene::Render(_hdc);
+	GET_SINGLE(CombatManager)->Render(_hdc);
 }
 
 void BattleScene::OnOffHand(bool _isOn)
@@ -140,12 +148,13 @@ UnitType BattleScene::AskTargetUnit()
     }
 }
 
-void BattleScene::SetCardData(vector<CardData*> _hands)
+void BattleScene::SetCardData()
 {
-    int n = std::min<int>(4, (int)_hands.size());
+    vector<CardData*> handCards = GET_SINGLE(CombatManager)->GetHandCard();
+    int n = std::min<int>(4, (int)handCards.size());
     for (int i = 0; i < n && i < (int)m_cardObjs.size(); ++i)
     {
         if (m_cardObjs[i])
-            m_cardObjs[i]->SetCardData(_hands[i]);
+            m_cardObjs[i]->SetCardData(handCards[i]);
     }
 }

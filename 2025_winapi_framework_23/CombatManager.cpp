@@ -1,7 +1,8 @@
 #include "pch.h"
 #include "CombatManager.h"
 #include "UnitManager.h"
-#include "ACtionData.h"
+#include "ActionData.h"
+#include "CardData.h"
 #include "UnitObject.h"
 
 void CombatManager::Init()
@@ -13,15 +14,32 @@ void CombatManager::Init()
 		m_units[i] = new UnitObject();
 		m_units[i]->SetUnitData(GET_SINGLE(UnitManager)->GetUnitRandom());
 	}
-	
+
+	Vec2 size = { 32 * 2,32 * 2 };
+	for (int i = 0; i < 2; ++i) {
+		m_units[i]->SetSize(size);
+		m_units[i]->SetPos({ 200.f + i * 300.f, WINDOW_HEIGHT / 2.f });
+	}
+	m_units[2]->SetSize(size);
+	m_units[2]->SetPos({ WINDOW_WIDTH - 200.f, (WINDOW_HEIGHT / 2.f)-200 });// Enemy
+	m_units[0]->SetSelect(true);
+}
+
+void CombatManager::Render(HDC _hdc)
+{
+	for(auto unit : m_units)
+	{
+		unit->Render(_hdc);
+	}
 }
 
 void CombatManager::AddAction(UnitType _target, int index)
 {
-	CardData* card = m_units[static_cast<int>(m_currentTurn)]->GetCardInHand(index);
+	CardData* card = GetUnitByType(m_currentTurn)->GetCardInHand(index);
 	ActionData* newAction = new ActionData(m_currentTurn, _target, card);
 	m_actionQueue.push_back(newAction);
 
+	GetUnitByType(_target)->Damage(card->GetEffectValue());
 	if(m_currentTurn==UnitType::PLAYER1)
 	{
 		m_currentTurn = UnitType::PLAYER2;
@@ -34,6 +52,11 @@ void CombatManager::AddAction(UnitType _target, int index)
 	{
 		m_currentTurn = UnitType::PLAYER1;
 	}
+	for(auto unit : m_units)
+	{
+		unit->SetSelect(false);
+	}
+	GetUnitByType(m_currentTurn)->SetSelect(true);
 }
 
 void CombatManager::CancelAction(UnitType _ownerType)
