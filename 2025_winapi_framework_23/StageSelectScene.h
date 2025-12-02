@@ -10,6 +10,7 @@ public:
 	void Init() override;
 	void Update() override;
 private:
+	void StageDebugLog();
 	void SetCurrentStage(Stage* _stages)
 	{
 		if (m_currentStage != nullptr)
@@ -34,7 +35,7 @@ private:
 		}
 
 		return true;
-	};
+	}
 private:
 	vector<vector<Stage*>> _stages;
 	Stage* m_currentStage = nullptr;
