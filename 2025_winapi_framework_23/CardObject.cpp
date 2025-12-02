@@ -39,3 +39,19 @@ void CardObject::Render(HDC _hdc)
 
 	
 }
+
+wstring CardObject::GetCardName() const
+{
+	if(m_cardData!=nullptr)
+	{
+		return m_cardData->GetName();
+	}
+	return L"";
+}
+
+wstring CardObject::GetCardDescription() const
+{
+	if (m_cardData!=nullptr)
+		return m_cardData->GetDescription();
+	return L"";
+}

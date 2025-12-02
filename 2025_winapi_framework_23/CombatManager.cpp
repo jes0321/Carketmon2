@@ -47,6 +47,7 @@ void CombatManager::AddAction(UnitType _target, int index)
 	else if (m_currentTurn == UnitType::PLAYER2)
 	{
 		m_currentTurn = UnitType::ENEMY;
+
 	}
 	else if (m_currentTurn == UnitType::ENEMY)
 	{

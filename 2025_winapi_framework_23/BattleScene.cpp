@@ -5,6 +5,8 @@
 #include "CardObject.h"
 #include "Button.h"
 #include "ButtonSwitcher.h"
+#include "DescriptionText.h"
+#undef max;
 
 void BattleScene::Init()
 {
@@ -50,7 +52,7 @@ void BattleScene::Init()
                     m_uiType = UIType::HAND;
                     OnOffHand(true);
                     }, "UIType::HAND으로 변경");
-			}
+            }
             break;
             case 1:
             {
@@ -64,10 +66,10 @@ void BattleScene::Init()
             {
                 obj->SetOnClick([this]() {
                     m_uiType = UIType::DECK;
-					OnOffHand(false);
+                    OnOffHand(false);
                     }, "UIType::DECK으로 변경");
             }
-			break;
+            break;
         default:
             break;
         }
@@ -79,6 +81,29 @@ void BattleScene::Init()
     SetCardData();
 
     #pragma endregion
+
+    // DescriptionText를 카드와 버튼 사이 공간에 배치
+    {
+        // 오른쪽 카드의 오른쪽 모서리 X
+        float rightCardRight = (float)(4 * (cardWidth + margin)); // = 828
+        // 버튼 왼쪽 모서리 X (버튼 중심 X: WINDOW_WIDTH-80, 반폭 75)
+        float buttonLeft = (float)((WINDOW_WIDTH - 80) - 75);     // = 1125
+        float spacing = 15.f;
+
+        float left = rightCardRight + spacing;
+        float right = buttonLeft - spacing;
+        float width = std::max(120.f, right - left);
+        float height = cardHeight * 0.6f; // 카드 높이의 60% 정도
+        float centerX = (left + right) * 0.5f;
+        float centerY = (float)(WINDOW_HEIGHT - cardHeight * 0.5f - margin); // 카드 중앙 Y와 맞춤
+
+        m_descriptionText = new DescriptionText;
+        m_descriptionText->SetPos({ centerX, centerY });
+        m_descriptionText->SetSize({ width, height });
+        if (!m_cardObjs.empty())
+            m_descriptionText->SetTargetCard(m_cardObjs[m_handIndex]); // 현재 선택 카드로 초기화
+        AddObject(m_descriptionText, Layer::UI);
+    }
 }
 
 void BattleScene::Update()
@@ -91,8 +116,8 @@ void BattleScene::Update()
 
 void BattleScene::Render(HDC _hdc)
 {
-	Scene::Render(_hdc);
-	GET_SINGLE(CombatManager)->Render(_hdc);
+    Scene::Render(_hdc);
+    GET_SINGLE(CombatManager)->Render(_hdc);
 }
 
 void BattleScene::OnOffHand(bool _isOn)
@@ -100,32 +125,38 @@ void BattleScene::OnOffHand(bool _isOn)
     for (auto card : m_cardObjs)
     {
         card->SetActive(_isOn);
-	}
+    }
+    if (m_descriptionText) m_descriptionText->SetActive(_isOn);
 }
 
 void BattleScene::SelectHand()
 {
     if (m_cardObjs.size() < 4) return;
 
+    bool changed = false;
     if (GET_KEYUP(KEY_TYPE::LEFT)|| GET_KEYUP(KEY_TYPE::A))
     {
         m_handIndex = (m_handIndex + 3) % 4;
+        changed = true;
     }
     else if (GET_KEYUP(KEY_TYPE::RIGHT)|| GET_KEYUP(KEY_TYPE::D))
     {
         m_handIndex = (m_handIndex + 1) % 4;
+        changed = true;
     }
 
-    if (GET_KEYUP(KEY_TYPE::LEFT) || GET_KEYUP(KEY_TYPE::RIGHT) || GET_KEYUP(KEY_TYPE::D) || GET_KEYUP(KEY_TYPE::A))
+    if (changed)
     {
         for (int i = 0; i < 4; ++i)
             m_cardObjs[i]->SetSelect(i == m_handIndex);
+        if (m_descriptionText)
+            m_descriptionText->SetTargetCard(m_cardObjs[m_handIndex]); // 설명 대상 갱신
     }
 
     if (GET_KEYUP(KEY_TYPE::C))
     {
         UnitType target = AskTargetUnit();
-		GET_SINGLE(CombatManager)->AddAction(target, m_handIndex);
+        GET_SINGLE(CombatManager)->AddAction(target, m_handIndex);
     }
 }
 

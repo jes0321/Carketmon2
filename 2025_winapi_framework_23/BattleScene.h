@@ -4,7 +4,7 @@
 
 class CardObject;
 class CardData;
-
+class DescriptionText;
 class BattleScene : public Scene
 {
 public:
@@ -19,6 +19,7 @@ private:
     UnitType AskTargetUnit(); // 윈도우 기본 대화상자(메시지박스)로 선택
 
 private:
+	DescriptionText* m_descriptionText = nullptr;
     vector<CardObject*> m_cardObjs;
     int      m_handIndex = 0;
     UIType   m_uiType = UIType::NONE;

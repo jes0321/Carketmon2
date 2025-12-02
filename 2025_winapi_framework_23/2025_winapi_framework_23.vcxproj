@@ -175,6 +175,7 @@
     <ClInclude Include="Core.h" />
     <ClInclude Include="DamageFloat.h" />
     <ClInclude Include="Defines.h" />
+    <ClInclude Include="DescriptionText.h" />
     <ClInclude Include="Random.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="StageSpawner.h" />
@@ -214,6 +215,7 @@
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="DamageFloat.cpp" />
+    <ClCompile Include="DescriptionText.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="StageSpawner.cpp" />
     <ClCompile Include="StageSelectScene.cpp" />
