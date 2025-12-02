@@ -18,5 +18,5 @@ private:
     float m_elapsed = 0.f;
 
     // 간단한 부유 애니메이션 파라미터
-    Vec2 m_vel{ 0.f, -120.f }; // 위로 떠오름(px/s)
+    Vec2 m_vel{ 0.f, -80.f }; // 위로 떠오름(px/s)
 };
