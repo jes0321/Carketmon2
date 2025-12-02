@@ -44,14 +44,8 @@ void UnitObject::Damage(int dmg)
 	// 데미지 플로팅 생성
 	if (auto scene = GET_SINGLE(SceneManager)->GetCurScene())
 	{
-		Vec2 pos = GetPos();
-		Vec2 size = GetSize();
-
-		// 유닛 상단 살짝 위에서 시작
-		Vec2 startPos{ pos.x, pos.y - size.y * 0.6f };
-
 		auto* df = new DamageFloat(std::format(L"-{}", dmg), RGB(255, 60, 60), 1.5f);
-		df->SetPos(startPos);
+		df->SetPos(GetPos());
 		df->SetSize({ 120.f, 40.f }); // 텍스트 박스 크기
 		scene->AddObject(df, Layer::CARD);
 	}
