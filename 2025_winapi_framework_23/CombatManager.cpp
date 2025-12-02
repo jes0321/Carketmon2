@@ -12,7 +12,6 @@ void CombatManager::Init()
 	for (int i = 0; i < 3; ++i)
 	{
 		m_units[i] = new UnitObject();
-		m_units[i]->SetUnitData(GET_SINGLE(UnitManager)->GetUnitRandom());
 	}
 
 	Vec2 size = { 32 * 2,32 * 2 };
@@ -23,6 +22,10 @@ void CombatManager::Init()
 	m_units[2]->SetSize(size);
 	m_units[2]->SetPos({ WINDOW_WIDTH - 200.f, (WINDOW_HEIGHT / 2.f)-200 });// Enemy
 	m_units[0]->SetSelect(true);
+	for(int i=0; i< m_units.size(); ++i)
+	{
+		m_units[i]->SetUnitData(GET_SINGLE(UnitManager)->GetUnitRandom());
+	}
 }
 
 void CombatManager::Render(HDC _hdc)

@@ -1,6 +1,7 @@
 #pragma once
 #include "Object.h"
 #include "UnitData.h"
+class HealthBar;
 class CardData;
 class UnitObject : public Object
 {
@@ -15,9 +16,15 @@ public:
 	CardData* GetCardRandom() const { return m_unitData->GetCardRandom(); }
 	CardData* GetCardInHand(int index) const { return m_handCards[index]; }
 	vector<CardData*> GetHandCards() const { return m_handCards; }
+
+	int GetCurrentHp() const { return m_currentHp; }
+
 private :
 	bool m_isSelect = false;
 	vector<CardData*> m_handCards;
-	int m_currentHp;
-	UnitData* m_unitData;
+	int m_currentHp = 0;
+	UnitData* m_unitData = nullptr;
+
+	// 체력바 포인터를 들고 있어 Damage 등에서 SetValue를 호출
+	HealthBar* m_healthBar = nullptr;
 };
