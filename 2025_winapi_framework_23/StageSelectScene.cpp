@@ -73,18 +73,23 @@ void StageSelectScene::Update()
 	//StageDebugLog();
 
 	// 엔터가 눌리면 씬을 변경
-	if (GET_KEY(KEY_TYPE::ENTER))
+	if (GET_KEY(KEY_TYPE::ENTER) && m_currentStage->IsComplete == false)
 	{
-		GET_SINGLE(SceneManager)->LoadScene(L"BattleScene");
+		m_currentStage->IsComplete = true;
+		//GET_SINGLE(SceneManager)->LoadScene(L"BattleScene");
 	}
 
 	if (GET_KEYUP(KEY_TYPE::UP) || GET_KEYUP(KEY_TYPE::W))
 	{
 		if (ChangeStage(++m_currentStageLength) == false) return;
 
-		m_currentStageIndex = m_currentStage->GetNextStages()[0]->GetStageIndex();
+		if (m_currentSelectStageLength < m_currentStageLength)
+		{
+			m_currentSelectStageLength = m_currentStageLength;
+			m_currentStageIndex = m_currentStage->GetNextStages()[0]->GetStageIndex();
+		}
 
-		SetCurrentStage(_stages[m_currentStageLength][m_currentStageIndex]);
+		SetCurrentStage(_stages[m_currentSelectStageLength][m_currentStageIndex]);
 
 		for (int i = 0; i < stageLength; i++)
 		{
@@ -98,10 +103,6 @@ void StageSelectScene::Update()
 	{
 		if(ChangeStage(--m_currentStageLength) == false) return;
 
-		m_currentStageIndex = m_currentStage->GetBeforeStage()->GetStageIndex();
-
-		SetCurrentStage(_stages[m_currentStageLength][m_currentStageIndex]);
-
 		for (int i = 0; i < stageLength; i++)
 		{
 			for (auto stage : _stages[i])
@@ -112,6 +113,7 @@ void StageSelectScene::Update()
 	}
 	else if (GET_KEYUP(KEY_TYPE::RIGHT) || GET_KEYUP(KEY_TYPE::D))
 	{
+		if (m_currentStage->IsComplete) return;
 		if (m_currentStage->GetBeforeStage() == nullptr) return;
 		if (m_currentStage->GetBeforeStage()->GetNextStages().size() <= m_currentStageIndex + 1 ) return;
 
@@ -121,6 +123,7 @@ void StageSelectScene::Update()
 	}
 	else if (GET_KEYUP(KEY_TYPE::LEFT) || GET_KEYUP(KEY_TYPE::A))
 	{
+		if (m_currentStage->IsComplete) return;
 		if (0 > m_currentStageIndex - 1 || m_currentStage->GetBeforeStage() == nullptr) return;
 
 		if (m_currentStage->GetBeforeStage()->GetNextStages().size() <= m_currentStageIndex)

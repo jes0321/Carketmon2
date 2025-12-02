@@ -16,7 +16,13 @@ void Stage::Update()
 
 void Stage::Render(HDC _hdc)
 {
-	COLORREF color = IsSeleted ? RGB(100, 100, 100) : RGB(255, 255, 255);
+	COLORREF color;
+
+	if (IsComplete)
+		color = RGB(255, 0, 255);
+	else
+		color = IsSeleted ? RGB(100, 100, 100) : RGB(255, 255, 255);
+
 	HBRUSH hbrush = ::CreateSolidBrush(color);
 	HBRUSH holdbrush = (HBRUSH)::SelectObject(_hdc, hbrush);
 

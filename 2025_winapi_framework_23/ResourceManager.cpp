@@ -65,6 +65,13 @@ void ResourceManager::RegisterTexture()
 	LoadTexture(L"WaterSurfing", L"Texture\\Cards\\Surfing_48x64.bmp");
 	LoadTexture(L"WaterCannon", L"Texture\\Cards\\WaterCannon_48x64.bmp");
 	LoadTexture(L"WaterShuriken", L"Texture\\Cards\\WaterShuriken_48x64.bmp");
+
+	LoadTexture(L"CuttingGrass", L"Texture\\Cards\\CuttingGrass.bmp");
+	LoadTexture(L"GrassLeafFalls", L"Texture\\Cards\\GrassLeafFalls.bmp");
+	LoadTexture(L"Ice_Shuriken", L"Texture\\Cards\\Ice_Shuriken.bmp");
+	LoadTexture(L"Icicle", L"Texture\\Cards\\Icicle.bmp");
+	LoadTexture(L"PoisonThorn", L"Texture\\Cards\\PoisonThorn.bmp");
+	LoadTexture(L"ThornVine", L"Texture\\Cards\\ThornVine.bmp");
 #pragma endregion
 
 }

@@ -41,6 +41,7 @@ private:
 	Stage* m_currentStage = nullptr;
 	int m_maxStageIndex = 0;
 	int m_currentStageLength = 0;
+	int m_currentSelectStageLength = 0;
 	int m_currentStageIndex = 0;
 };
 
