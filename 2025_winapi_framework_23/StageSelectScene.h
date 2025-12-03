@@ -44,6 +44,7 @@ private:
 	}
 private:
 	vector<vector<Stage*>> m_stages;
+	vector<Stage*> m_beforeofNextStages;
 	Stage* m_currentStage = nullptr;
 	int m_maxStageIndex = 0;
 	int m_currentStageLength = 0;

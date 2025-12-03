@@ -16,6 +16,8 @@ void StageSelectScene::Init()
 
 	m_maxStageIndex = StageLength - 1;
 
+	int randStageType = rand() % StageType::Max;
+
 	for (int i = 0; i < StageLength; i++)
 	{
 		int stageCount = rand() % MaxStageCount + MinStageCount;
@@ -79,6 +81,7 @@ void StageSelectScene::Update()
 	{
 		m_currentStage->IsCompelet = true;
 		m_currentStageLength = m_currentSelectStageLength;
+		MoveStage();
 
 		for (int i = 0; i < m_stages.size(); i++)
 		{

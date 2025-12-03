@@ -1,5 +1,15 @@
 #pragma once
 #include "Object.h"
+
+enum StageType
+{
+	Normal,
+	Boss, 
+	TreatmentCenter, //치료센터
+	Exchange, //교환소
+	Max
+};
+
 class Stage :
 	public Object
 {
@@ -31,6 +41,7 @@ public:
 private:
 	vector<Stage*> m_nextStages;
 	Stage* m_beforeStage = nullptr;
+	StageType m_stageType = StageType::Normal;
 	int m_stageNumber = 0;
 	int m_stageRowIndex = 0;
 	int m_stageLengthIndex = 0;
