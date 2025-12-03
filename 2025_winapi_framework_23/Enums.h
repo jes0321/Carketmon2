@@ -48,6 +48,11 @@ enum class UIType {
 	INFO,
 	DECK
 };
+enum class StatType {
+	Attack,
+	Defense,
+	Speed
+};
 
 enum class PlayMode
 {
