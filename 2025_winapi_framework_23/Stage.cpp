@@ -18,17 +18,19 @@ void Stage::Render(HDC _hdc)
 {
 	COLORREF color;
 
-	if (IsComplete)
-		color = RGB(255, 0, 255);
-	else
+	if (IsAvailable)
 		color = IsSeleted ? RGB(100, 100, 100) : RGB(255, 255, 255);
+	else
+	{
+		color = IsCompelet ? RGB(255, 255, 0) : RGB(255, 0, 255);
+	}
 
 	HBRUSH hbrush = ::CreateSolidBrush(color);
 	HBRUSH holdbrush = (HBRUSH)::SelectObject(_hdc, hbrush);
 
 	Vec2 pos = GetPos();
 	Vec2 size = GetSize();
-	
+
 	if (m_nextStages.empty() == false)
 	{
 		for (int i = 0; i < m_nextStages.size(); i++)

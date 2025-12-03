@@ -11,6 +11,12 @@ public:
 	void Update() override;
 private:
 	void StageDebugLog();
+	void MoveStage()
+	{
+		for (int i = 0; i < m_maxStageIndex + 1; i++)
+			for (auto stage : m_stages[i])
+				stage->SetPos({ (int)stage->GetPos().x, (-120 * i) + 300 + (m_currentStageLength * 120) });
+	}
 	void SetCurrentStage(Stage* _stages)
 	{
 		if (m_currentStage != nullptr)
@@ -37,7 +43,7 @@ private:
 		return true;
 	}
 private:
-	vector<vector<Stage*>> _stages;
+	vector<vector<Stage*>> m_stages;
 	Stage* m_currentStage = nullptr;
 	int m_maxStageIndex = 0;
 	int m_currentStageLength = 0;

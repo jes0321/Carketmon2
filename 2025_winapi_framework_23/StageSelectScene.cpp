@@ -8,19 +8,20 @@
 #include "Button.h"
 #include "ButtonSwitcher.h"
 
-const int minStageCount = 2, maxStageCount = 4, stageLength = 10;
+const int MinStageCount = 2, MaxStageCount = 4, StageLength = 10;
 
 void StageSelectScene::Init()
 {
 	int stageNumber = 1;
 
-	m_maxStageIndex = stageLength - 1;
+	m_maxStageIndex = StageLength - 1;
 
-	for (int i = 0; i < stageLength; i++)
+	for (int i = 0; i < StageLength; i++)
 	{
-		int stageCount = rand() % maxStageCount + minStageCount;
+		int stageCount = rand() % MaxStageCount + MinStageCount;
 
-		if (i == stageLength - 1 || i == 0)
+		// 첫 스테이지와 마지막 스테이지 1개로 고정
+		if (i == StageLength - 1 || i == 0)
 			stageCount = 2;
 
 		vector<Stage*> stageRow;
@@ -32,7 +33,7 @@ void StageSelectScene::Init()
 			Stage* obj = new Stage;
 			obj->SetPos({ posX , (-120 * i) + 300 });
 			obj->SetSize({ 100,100 });
-			obj->SettingStage(j - 1, stageNumber);
+			obj->SettingStage(stageNumber, j - 1, i);
 			AddObject(obj, Layer::DEFAULT);
 			stageRow.push_back(obj);
 
@@ -40,15 +41,17 @@ void StageSelectScene::Init()
 
 			if (i == 0) break;
 
-			Stage* before = _stages[i - 1][rand() % _stages[i - 1].size()];
+			Stage* before = m_stages[i - 1][rand() % m_stages[i - 1].size()];
 			obj->SettingBeforeStage(before);
 			before->AddNextStage(obj);
 
 		}
 
+		//만약 이전 스테이지에서 다음 스테이지가 
+		// 설정되지 못한 스테이지가 존재한다면 연결
 		if (i > 0)
 		{
-			for (Stage* prev : _stages[i - 1])
+			for (Stage* prev : m_stages[i - 1])
 			{
 				if (prev->GetNextStages().empty())
 				{
@@ -58,10 +61,10 @@ void StageSelectScene::Init()
 			}
 		}
 
-		_stages.push_back(stageRow);
+		m_stages.push_back(stageRow);
 	}
 
-	SetCurrentStage(_stages[0][0]);
+	SetCurrentStage(m_stages[0][0]);
 
 	GET_SINGLE(ResourceManager)->Play(L"BGM");
 }
@@ -72,10 +75,19 @@ void StageSelectScene::Update()
 
 	//StageDebugLog();
 
-	// 엔터가 눌리면 씬을 변경
-	if (GET_KEY(KEY_TYPE::ENTER) && m_currentStage->IsComplete == false)
+	if (GET_KEYDOWN(KEY_TYPE::ENTER) && m_currentStage->IsAvailable == true)
 	{
-		m_currentStage->IsComplete = true;
+		m_currentStage->IsCompelet = true;
+		m_currentStageLength = m_currentSelectStageLength;
+
+		for (int i = 0; i < m_stages.size(); i++)
+		{
+			if (i == m_currentSelectStageLength + 1) break;
+
+			for (auto stage : m_stages[i])
+				stage->IsAvailable = false;
+
+		}
 		//GET_SINGLE(SceneManager)->LoadScene(L"BattleScene");
 	}
 
@@ -83,39 +95,31 @@ void StageSelectScene::Update()
 	{
 		if (ChangeStage(++m_currentStageLength) == false) return;
 
-		if (m_currentSelectStageLength < m_currentStageLength)
+		if (m_currentStage->IsCompelet == true
+			&& m_currentSelectStageLength < m_currentStageLength)
 		{
 			m_currentSelectStageLength = m_currentStageLength;
-			m_currentStageIndex = m_currentStage->GetNextStages()[0]->GetStageIndex();
+			m_currentStageIndex = m_currentStage->GetNextStages()[0]->GetStageRowIndex();
+			SetCurrentStage(m_stages[m_currentSelectStageLength][m_currentStageIndex]);
 		}
 
-		SetCurrentStage(_stages[m_currentSelectStageLength][m_currentStageIndex]);
-
-		for (int i = 0; i < stageLength; i++)
-		{
-			for(auto stage : _stages[i])
-			{
-				stage->SetPos({ (int)stage->GetPos().x, (-120 * i) + 300 + (m_currentStageLength * 120) });
-			}
-		}
+		MoveStage();
 	}
 	else if (GET_KEYUP(KEY_TYPE::DOWN) || GET_KEYUP(KEY_TYPE::S))
 	{
 		if(ChangeStage(--m_currentStageLength) == false) return;
 
-		for (int i = 0; i < stageLength; i++)
-		{
-			for (auto stage : _stages[i])
-			{
-				stage->SetPos({ (int)stage->GetPos().x, (-120 * i) + 300 + (m_currentStageLength * 120) });
-			}
-		}
+		MoveStage();
 	}
 	else if (GET_KEYUP(KEY_TYPE::RIGHT) || GET_KEYUP(KEY_TYPE::D))
 	{
-		if (m_currentStage->IsComplete) return;
-		if (m_currentStage->GetBeforeStage() == nullptr) return;
-		if (m_currentStage->GetBeforeStage()->GetNextStages().size() <= m_currentStageIndex + 1 ) return;
+		// 현재 스테이지 기준으로 이전 스테이지가 없거나 
+		// 현재 스테이지가 비활성화 상태이거나
+		// 다음 스테이지가 더 이상 없으면 리턴
+		if (m_currentStage->GetBeforeStage() == nullptr
+			|| m_currentStage->IsAvailable == false
+			|| m_currentStage->GetBeforeStage()->GetNextStages().size() <= m_currentStageIndex + 1)
+			return;
 
 		++m_currentStageIndex;
 
@@ -123,8 +127,10 @@ void StageSelectScene::Update()
 	}
 	else if (GET_KEYUP(KEY_TYPE::LEFT) || GET_KEYUP(KEY_TYPE::A))
 	{
-		if (m_currentStage->IsComplete) return;
-		if (0 > m_currentStageIndex - 1 || m_currentStage->GetBeforeStage() == nullptr) return;
+		if (0 > m_currentStageIndex - 1
+			|| m_currentStage->IsAvailable == false
+			|| m_currentStage->GetBeforeStage() == nullptr) 
+			return;
 
 		if (m_currentStage->GetBeforeStage()->GetNextStages().size() <= m_currentStageIndex)
 		{
@@ -138,13 +144,11 @@ void StageSelectScene::Update()
 
 		SetCurrentStage(m_currentStage->GetBeforeStage()->GetNextStages()[m_currentStageIndex]);
 	}
-
-	//cout << "Current Stage Index: " << m_currentStageIndex << "StageCount" << _stages[m_currentStageLength].size() << endl;
 }
 
+//이건 디버그 편하게 하려고
 void StageSelectScene::StageDebugLog()
 {
-
 	cout << "Current Stage: " << m_currentStage->GetStageNumber() << endl;
 
 	if (m_currentStage->GetBeforeStage() != nullptr)
