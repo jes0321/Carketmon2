@@ -14,7 +14,8 @@ public:
 	void CancelAction(UnitType _ownerType);
 	UnitObject* GetUnit(UnitType type);
 	vector<CardData*> GetHandCard();
-	UnitObject* GetUnitByType(UnitType _type) { return m_units[static_cast<int>(_type)]; }
+private :
+	void DamageUnit(ActionData* action);
 private:
 	UnitType m_currentTurn;
 	vector<ActionData*> m_actionQueue;

@@ -5,10 +5,13 @@
 #include <algorithm>
 #include <vector>
 
-UnitData::UnitData(wstring _name, int _maxHp, ElementType _type, Texture* _tex)
+UnitData::UnitData(wstring _name, int _maxHp, int _atk,int _def,int _spd,ElementType _type, Texture* _tex)
 {
 	m_name = _name;
 	m_maxHp = _maxHp;
+	m_atk = _atk;
+	m_def = _def;
+	m_speed = _spd;
 	m_elementType = _type;
 	m_pTexture = _tex;
 }

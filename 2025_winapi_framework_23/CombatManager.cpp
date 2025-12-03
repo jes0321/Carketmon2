@@ -5,6 +5,7 @@
 #include "CardData.h"
 #include "UnitObject.h"
 
+
 void CombatManager::Init()
 {
 	m_currentTurn = UnitType::PLAYER1;
@@ -38,11 +39,11 @@ void CombatManager::Render(HDC _hdc)
 
 void CombatManager::AddAction(UnitType _target, int index)
 {
-	CardData* card = GetUnitByType(m_currentTurn)->GetCardInHand(index);
+	CardData* card = GetUnit(m_currentTurn)->GetCardInHand(index);
 	ActionData* newAction = new ActionData(m_currentTurn, _target, card);
 	m_actionQueue.push_back(newAction);
 
-	GetUnitByType(_target)->Damage(card->GetEffectValue());
+	GetUnit(_target)->Damage(card->GetEffectValue());
 	if(m_currentTurn==UnitType::PLAYER1)
 	{
 		m_currentTurn = UnitType::PLAYER2;
@@ -60,7 +61,7 @@ void CombatManager::AddAction(UnitType _target, int index)
 	{
 		unit->SetSelect(false);
 	}
-	GetUnitByType(m_currentTurn)->SetSelect(true);
+	GetUnit(m_currentTurn)->SetSelect(true);
 }
 
 void CombatManager::CancelAction(UnitType _ownerType)
@@ -83,4 +84,15 @@ UnitObject* CombatManager::GetUnit(UnitType type)
 vector<CardData*> CombatManager::GetHandCard()
 {
 	return m_units[static_cast<int>(m_currentTurn)]->GetHandCards();
+}
+
+void CombatManager::DamageUnit(ActionData* action)
+{
+	UnitObject* targetUnit = GetUnit(action->GetTargetUnit());
+	UnitObject* ownerUnit = GetUnit(action->GetOwnerUnit());
+
+	int dmg = (ownerUnit->GetStat(StatType::Attack))*0.7f;
+	dmg += action->GetCardObject()->GetEffectValue();
+
+	targetUnit->Damage(dmg);
 }

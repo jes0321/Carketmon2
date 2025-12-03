@@ -4,6 +4,7 @@
 #include "UnitObject.h"
 #include "SceneManager.h"
 #include "DamageFloat.h"
+#include "UnitStatData.h"
 #include "HealthBar.h"
 
 void UnitObject::SetUnitData(UnitData* _data)
@@ -29,11 +30,19 @@ void UnitObject::SetUnitData(UnitData* _data)
 	m_healthBar->SetPos({ pos.x, barY });
 	m_healthBar->SetSize({ barW, barH });
 	m_healthBar->SetValue(m_currentHp, m_unitData->GetMaxHp());
+
+	m_statData = new UnitStatData(
+		m_unitData->GetAtk(),
+		m_unitData->GetDef(),
+		m_unitData->GetSpeed()
+	);
 }
 
 void UnitObject::Damage(int dmg)
 {
-	m_currentHp -= dmg;
+	int Dmg = dmg - (m_statData->GetStat(StatType::Defense) *0.4f);
+
+	m_currentHp -= Dmg;
 	if (m_currentHp < 0)
 		m_currentHp = 0;
 
@@ -44,14 +53,17 @@ void UnitObject::Damage(int dmg)
 	// 데미지 플로팅 생성
 	if (auto scene = GET_SINGLE(SceneManager)->GetCurScene())
 	{
-		auto* df = new DamageFloat(std::format(L"-{}", dmg), RGB(255, 60, 60), 1.5f);
+		auto* df = new DamageFloat(std::format(L"-{}", Dmg), RGB(255, 60, 60), 1.5f);
 		df->SetPos(GetPos());
 		df->SetSize({ 120.f, 40.f }); // 텍스트 박스 크기
 		scene->AddObject(df, Layer::CARD);
 	}
 }
 
-
+int UnitObject::GetStat(StatType _type) const
+{
+	return m_statData->GetStat(_type);
+}
 void UnitObject::Render(HDC _hdc)
 {
 	m_healthBar->Render(_hdc);

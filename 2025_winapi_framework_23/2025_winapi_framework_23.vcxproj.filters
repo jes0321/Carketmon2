@@ -163,8 +163,18 @@
     <ClInclude Include="Random.h">
       <Filter>Engine\99. Headers</Filter>
     </ClInclude>
-    <ClInclude Include="DamageFloat.h" />
-    <ClInclude Include="DescriptionText.h" />
+    <ClInclude Include="UnitStatData.h">
+      <Filter>Engine\09.Data</Filter>
+    </ClInclude>
+    <ClInclude Include="DamageFloat.h">
+      <Filter>Engine\03. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="DescriptionText.h">
+      <Filter>Engine\03. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthBar.h">
+      <Filter>Engine\03. Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2025_winapi_framework_23.rc">
@@ -270,7 +280,17 @@
     <ClCompile Include="BattleScene.cpp">
       <Filter>Engine\04. Scene</Filter>
     </ClCompile>
-    <ClCompile Include="DamageFloat.cpp" />
-    <ClCompile Include="DescriptionText.cpp" />
+    <ClCompile Include="UnitStatData.cpp">
+      <Filter>Engine\09.Data</Filter>
+    </ClCompile>
+    <ClCompile Include="DamageFloat.cpp">
+      <Filter>Engine\03. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="DescriptionText.cpp">
+      <Filter>Engine\03. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="HealthBar.cpp">
+      <Filter>Engine\03. Object</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

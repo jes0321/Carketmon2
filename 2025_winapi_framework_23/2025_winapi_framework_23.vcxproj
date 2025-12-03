@@ -199,6 +199,7 @@
     <ClInclude Include="UnitData.h" />
     <ClInclude Include="UnitManager.h" />
     <ClInclude Include="UnitObject.h" />
+    <ClInclude Include="UnitStatData.h" />
     <ClInclude Include="Vec2.h" />
   </ItemGroup>
   <ItemGroup>
@@ -235,6 +236,7 @@
     <ClCompile Include="UnitData.cpp" />
     <ClCompile Include="UnitManager.cpp" />
     <ClCompile Include="UnitObject.cpp" />
+    <ClCompile Include="UnitStatData.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2025_winapi_framework_23.rc" />

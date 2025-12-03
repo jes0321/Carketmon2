@@ -157,6 +157,7 @@ void BattleScene::SelectHand()
     {
         UnitType target = AskTargetUnit();
         GET_SINGLE(CombatManager)->AddAction(target, m_handIndex);
+        SetCardData();
     }
 }
 
