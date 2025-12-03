@@ -10,7 +10,7 @@ public :
 	UnitData* GetUnit(const wstring _unitName);
 	UnitData* GetUnitRandom();
 private:
-	UnitData* RegisterUnit(wstring _name, wstring _texName, int _maxHp, ElementType _type);
+	UnitData* RegisterUnit(wstring _name, wstring _texName, int _maxHp, int _atk,int _def,int _spd,ElementType _type);
 private:
 	std::unordered_map<wstring, UnitData*> m_mapUnits;
 };

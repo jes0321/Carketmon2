@@ -4,6 +4,8 @@
 #include "ActionData.h"
 #include "CardData.h"
 #include "UnitObject.h"
+
+
 void CombatManager::Init()
 {
 	m_currentTurn = UnitType::PLAYER1;
@@ -82,4 +84,15 @@ UnitObject* CombatManager::GetUnit(UnitType type)
 vector<CardData*> CombatManager::GetHandCard()
 {
 	return m_units[static_cast<int>(m_currentTurn)]->GetHandCards();
+}
+
+void CombatManager::DamageUnit(ActionData* action)
+{
+	UnitObject* targetUnit = GetUnit(action->GetTargetUnit());
+	UnitObject* ownerUnit = GetUnit(action->GetOwnerUnit());
+
+	int dmg = (ownerUnit->GetStat(StatType::Attack))*0.7f;
+	dmg += action->GetCardObject()->GetEffectValue();
+
+	targetUnit->Damage(dmg);
 }

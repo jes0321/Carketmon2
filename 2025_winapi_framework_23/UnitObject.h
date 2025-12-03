@@ -3,6 +3,7 @@
 #include "UnitData.h"
 class HealthBar;
 class CardData;
+class UnitStatData;
 class UnitObject : public Object
 {
 public:
@@ -18,12 +19,13 @@ public:
 	vector<CardData*> GetHandCards() const { return m_handCards; }
 
 	int GetCurrentHp() const { return m_currentHp; }
-
+	int GetStat(StatType _type) const;
 private :
 	bool m_isSelect = false;
 	vector<CardData*> m_handCards;
 	int m_currentHp = 0;
 	UnitData* m_unitData = nullptr;
+	UnitStatData* m_statData = nullptr;
 
 	// 체력바 포인터를 들고 있어 Damage 등에서 SetValue를 호출
 	HealthBar* m_healthBar = nullptr;

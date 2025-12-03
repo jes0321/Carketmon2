@@ -1,3 +1,5 @@
+#include <fstream>
+#include <sstream>
 #include "pch.h"
 #include "UnitData.h"
 #include "Texture.h"
@@ -9,27 +11,27 @@ void UnitManager::Init()
 {
 	CardManager* cardManager = GET_SINGLE(CardManager);
 
-	UnitData* data = RegisterUnit(L"불꽃부기", L"Fire_Turtle", 100, ElementType::Fire);
+	UnitData* data = RegisterUnit(L"불꽃부기", L"Fire_Turtle", 100,1,1,1, ElementType::Fire);
 
 	data->SetCard(cardManager->GetCard(L"파이어볼"),5);
 	data->SetCard(cardManager->GetCard(L"화염방사"),3);
 
-	data = RegisterUnit(L"파이츄", L"Fire_Rat", 50, ElementType::Fire);
+	data = RegisterUnit(L"파이츄", L"Fire_Rat", 50, 1,1,1,ElementType::Fire);
 
 	data->SetCard(cardManager->GetCard(L"파이어볼"), 3);
 	data->SetCard(cardManager->GetCard(L"화염방사"), 5);
 
-	data = RegisterUnit(L"물꼬부기", L"Water_FishFox", 70, ElementType::Water);
+	data = RegisterUnit(L"물꼬부기", L"Water_FishFox", 70, 1,1,1,ElementType::Water);
 	data->SetCard(cardManager->GetCard(L"서핑"), 5);
 	data->SetCard(cardManager->GetCard(L"물대포"), 3);
 	data->SetCard(cardManager->GetCard(L"물수리검"), 2);
 
-	data = RegisterUnit(L"잉어킹", L"Water_FishKing", 80, ElementType::Water);
+	data = RegisterUnit(L"잉어킹", L"Water_FishKing", 80, 1,1,1,ElementType::Water);
 	data->SetCard(cardManager->GetCard(L"서핑"), 3);
 	data->SetCard(cardManager->GetCard(L"물수리검"), 5);
 	data->SetCard(cardManager->GetCard(L"물대포"), 3);
 
-	data = RegisterUnit(L"문어소녀", L"Water_SquidGirl", 120, ElementType::Water);
+	data = RegisterUnit(L"문어소녀", L"Water_SquidGirl", 120,1,1,1, ElementType::Water);
 	data->SetCard(cardManager->GetCard(L"서핑"), 4);
 	data->SetCard(cardManager->GetCard(L"물수리검"), 3);
 	data->SetCard(cardManager->GetCard(L"물대포"), 4);
@@ -67,11 +69,12 @@ UnitData* UnitManager::GetUnitRandom()
 	return iter->second;
 }
 
-UnitData* UnitManager::RegisterUnit(wstring _name, wstring _texName, int _maxHp,ElementType _type)
+UnitData* UnitManager::RegisterUnit(wstring _name, wstring _texName, int _maxHp, int _atk, int _def, int _spd, ElementType _type)
 {
 	Texture* texture = GET_SINGLE(ResourceManager)->GetTexture(_texName);
 
-	UnitData* unitData = new UnitData(_name,_maxHp,_type,texture);
+	UnitData* unitData = new UnitData(_name,_maxHp,_atk,_def,_spd, _type,texture);
 	m_mapUnits.insert({ _name,unitData });
 	return unitData;
 }
+
