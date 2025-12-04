@@ -16,8 +16,6 @@ void StageSelectScene::Init()
 
 	m_maxStageIndex = StageLength - 1;
 
-	int randStageType = rand() % StageType::Max;
-
 	for (int i = 0; i < StageLength; i++)
 	{
 		int stageCount = rand() % MaxStageCount + MinStageCount;
@@ -32,10 +30,17 @@ void StageSelectScene::Init()
 		{
 			int posX = (WINDOW_WIDTH / stageCount + 1) * j;
 
+			StageType randStageType = (StageType)(rand() % StageType::Max);
+
+			if (i == StageLength - 1)
+				randStageType = StageType::Boss;
+			else if(i == 0)
+				randStageType = StageType::Normal;
+
 			Stage* obj = new Stage;
 			obj->SetPos({ posX , (-120 * i) + 300 });
 			obj->SetSize({ 100,100 });
-			obj->SettingStage(stageNumber, j - 1, i);
+			obj->SettingStage(stageNumber, j - 1, i, randStageType);
 			AddObject(obj, Layer::DEFAULT);
 			stageRow.push_back(obj);
 
@@ -91,7 +96,8 @@ void StageSelectScene::Update()
 				stage->IsAvailable = false;
 
 		}
-		//GET_SINGLE(SceneManager)->LoadScene(L"BattleScene");
+
+		GET_SINGLE(SceneManager)->LoadScene(L"BattleScene");
 	}
 
 	if (GET_KEYUP(KEY_TYPE::UP) || GET_KEYUP(KEY_TYPE::W))

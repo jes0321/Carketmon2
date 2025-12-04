@@ -50,12 +50,13 @@ void Stage::Render(HDC _hdc)
 	rc.right = static_cast<LONG>(pos.x + size.x);
 	rc.bottom = static_cast<LONG>(pos.y + size.y);
 
-	std::wstring text = std::to_wstring(m_stageNumber);
+	//std::wstring text = std::to_wstring(m_stageNumber);
+	std::wstring text2 = StageTypeToString(m_stageType);
 
 	::SetTextColor(_hdc, IsSeleted ? RGB(255, 255, 255) : RGB(0, 0, 0));
 	::SetBkMode(_hdc, TRANSPARENT);
 
-	::DrawTextW(_hdc, text.c_str(), -1, &rc, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+	::DrawTextW(_hdc, text2.c_str(), -1, &rc, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
 
 	::SelectObject(_hdc, holdbrush);
 	::DeleteObject(hbrush);
