@@ -1,8 +1,17 @@
 #include "pch.h"
+#include "Texture.h"
 #include "Stage.h"
+#include "UnitManager.h"
+#include "UnitObject.h"
 
-Stage::Stage()
+Stage::Stage(int _stageNum, int _stageRowIndex, int _stageLengthIndex,
+		StageType _stageType)
 {
+	m_stageNumber = _stageNum;
+	m_stageRowIndex = _stageRowIndex;
+	m_stageLengthIndex = _stageLengthIndex;
+	m_stageType = _stageType;
+	m_unitData = GET_SINGLE(UnitManager)->UnitManager::GetUnitRandom();
 }
 
 Stage::~Stage()
@@ -11,6 +20,8 @@ Stage::~Stage()
 
 void Stage::Update()
 {
+	if (m_unitData == nullptr)
+		m_unitData = GET_SINGLE(UnitManager)->UnitManager::GetUnitRandom();
 
 }
 
@@ -60,4 +71,18 @@ void Stage::Render(HDC _hdc)
 
 	::SelectObject(_hdc, holdbrush);
 	::DeleteObject(hbrush);
+
+	if (m_unitData == nullptr) return;
+
+	Texture* tex = m_unitData->GetTexture();
+	LONG width = tex->GetWidth();
+	LONG height = tex->GetHeight();
+
+	::TransparentBlt(_hdc
+		, (int)(pos.x - size.x / 2)
+		, (int)(pos.y - size.y / 2)
+		, (int)size.x
+		, (int)size.y
+		, tex->GetTextureDC()
+		, 0, 0, width, height, RGB(255, 0, 255));
 }

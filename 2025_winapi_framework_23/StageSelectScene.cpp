@@ -5,73 +5,11 @@
 #include "SceneManager.h"
 #include "ResourceManager.h"
 #include "Stage.h"
-#include "Button.h"
-#include "ButtonSwitcher.h"
-
-const int MinStageCount = 2, MaxStageCount = 4, StageLength = 10;
+#include "UnitManager.h"
 
 void StageSelectScene::Init()
 {
-	int stageNumber = 1;
-
-	m_maxStageIndex = StageLength - 1;
-
-	for (int i = 0; i < StageLength; i++)
-	{
-		int stageCount = rand() % MaxStageCount + MinStageCount;
-
-		// 첫 스테이지와 마지막 스테이지 1개로 고정
-		if (i == StageLength - 1 || i == 0)
-			stageCount = 2;
-
-		vector<Stage*> stageRow;
-
-		for (int j = 1; j < stageCount; j++)
-		{
-			int posX = (WINDOW_WIDTH / stageCount + 1) * j;
-
-			StageType randStageType = (StageType)(rand() % StageType::Max);
-
-			if (i == StageLength - 1)
-				randStageType = StageType::Boss;
-			else if(i == 0)
-				randStageType = StageType::Normal;
-
-			Stage* obj = new Stage;
-			obj->SetPos({ posX , (-120 * i) + 300 });
-			obj->SetSize({ 100,100 });
-			obj->SettingStage(stageNumber, j - 1, i, randStageType);
-			AddObject(obj, Layer::DEFAULT);
-			stageRow.push_back(obj);
-
-			++stageNumber;
-
-			if (i == 0) break;
-
-			Stage* before = m_stages[i - 1][rand() % m_stages[i - 1].size()];
-			obj->SettingBeforeStage(before);
-			before->AddNextStage(obj);
-
-		}
-
-		//만약 이전 스테이지에서 다음 스테이지가 
-		// 설정되지 못한 스테이지가 존재한다면 연결
-		if (i > 0)
-		{
-			for (Stage* prev : m_stages[i - 1])
-			{
-				if (prev->GetNextStages().empty())
-				{
-					Stage* randomNext = stageRow[rand() % stageRow.size()];
-					prev->AddNextStage(randomNext);
-				}
-			}
-		}
-
-		m_stages.push_back(stageRow);
-	}
-
-	SetCurrentStage(m_stages[0][0]);
+	GenerateStage();
 
 	GET_SINGLE(ResourceManager)->Play(L"BGM");
 }
@@ -94,10 +32,21 @@ void StageSelectScene::Update()
 
 			for (auto stage : m_stages[i])
 				stage->IsAvailable = false;
-
 		}
 
-		GET_SINGLE(SceneManager)->LoadScene(L"BattleScene");
+		if (ChangeStage(++m_currentStageLength) == false) return;
+
+		if (m_currentStage->IsCompelet == true
+			&& m_currentSelectStageLength < m_currentStageLength)
+		{
+			m_currentSelectStageLength = m_currentStageLength;
+			m_currentStageIndex = m_currentStage->GetNextStages()[0]->GetStageRowIndex();
+			SetCurrentStage(m_stages[m_currentSelectStageLength][m_currentStageIndex]);
+		}
+
+		MoveStage();
+
+		//GET_SINGLE(SceneManager)->LoadScene(L"BattleScene");
 	}
 
 	if (GET_KEYUP(KEY_TYPE::UP) || GET_KEYUP(KEY_TYPE::W))
@@ -155,6 +104,67 @@ void StageSelectScene::Update()
 	}
 }
 
+void StageSelectScene::GenerateStage()
+{
+	int stageNumber = 1;
+
+	for (int i = 0; i < StageLength; i++)
+	{
+		int stageCount = rand() % MaxStageCount + MinStageCount;
+
+		// 첫 스테이지와 마지막 스테이지 1개로 고정
+		if (i == StageLength - 1 || i == 0)
+			stageCount = 2;
+
+		vector<Stage*> stageRow;
+
+		for (int j = 1; j < stageCount; j++)
+		{
+			int posX = (WINDOW_WIDTH / stageCount + 1) * j;
+
+			StageType randStageType = (StageType)(rand() % StageType::Max);
+
+			if (i == StageLength - 1)
+				randStageType = StageType::Boss;
+			else if (i == 0)
+				randStageType = StageType::Normal;
+
+			Stage* obj = new Stage(stageNumber, j - 1, i, randStageType);
+			obj->SetPos({ posX , (-120 * i) + 300 });
+			obj->SetSize({ 100,100 });
+			AddObject(obj, Layer::DEFAULT);
+			stageRow.push_back(obj);
+
+			++stageNumber;
+
+			if (i == 0) break;
+
+			Stage* before = m_stages[i - 1][rand() % m_stages[i - 1].size()];
+			obj->SettingBeforeStage(before);
+			before->AddNextStage(obj);
+
+		}
+
+		//만약 이전 스테이지에서 다음 스테이지가 
+		// 설정되지 못한 스테이지가 존재한다면 연결
+		if (i > 0)
+		{
+			for (Stage* prev : m_stages[i - 1])
+			{
+				if (prev->GetNextStages().empty())
+				{
+					Stage* randomNext = stageRow[rand() % stageRow.size()];
+					prev->AddNextStage(randomNext);
+				}
+			}
+		}
+
+		m_stages.push_back(stageRow);
+	}
+
+	SetCurrentStage(m_stages[0][0]);
+}
+
 //이건 디버그 편하게 하려고
 void StageSelectScene::StageDebugLog()
 {
@@ -176,4 +186,5 @@ void StageSelectScene::StageDebugLog()
 	else
 		cout << " | Next Stages: NULL" << endl;
 }
+
 

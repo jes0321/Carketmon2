@@ -1,12 +1,13 @@
 #pragma once
 #include "Object.h"
+#include "UnitData.h"
 
 enum StageType
 {
 	Normal = 0,
 	TreatmentCenter = 25, //치료센터
 	Exchange = 20, //교환소
-	Max, //교환소
+	Max, 
 	
 	Boss, 
 };
@@ -15,19 +16,12 @@ class Stage :
 	public Object
 {
 public:
-	Stage();
+	Stage(int _stageNum, int _stageRowIndex, int _stageLengthIndex,
+		StageType _stageType);
 	~Stage();
 public:
 	void Render(HDC _hdc);
 	void Update() override;
-	void SettingStage(int _stageNum, int _stageRowIndex, int _stageLengthIndex,
-						StageType _stageType)
-	{
-		m_stageNumber = _stageNum;
-		m_stageRowIndex = _stageRowIndex;
-		m_stageLengthIndex = _stageLengthIndex;
-		m_stageType = _stageType;
-	}
 	void AddNextStage(Stage* _stage) { m_nextStages.push_back(_stage); }
 	void SettingBeforeStage(Stage* _stage) { m_beforeStage = _stage; }
 
@@ -66,6 +60,7 @@ public:
 private:
 	vector<Stage*> m_nextStages;
 	Stage* m_beforeStage = nullptr;
+	UnitData* m_unitData;
 	StageType m_stageType = StageType::Normal;
 	int m_stageNumber = 0;
 	int m_stageRowIndex = 0;
