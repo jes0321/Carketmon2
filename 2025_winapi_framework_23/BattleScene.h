@@ -11,6 +11,7 @@ public:
     void Init() override;
     void Update() override;
 	void Render(HDC _hdc) override;
+	void Release() override;
     void SetCardData();
 
 private:

@@ -37,26 +37,33 @@ void CombatManager::Render(HDC _hdc)
 	}
 }
 
+void CombatManager::EndTurn()
+{
+	sort(m_actionList.begin(), m_actionList.end(), ActionData::OrderPtr);
+	for (ActionData* data : m_actionList)
+	{
+		DamageUnit(data);
+	}
+}
+
 void CombatManager::AddAction(UnitType _target, int index)
 {
-	CardData* card = GetUnit(m_currentTurn)->GetCardInHand(index);
-	ActionData* newAction = new ActionData(m_currentTurn, _target, card);
-	m_actionQueue.push_back(newAction);
+	UnitObject* current = GetUnit(m_currentTurn);
+	UnitObject* target = GetUnit(_target);
 
-	GetUnit(_target)->Damage(card->GetEffectValue());
-	if(m_currentTurn==UnitType::PLAYER1)
-	{
-		m_currentTurn = UnitType::PLAYER2;
-	}
-	else if (m_currentTurn == UnitType::PLAYER2)
-	{
-		m_currentTurn = UnitType::ENEMY;
+	CardData* card = current->GetCardInHand(index);
 
-	}
-	else if (m_currentTurn == UnitType::ENEMY)
+	ActionData* newAction = new ActionData(current, target, card);
+	m_actionList.push_back(newAction);
+
+	m_currentTurn = UnitType(((UINT)(m_currentTurn)) + 1);
+
+	if (m_currentTurn == UnitType::ENEMY)
 	{
-		m_currentTurn = UnitType::PLAYER1;
+		//AddAction(UnitType(rand()%2), rand() % 4);
+		EndTurn();
 	}
+
 	for(auto unit : m_units)
 	{
 		unit->SetSelect(false);
@@ -66,11 +73,11 @@ void CombatManager::AddAction(UnitType _target, int index)
 
 void CombatManager::CancelAction(UnitType _ownerType)
 {
-	for(int i = 0; i < m_actionQueue.size(); ++i)
+	for(int i = 0; i < m_actionList.size(); ++i)
 	{
-		if(m_actionQueue[i]->GetOwnerUnit() == _ownerType)
+		if(m_actionList[i]->GetOwnerUnit() == GetUnit(_ownerType))
 		{
-			m_actionQueue.erase(m_actionQueue.begin() + i);
+			m_actionList.erase(m_actionList.begin() + i);
 			--i;
 		}
 	}
@@ -88,8 +95,8 @@ vector<CardData*> CombatManager::GetHandCard()
 
 void CombatManager::DamageUnit(ActionData* action)
 {
-	UnitObject* targetUnit = GetUnit(action->GetTargetUnit());
-	UnitObject* ownerUnit = GetUnit(action->GetOwnerUnit());
+	UnitObject* targetUnit = action->GetTargetUnit();
+	UnitObject* ownerUnit = action->GetOwnerUnit();
 
 	int dmg = (ownerUnit->GetStat(StatType::Attack))*0.7f;
 	dmg += action->GetCardObject()->GetEffectValue();

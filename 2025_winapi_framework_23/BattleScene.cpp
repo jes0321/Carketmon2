@@ -120,6 +120,13 @@ void BattleScene::Render(HDC _hdc)
     GET_SINGLE(CombatManager)->Render(_hdc);
 }
 
+void BattleScene::Release()
+{
+	Scene::Release();
+	m_cardObjs.clear();
+	m_descriptionText = nullptr;
+}
+
 void BattleScene::OnOffHand(bool _isOn)
 {
     for (auto card : m_cardObjs)

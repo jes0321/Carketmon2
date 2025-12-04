@@ -11,27 +11,27 @@ void UnitManager::Init()
 {
 	CardManager* cardManager = GET_SINGLE(CardManager);
 
-	UnitData* data = RegisterUnit(L"불꽃부기", L"Fire_Turtle", 100,1,1,1, ElementType::Fire);
+	UnitData* data = RegisterUnit(L"불꽃부기", L"Fire_Turtle", 60,22,6,12, ElementType::Fire);
 
 	data->SetCard(cardManager->GetCard(L"파이어볼"),5);
 	data->SetCard(cardManager->GetCard(L"화염방사"),3);
 
-	data = RegisterUnit(L"파이츄", L"Fire_Rat", 50, 1,1,1,ElementType::Fire);
+	data = RegisterUnit(L"파이츄", L"Fire_Rat", 50,18,5,16,ElementType::Fire);
 
 	data->SetCard(cardManager->GetCard(L"파이어볼"), 3);
 	data->SetCard(cardManager->GetCard(L"화염방사"), 5);
 
-	data = RegisterUnit(L"물꼬부기", L"Water_FishFox", 70, 1,1,1,ElementType::Water);
+	data = RegisterUnit(L"물꼬부기", L"Water_FishFox", 80,12,16,7,ElementType::Water);
 	data->SetCard(cardManager->GetCard(L"서핑"), 5);
 	data->SetCard(cardManager->GetCard(L"물대포"), 3);
 	data->SetCard(cardManager->GetCard(L"물수리검"), 2);
 
-	data = RegisterUnit(L"잉어킹", L"Water_FishKing", 80, 1,1,1,ElementType::Water);
+	data = RegisterUnit(L"잉어킹", L"Water_FishKing", 45,10,4,8,ElementType::Water);
 	data->SetCard(cardManager->GetCard(L"서핑"), 3);
 	data->SetCard(cardManager->GetCard(L"물수리검"), 5);
 	data->SetCard(cardManager->GetCard(L"물대포"), 3);
 
-	data = RegisterUnit(L"문어소녀", L"Water_SquidGirl", 120,1,1,1, ElementType::Water);
+	data = RegisterUnit(L"문어소녀", L"Water_SquidGirl", 55,12,10,10, ElementType::Water);
 	data->SetCard(cardManager->GetCard(L"서핑"), 4);
 	data->SetCard(cardManager->GetCard(L"물수리검"), 3);
 	data->SetCard(cardManager->GetCard(L"물대포"), 4);

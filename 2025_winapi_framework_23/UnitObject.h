@@ -10,7 +10,7 @@ public:
 	void Render(HDC _hdc) override;
 public:
 	void SetUnitData(UnitData* _data);
-	void UseCard(int index) { m_unitData->UseCard(index); }
+	void UseCard(int index);
 	void Damage(int dmg);
 	void SetSelect(bool isSelect) { m_isSelect = isSelect; }
 	UnitData* GetUnitData() const { return m_unitData; }

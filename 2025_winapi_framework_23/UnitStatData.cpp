@@ -16,7 +16,10 @@ UnitStatData::UnitStatData(int attack, int defense, int speed)
 int UnitStatData::GetStat(StatType _type) const
 {
 	int index = static_cast<int>(_type);
-	return m_stat[index] + m_upgradeStats[index];
+
+	if(m_upgradeStats[index]<0)
+		return m_stat[index] * (2/ (2 + std::abs(m_upgradeStats[index])));
+	return m_stat[index] * ((2+m_upgradeStats[index])/2);
 }
 
 void UnitStatData::UpgradeStat(StatType _type, int amount)
