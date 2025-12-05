@@ -46,7 +46,7 @@ void StageSelectScene::Update()
 
 		MoveStage();
 
-		//GET_SINGLE(SceneManager)->LoadScene(L"BattleScene");
+		GET_SINGLE(SceneManager)->LoadScene(L"BattleScene");
 	}
 
 	if (GET_KEYUP(KEY_TYPE::UP) || GET_KEYUP(KEY_TYPE::W))
