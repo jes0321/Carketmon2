@@ -123,7 +123,7 @@ void StageSelectScene::GenerateStage()
 			int posX = (WINDOW_WIDTH / stageCount + 1) * j;
 
 			//StageType randStageType = (StageType)(rand() % StageType::Max);
-			StageType randStageType = StageType::Normal;
+			StageType randStageType = RandomStageType();
 
 			if (i == StageLength - 1)
 				randStageType = StageType::Boss;
@@ -141,7 +141,7 @@ void StageSelectScene::GenerateStage()
 			if (i == 0) break;
 
 			Stage* before = m_stages[i - 1][rand() % m_stages[i - 1].size()];
-			obj->SettingBeforeStage(before);
+			obj->SetBeforeStage(before);
 			before->AddNextStage(obj);
 
 		}

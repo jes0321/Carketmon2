@@ -4,12 +4,10 @@
 
 enum StageType
 {
-	Normal = 0,
-	TreatmentCenter = 25, //치료센터
-	Exchange = 20, //교환소
-	Max, 
-	
-	Boss, 
+	Normal,
+	TreatmentCenter = 20, //치료센터
+	Exchange = 25, //교환소
+	Boss,
 };
 
 class Stage :
@@ -22,8 +20,9 @@ public:
 public:
 	void Render(HDC _hdc);
 	void Update() override;
+public:
 	void AddNextStage(Stage* _stage) { m_nextStages.push_back(_stage); }
-	void SettingBeforeStage(Stage* _stage) { m_beforeStage = _stage; }
+	void SetBeforeStage(Stage* _stage) { m_beforeStage = _stage; }
 
 	std::wstring StageTypeToString(StageType _stageType)
 	{

@@ -2,7 +2,6 @@
 #include "Scene.h"
 #include "Stage.h"
 
-class Stage;
 class StageSelectScene : public Scene
 {
 public:
@@ -12,6 +11,14 @@ public:
 private:
 	void StageDebugLog();
 	void GenerateStage();
+	StageType RandomStageType()
+	{
+		int random = rand() % 100;
+
+		if (random < (int)StageType::TreatmentCenter) return StageType::TreatmentCenter;
+		else if (random < (int)StageType::Exchange) return StageType::Exchange;
+		else return StageType::Normal;
+	}
 	void MoveStage()
 	{
 		for (int i = 0; i < StageLength; i++)
