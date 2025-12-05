@@ -1,8 +1,17 @@
 #include "pch.h"
+#include "ResourceManager.h"
+#include "Texture.h"
 #include "Stage.h"
+#include "UnitManager.h"
 
-Stage::Stage()
+Stage::Stage(int _stageNum, int _stageRowIndex, int _stageLengthIndex,
+		StageType _stageType)
 {
+	m_stageNumber = _stageNum;
+	m_stageRowIndex = _stageRowIndex;
+	m_stageLengthIndex = _stageLengthIndex;
+	m_stageType = _stageType;
+	m_unitData = GET_SINGLE(UnitManager)->UnitManager::GetUnitRandom();
 }
 
 Stage::~Stage()
@@ -11,7 +20,8 @@ Stage::~Stage()
 
 void Stage::Update()
 {
-
+	if (m_stageType != StageType::Normal || m_unitData == nullptr)
+		m_unitData = GET_SINGLE(UnitManager)->UnitManager::GetUnitRandom();
 }
 
 void Stage::Render(HDC _hdc)
@@ -60,4 +70,37 @@ void Stage::Render(HDC _hdc)
 
 	::SelectObject(_hdc, holdbrush);
 	::DeleteObject(hbrush);
+
+	if (m_stageType != StageType::Normal || m_unitData == nullptr) return;
+
+	ElementType elementType = m_unitData->GetElementType();
+	std::wstring _texName;
+
+	switch (elementType)
+	{
+	case ElementType::Fire :
+		_texName = L"Mark_Fire";
+		break;
+	case ElementType::Water:
+		_texName = L"Mark_Water";
+		break;
+	case ElementType::Ice:
+		_texName = L"Mark_Ice";
+		break;
+	case ElementType::Grace:
+		_texName = L"Mark_Leaf";
+		break;
+	}
+
+	Texture* tex =  GET_SINGLE(ResourceManager)->GetTexture(_texName);
+	LONG width = tex->GetWidth();
+	LONG height = tex->GetHeight();
+
+	::TransparentBlt(_hdc
+		, (int)(pos.x - size.x / 2)
+		, (int)(pos.y - size.y / 2)
+		, (int)size.x
+		, (int)size.y
+		, tex->GetTextureDC()
+		, 0, 0, width, height, RGB(255, 0, 255));
 }

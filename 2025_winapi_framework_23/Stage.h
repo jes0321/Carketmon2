@@ -1,35 +1,28 @@
 #pragma once
 #include "Object.h"
+#include "UnitData.h"
 
 enum StageType
 {
-	Normal = 0,
-	TreatmentCenter = 25, //치료센터
-	Exchange = 20, //교환소
-	Max, //교환소
-	
-	Boss, 
+	Normal,
+	TreatmentCenter = 20, //치료센터
+	Exchange = 25, //교환소
+	Boss,
 };
 
 class Stage :
 	public Object
 {
 public:
-	Stage();
+	Stage(int _stageNum, int _stageRowIndex, int _stageLengthIndex,
+		StageType _stageType);
 	~Stage();
 public:
 	void Render(HDC _hdc);
 	void Update() override;
-	void SettingStage(int _stageNum, int _stageRowIndex, int _stageLengthIndex,
-						StageType _stageType)
-	{
-		m_stageNumber = _stageNum;
-		m_stageRowIndex = _stageRowIndex;
-		m_stageLengthIndex = _stageLengthIndex;
-		m_stageType = _stageType;
-	}
+public:
 	void AddNextStage(Stage* _stage) { m_nextStages.push_back(_stage); }
-	void SettingBeforeStage(Stage* _stage) { m_beforeStage = _stage; }
+	void SetBeforeStage(Stage* _stage) { m_beforeStage = _stage; }
 
 	std::wstring StageTypeToString(StageType _stageType)
 	{
@@ -53,12 +46,12 @@ public:
 		return wstr;
 	}
 
-	Stage* GetBeforeStage() { return m_beforeStage; }
-	vector<Stage*> GetNextStages() { return m_nextStages; }
+	Stage* GetBeforeStage() const { return m_beforeStage; }
+	vector<Stage*> GetNextStages() const { return m_nextStages; }
 
-	int GetStageNumber() { return m_stageNumber; }
-	int GetStageRowIndex() { return m_stageRowIndex; }
-	int GetStageLengthIndex() { return m_stageLengthIndex; }
+	int GetStageNumber() const { return m_stageNumber; }
+	int GetStageRowIndex() const { return m_stageRowIndex; }
+	int GetStageLengthIndex() const { return m_stageLengthIndex; }
 public:
 	bool IsAvailable = true;
 	bool IsSeleted = false;
@@ -66,6 +59,7 @@ public:
 private:
 	vector<Stage*> m_nextStages;
 	Stage* m_beforeStage = nullptr;
+	UnitData* m_unitData;
 	StageType m_stageType = StageType::Normal;
 	int m_stageNumber = 0;
 	int m_stageRowIndex = 0;

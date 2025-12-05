@@ -15,6 +15,7 @@ public:
 	void SetCard(CardData* card, int cnt);
 	void UseCard(int index);
 	Texture* GetTexture() const { return m_pTexture; }
+	ElementType GetElementType() const { return m_elementType; }
 private:
 	wstring m_name;
 	int m_maxHp;
