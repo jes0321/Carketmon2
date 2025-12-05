@@ -47,12 +47,12 @@ public:
 		return wstr;
 	}
 
-	Stage* GetBeforeStage() { return m_beforeStage; }
-	vector<Stage*> GetNextStages() { return m_nextStages; }
+	Stage* GetBeforeStage() const { return m_beforeStage; }
+	vector<Stage*> GetNextStages() const { return m_nextStages; }
 
-	int GetStageNumber() { return m_stageNumber; }
-	int GetStageRowIndex() { return m_stageRowIndex; }
-	int GetStageLengthIndex() { return m_stageLengthIndex; }
+	int GetStageNumber() const { return m_stageNumber; }
+	int GetStageRowIndex() const { return m_stageRowIndex; }
+	int GetStageLengthIndex() const { return m_stageLengthIndex; }
 public:
 	bool IsAvailable = true;
 	bool IsSeleted = false;

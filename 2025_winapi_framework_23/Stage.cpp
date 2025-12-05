@@ -1,8 +1,8 @@
 #include "pch.h"
+#include "ResourceManager.h"
 #include "Texture.h"
 #include "Stage.h"
 #include "UnitManager.h"
-#include "UnitObject.h"
 
 Stage::Stage(int _stageNum, int _stageRowIndex, int _stageLengthIndex,
 		StageType _stageType)
@@ -20,9 +20,8 @@ Stage::~Stage()
 
 void Stage::Update()
 {
-	if (m_unitData == nullptr)
+	if (m_stageType != StageType::Normal || m_unitData == nullptr)
 		m_unitData = GET_SINGLE(UnitManager)->UnitManager::GetUnitRandom();
-
 }
 
 void Stage::Render(HDC _hdc)
@@ -72,9 +71,28 @@ void Stage::Render(HDC _hdc)
 	::SelectObject(_hdc, holdbrush);
 	::DeleteObject(hbrush);
 
-	if (m_unitData == nullptr) return;
+	if (m_stageType != StageType::Normal || m_unitData == nullptr) return;
 
-	Texture* tex = m_unitData->GetTexture();
+	ElementType elementType = m_unitData->GetElementType();
+	std::wstring _texName;
+
+	switch (elementType)
+	{
+	case ElementType::Fire :
+		_texName = L"Mark_Fire";
+		break;
+	case ElementType::Water:
+		_texName = L"Mark_Water";
+		break;
+	case ElementType::Ice:
+		_texName = L"Mark_Ice";
+		break;
+	case ElementType::Grace:
+		_texName = L"Mark_Leaf";
+		break;
+	}
+
+	Texture* tex =  GET_SINGLE(ResourceManager)->GetTexture(_texName);
 	LONG width = tex->GetWidth();
 	LONG height = tex->GetHeight();
 

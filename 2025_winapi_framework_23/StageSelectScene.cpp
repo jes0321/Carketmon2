@@ -122,7 +122,8 @@ void StageSelectScene::GenerateStage()
 		{
 			int posX = (WINDOW_WIDTH / stageCount + 1) * j;
 
-			StageType randStageType = (StageType)(rand() % StageType::Max);
+			//StageType randStageType = (StageType)(rand() % StageType::Max);
+			StageType randStageType = StageType::Normal;
 
 			if (i == StageLength - 1)
 				randStageType = StageType::Boss;

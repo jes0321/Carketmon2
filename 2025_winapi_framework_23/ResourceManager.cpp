@@ -74,6 +74,17 @@ void ResourceManager::RegisterTexture()
 	LoadTexture(L"ThornVine", L"Texture\\Cards\\ThornVine.bmp");
 #pragma endregion
 
+#pragma region UI
+	LoadTexture(L"Button_Deck", L"Texture\\UI\\Button_Deck.bmp");
+	LoadTexture(L"Button_Hand", L"Texture\\UI\\Button_Hand.bmp");
+	LoadTexture(L"Button_Hand", L"Texture\\UI\\Button_Stat.bmp");
+
+	LoadTexture(L"Mark_Fire", L"Texture\\UI\\Mark_Fire_Element.bmp");
+	LoadTexture(L"Mark_Water", L"Texture\\UI\\Mark_Water_Element.bmp");
+	LoadTexture(L"Mark_Leaf", L"Texture\\UI\\Mark_Leaf_Element.bmp");
+	LoadTexture(L"Mark_Ice", L"Texture\\UI\\Mark_Ice_Element.bmp");
+#pragma endregion
+
 }
 void ResourceManager::RegisterGDI()
 {

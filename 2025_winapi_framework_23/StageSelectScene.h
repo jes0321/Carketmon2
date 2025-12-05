@@ -21,9 +21,7 @@ private:
 	void SetCurrentStage(Stage* _stages)
 	{
 		if (m_currentStage != nullptr)
-		{
 			m_currentStage->IsSeleted = false;
-		}
 
 		m_currentStage = _stages;
 		m_currentStage->IsSeleted = true;
