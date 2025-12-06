@@ -1,6 +1,7 @@
 #pragma once
 #include "Scene.h"
 #include "Stage.h"
+#include "StageManager.h"
 
 class StageSelectScene : public Scene
 {
@@ -8,9 +9,12 @@ public:
 	// Scene을(를) 통해 상속됨
 	void Init() override;
 	void Update() override;
+public:
+	Stage* GetCurrentStage() const { return m_currentStage; }
 private:
 	void StageDebugLog();
 	void GenerateStage();
+private:
 	StageType RandomStageType()
 	{
 		int random = rand() % 100;
@@ -32,6 +36,8 @@ private:
 
 		m_currentStage = _stages;
 		m_currentStage->IsSeleted = true;
+
+		GET_SINGLE(StageManager)->SetCurrentStage(m_currentStage);
 	}
 	bool ChangeStage(int _stageIndex)
 	{
