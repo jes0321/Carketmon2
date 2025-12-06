@@ -15,7 +15,7 @@ enum class PenType
 };
 enum class BrushType
 {
-	HOLLOW, RED, GREEN, END
+	HOLLOW, RED, GREEN, BLUE,END
 };
 
 enum class FontType
@@ -28,11 +28,12 @@ enum class ElementType {
 enum class CardEffectType {
 	Damage,
 	Heal,
+	StatBuff,
+	StatDebuff,
 	Buff,
-	Debuff,
-	Utility,
 	AoE,
-	Shield
+	Shield,
+	SelfHeal,
 };
 enum class CardValueType {
 	IntValue,
@@ -40,7 +41,7 @@ enum class CardValueType {
 	PercentageValue
 };
 enum class UnitType {
-	PLAYER1, PLAYER2, ENEMY
+	PLAYER1, PLAYER2, ENEMY,SELF,
 };
 enum class UIType {
 	NONE,

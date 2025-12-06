@@ -24,5 +24,10 @@ int UnitStatData::GetStat(StatType _type) const
 
 void UnitStatData::UpgradeStat(StatType _type, int amount)
 {
-	m_upgradeStats[static_cast<int>(_type)] += amount;
+	int index = static_cast<int>(_type);
+	m_upgradeStats[index] += amount;
+	if(m_upgradeStats[index] < -6)
+		m_upgradeStats[index] = -6;
+	else if(m_upgradeStats[index]>6)
+		m_upgradeStats[index] = 6;
 }

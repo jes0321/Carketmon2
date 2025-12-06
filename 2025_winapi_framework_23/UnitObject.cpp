@@ -37,22 +37,30 @@ void UnitObject::SetUnitData(UnitData* _data)
 		m_unitData->GetSpeed()
 	);
 }
+void UnitObject::SetBuffStat(StatType _type, int _value)
+{
+	m_statData->UpgradeStat(_type, _value);
+}
 void UnitObject::UseCard(int index) {
 	m_handCards.push_back(m_unitData->GetCardRandom());
 	m_unitData->UseCard(index);
 }
 
-void UnitObject::Damage(int dmg, ElementType _type)
+void UnitObject::Damage(int dmg, ElementType _type, bool _isPowerup)
 {
-	int Dmg = dmg - (m_statData->GetStat(StatType::Defense) *0.4f);
+	int Dmg = dmg - (m_statData->GetStat(StatType::Defense) * 0.4f);
 
-	if(IsStrongAgainst(_type))
+	if (IsStrongAgainst(_type))
 	{
-		Dmg *=2;
+		Dmg *= 2;
 	}
-	else if(IsWeakAgainst(_type))
+	else if (IsWeakAgainst(_type))
 	{
 		Dmg *= 0.5f;
+	}
+	if (_isPowerup)
+	{
+		Dmg *= 1.5f;
 	}
 	m_currentHp -= Dmg;
 	if (m_currentHp < 0)
@@ -67,7 +75,7 @@ void UnitObject::Damage(int dmg, ElementType _type)
 	{
 		Vec2 pos = GetPos();
 		auto* df = new DamageFloat(std::format(L"-{}", Dmg), RGB(255, 60, 60), 2.f);
-		df->SetPos({pos.x,pos.y-40});
+		df->SetPos({ pos.x,pos.y - 40 });
 		df->SetSize({ 120.f, 40.f }); // 텍스트 박스 크기
 		scene->AddObject(df, Layer::CARD);
 	}

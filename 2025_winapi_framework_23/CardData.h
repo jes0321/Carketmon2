@@ -14,6 +14,7 @@ public:
 	Texture* GetTexture() const { return m_pTexture; }
 	ElementType GetCardType() const { return m_cardType; }
 	CardEffectType GetCardEffect() const { return m_cardEffect; }
+	StatType GetStatType() const { return m_statType; }
 	int GetEffectValue() const { return m_integerValue; }
 	int GetPriority() const { return m_priority; }
 private:

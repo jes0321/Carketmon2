@@ -26,7 +26,8 @@ public:
 private:
     void DamageUnit(ActionData* action);
 	void HealUnit(ActionData* action);
-
+	void StatControl(ActionData* action);
+	void BuffTarget(ActionData* action);
 private:
 	UnitType m_currentTurn;
 	bool m_isWait = false;

@@ -13,7 +13,7 @@ void CardManager::Init()
 	RegisterCard(L"서핑",  L"WaterSurfing",
 		ElementType::Water, CardEffectType::Heal, 20);
 	RegisterCard(L"물대포", L"WaterCannon",
-		ElementType::Water, CardEffectType::Damage, 20);
+		ElementType::Water, CardEffectType::StatBuff, 2,1,StatType::Attack);
 	RegisterCard(L"물수리검", L"WaterShuriken",
 		ElementType::Water, CardEffectType::Damage, 20);
 }
@@ -34,9 +34,9 @@ CardData* CardManager::GetCard(const wstring _cardName)
 }
 
 void CardManager::RegisterCard(wstring _name,  wstring _texName,
-	ElementType _cardType, CardEffectType _cardEffect, int _integerValue)
+	ElementType _cardType, CardEffectType _cardEffect, int _integerValue, int priority, StatType _statType)
 {
 	Texture* tex = GET_SINGLE(ResourceManager)->GetTexture(_texName);
-	CardData* newCard = new CardData(_name,tex,_cardType,_cardEffect,_integerValue);
+	CardData* newCard = new CardData(_name,tex,_cardType,_cardEffect,_integerValue,priority,_statType);
 	m_mapCards.insert({ _name, newCard });
 }

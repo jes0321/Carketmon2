@@ -197,6 +197,7 @@
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="UnitData.h" />
+    <ClInclude Include="UnitInfoObj.h" />
     <ClInclude Include="UnitManager.h" />
     <ClInclude Include="UnitObject.h" />
     <ClInclude Include="UnitStatData.h" />
@@ -234,6 +235,7 @@
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="UnitData.cpp" />
+    <ClCompile Include="UnitInfoObj.cpp" />
     <ClCompile Include="UnitManager.cpp" />
     <ClCompile Include="UnitObject.cpp" />
     <ClCompile Include="UnitStatData.cpp" />

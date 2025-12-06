@@ -9,7 +9,7 @@ public:
 	CardData* GetCard(const wstring _cardName);
 private:
 	void RegisterCard(wstring _name, wstring _texName,
-		ElementType _cardType, CardEffectType _cardEffect, int _integerValue);
+		ElementType _cardType, CardEffectType _cardEffect, int _integerValue, int priority = 0,StatType _statType=StatType::Attack);
 private:
 	std::unordered_map<wstring, CardData*> m_mapCards;
 };

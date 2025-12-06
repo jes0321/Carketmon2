@@ -20,13 +20,13 @@ void CombatManager::Init()
 
 	Vec2 size = { 32 * 2,32 * 2 };
 	for (int i = 0; i < 2; ++i) {
-		m_units[i]->SetSize(size*2.f);
-		m_units[i]->SetPos({ 200.f + i * 300.f, (WINDOW_HEIGHT / 2.f) -50.f});
+		m_units[i]->SetSize(size * 2.f);
+		m_units[i]->SetPos({ 200.f + i * 300.f, (WINDOW_HEIGHT / 2.f) - 50.f });
 	}
-	m_units[2]->SetSize(size*4.2f);
-	m_units[2]->SetPos({ WINDOW_WIDTH - 250.f, (WINDOW_HEIGHT / 2.f)-250.f });// Enemy
+	m_units[2]->SetSize(size * 4.2f);
+	m_units[2]->SetPos({ WINDOW_WIDTH - 250.f, (WINDOW_HEIGHT / 2.f) - 250.f });// Enemy
 	m_units[0]->SetSelect(true);
-	for(int i=0; i< m_units.size(); ++i)
+	for (int i = 0; i < m_units.size(); ++i)
 	{
 		m_units[i]->SetUnitData(GET_SINGLE(UnitManager)->GetUnitRandom());
 	}
@@ -39,6 +39,10 @@ void CombatManager::Update() {
 			if (m_actionList.size() <= 0) {
 				m_isWait = false;
 				battleScene->SetWaitTurn(false);
+				for(int i=0;i<m_units.size()-1;++i)
+				{
+					m_units[i]->SetPowerup(false);
+				}
 				return;
 			}
 			m_timer = 0;
@@ -48,6 +52,9 @@ void CombatManager::Update() {
 			{
 			case CardEffectType::Damage: DamageUnit(action); break;
 			case CardEffectType::Heal: HealUnit(action); break;
+			case CardEffectType::StatBuff: StatControl(action); break;
+			case CardEffectType::StatDebuff: StatControl(action); break;
+			case CardEffectType::Buff: BuffTarget(action); break;
 			default:
 				break;
 			}
@@ -59,7 +66,7 @@ void CombatManager::Update() {
 
 void CombatManager::Render(HDC _hdc)
 {
-	for(auto unit : m_units)
+	for (auto unit : m_units)
 	{
 		unit->Render(_hdc);
 	}
@@ -84,13 +91,17 @@ void CombatManager::EndTurn()
 
 	sort(m_actionList.begin(), m_actionList.end(), ActionData::OrderPtr);
 
-	m_timer = m_delayTime/2;
+	m_timer = m_delayTime / 2;
 	m_isWait = true;
 }
 
 void CombatManager::AddAction(UnitType _target, int index)
 {
 	UnitObject* current = GetUnit(m_currentTurn);
+	if (_target == UnitType::SELF)
+	{
+		_target = m_currentTurn;
+	}
 	UnitObject* target = GetUnit(_target);
 
 	CardData* card = current->GetCardInHand(index);
@@ -106,7 +117,7 @@ void CombatManager::AddAction(UnitType _target, int index)
 		m_currentTurn = UnitType::PLAYER1;
 	}
 
-	for(auto unit : m_units)
+	for (auto unit : m_units)
 	{
 		unit->SetSelect(false);
 	}
@@ -115,9 +126,9 @@ void CombatManager::AddAction(UnitType _target, int index)
 
 void CombatManager::CancelAction(UnitType _ownerType)
 {
-	for(int i = 0; i < m_actionList.size(); ++i)
+	for (int i = 0; i < m_actionList.size(); ++i)
 	{
-		if(m_actionList[i]->GetOwnerUnit() == GetUnit(_ownerType))
+		if (m_actionList[i]->GetOwnerUnit() == GetUnit(_ownerType))
 		{
 			m_actionList.erase(m_actionList.begin() + i);
 			--i;
@@ -140,10 +151,10 @@ void CombatManager::DamageUnit(ActionData* action)
 	UnitObject* targetUnit = action->GetTargetUnit();
 	UnitObject* ownerUnit = action->GetOwnerUnit();
 
-	int dmg = (ownerUnit->GetStat(StatType::Attack))*0.7f;
+	int dmg = (ownerUnit->GetStat(StatType::Attack)) * 0.7f;
 	dmg += action->GetCardObject()->GetEffectValue();
 
-	targetUnit->Damage(dmg, ownerUnit->GetUnitData()->GetElementType());
+	targetUnit->Damage(dmg, ownerUnit->GetUnitData()->GetElementType(),targetUnit->IsPowerup());
 }
 
 void CombatManager::HealUnit(ActionData* action)
@@ -153,4 +164,18 @@ void CombatManager::HealUnit(ActionData* action)
 	int heal = action->GetCardObject()->GetEffectValue();
 	heal += ownerUnit->GetStat(StatType::Attack) * 0.3f;
 	targetUnit->Heal(heal);
+}
+
+void CombatManager::StatControl(ActionData* action)
+{
+	UnitObject* targetUnit = action->GetTargetUnit();
+	int buffValue = action->GetCardObject()->GetEffectValue();
+	StatType statType = action->GetCardObject()->GetStatType();
+	targetUnit->SetBuffStat(statType, buffValue);
+}
+
+void CombatManager::BuffTarget(ActionData* action)
+{
+	UnitObject* targetUnit = action->GetTargetUnit();
+	targetUnit->SetPowerup(true);
 }

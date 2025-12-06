@@ -6,6 +6,7 @@ class CardObject;
 class CardData;
 class BattleDescription;
 class DescriptionText;
+class UnitInfoObj;
 class ActionData;
 class BattleScene : public Scene
 {
@@ -20,6 +21,7 @@ public:
     void SetWaitTurn(bool _isWait);
    
 private:
+	void OnOffInfo(bool _isOn);
 	void OnOffHand(bool _isOn);
     void SelectHand();
     UnitType AskTargetUnit(); // 윈도우 기본 대화상자(메시지박스)로 선택
@@ -29,6 +31,7 @@ private:
     bool m_waitTurn = false;
 	DescriptionText* m_descriptionText = nullptr;
     vector<CardObject*> m_cardObjs;
+	UnitInfoObj* m_unitInfoObj = nullptr;
     int      m_handIndex = 0;
     UIType   m_uiType = UIType::NONE;
 };
