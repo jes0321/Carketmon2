@@ -42,10 +42,18 @@ void UnitObject::UseCard(int index) {
 	m_unitData->UseCard(index);
 }
 
-void UnitObject::Damage(int dmg)
+void UnitObject::Damage(int dmg, ElementType _type)
 {
 	int Dmg = dmg - (m_statData->GetStat(StatType::Defense) *0.4f);
 
+	if(IsStrongAgainst(_type))
+	{
+		Dmg *=2;
+	}
+	else if(IsWeakAgainst(_type))
+	{
+		Dmg *= 0.5f;
+	}
 	m_currentHp -= Dmg;
 	if (m_currentHp < 0)
 		m_currentHp = 0;
@@ -68,6 +76,30 @@ void UnitObject::Damage(int dmg)
 int UnitObject::GetStat(StatType _type) const
 {
 	return m_statData->GetStat(_type);
+}
+bool UnitObject::IsStrongAgainst(ElementType attacker) const
+{
+	ElementType defender = m_unitData->GetElementType();
+	if ((attacker == ElementType::Fire && defender == ElementType::Ice) ||
+		(attacker == ElementType::Water && defender == ElementType::Fire) ||
+		(attacker == ElementType::Ice && defender == ElementType::Grace) ||
+		(attacker == ElementType::Grace && defender == ElementType::Water))
+	{
+		return true;
+	}
+	return false;
+}
+bool UnitObject::IsWeakAgainst(ElementType attacker) const
+{
+	ElementType defender = m_unitData->GetElementType();
+	if ((defender == ElementType::Fire && attacker == ElementType::Ice) ||
+		(defender == ElementType::Water && attacker == ElementType::Fire) ||
+		(defender == ElementType::Ice && attacker == ElementType::Grace) ||
+		(defender == ElementType::Grace && attacker == ElementType::Water))
+	{
+		return true;
+	}
+	return false;
 }
 void UnitObject::Render(HDC _hdc)
 {

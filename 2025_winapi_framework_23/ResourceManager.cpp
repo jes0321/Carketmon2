@@ -101,7 +101,7 @@ void ResourceManager::RegisterGDI()
 	RegisterFont(FontType::TITLE, L"³ª´®¼Õ±Û¾¾ ¾Ï½ºÅ×¸£´ã", 0);
 	RegisterFont(FontType::UI, L"³ª´®¼Õ±Û¾¾ ¾Ï½ºÅ×¸£´ã", 0);
 	RegisterFont(FontType::BIG_UI, L"³ª´®¼Õ±Û¾¾ ¾Ï½ºÅ×¸£´ã", -48, FW_BOLD);
-	RegisterFont(FontType::BOLD_UI, L"³ª´®¼Õ±Û¾¾ ¾Ï½ºÅ×¸£´ã", -24, FW_BOLD);
+	RegisterFont(FontType::BOLD_UI, L"³ª´®¼Õ±Û¾¾ ¾Ï½ºÅ×¸£´ã", -18, FW_BOLD);
 }
 void ResourceManager::ReleaseGDI()
 {

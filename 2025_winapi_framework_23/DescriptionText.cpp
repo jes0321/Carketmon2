@@ -13,11 +13,12 @@ void DescriptionText::Render(HDC _hdc)
 
 	// 출력 문자열
 	const std::wstring lineName = std::format(L"이름 : {}", name);
-	const std::wstring lineDesc = std::format(L"설명 : {}", desc);
+	const std::wstring lineDesc = std::format(L"{}", desc);
 
 	// 위치/영역 계산
 	Vec2 pos = GetPos();
 	Vec2 size = GetSize();
+	RECT_RENDER(_hdc, pos.x, pos.y, size.x, size.y);
 	RECT rc = {
 		(LONG)(pos.x - size.x / 2),
 		(LONG)(pos.y - size.y / 2),
@@ -38,19 +39,15 @@ void DescriptionText::Render(HDC _hdc)
 
 	// 이름: TITLE 폰트, 가운데 정렬 한 줄
 	{
-		GDISelector fontTitle(_hdc, FontType::TITLE);
+		GDISelector fontTitle(_hdc, FontType::BOLD_UI);
 		// 그림자
 		::SetTextColor(_hdc, RGB(0, 0, 0));
-		RECT shadow = rcName; ::OffsetRect(&shadow, 1, 1);
-		::DrawTextW(_hdc, lineName.c_str(), (int)lineName.size(), &shadow, DT_CENTER | DT_SINGLELINE | DT_VCENTER | DT_NOPREFIX);
-
-		::SetTextColor(_hdc, RGB(255, 255, 220));
 		::DrawTextW(_hdc, lineName.c_str(), (int)lineName.size(), &rcName, DT_CENTER | DT_SINGLELINE | DT_VCENTER | DT_NOPREFIX);
 	}
 
 	// 설명: UI 폰트, 워드브레이크로 여러 줄
 	{
-		GDISelector fontUI(_hdc, FontType::UI);
+		GDISelector fontUI(_hdc, FontType::BOLD_UI);
 		::SetTextColor(_hdc, RGB(0, 0, 0));
 		::DrawTextW(_hdc, lineDesc.c_str(), (int)lineDesc.size(), &rcDesc, DT_CENTER | DT_WORDBREAK | DT_NOPREFIX);
 	}

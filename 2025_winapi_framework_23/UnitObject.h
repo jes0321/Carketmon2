@@ -11,7 +11,7 @@ public:
 public:
 	void SetUnitData(UnitData* _data);
 	void UseCard(int index);
-	void Damage(int dmg);
+	void Damage(int dmg,ElementType _type);
 	void SetSelect(bool isSelect) { m_isSelect = isSelect; }
 	UnitData* GetUnitData() const { return m_unitData; }
 	CardData* GetCardRandom() const { return m_unitData->GetCardRandom(); }
@@ -20,6 +20,9 @@ public:
 
 	int GetCurrentHp() const { return m_currentHp; }
 	int GetStat(StatType _type) const;
+private:
+	bool IsStrongAgainst(ElementType attacker) const;
+	bool IsWeakAgainst(ElementType attacker) const;
 private :
 	bool m_isSelect = false;
 	vector<CardData*> m_handCards;

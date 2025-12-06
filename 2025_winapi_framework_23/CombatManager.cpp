@@ -130,5 +130,5 @@ void CombatManager::DamageUnit(ActionData* action)
 	int dmg = (ownerUnit->GetStat(StatType::Attack))*0.7f;
 	dmg += action->GetCardObject()->GetEffectValue();
 
-	targetUnit->Damage(dmg);
+	targetUnit->Damage(dmg, ownerUnit->GetUnitData()->GetElementType());
 }
