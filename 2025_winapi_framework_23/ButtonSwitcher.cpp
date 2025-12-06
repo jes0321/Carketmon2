@@ -20,11 +20,11 @@ void ButtonSwitcher::Update()
 {
 	if (m_currentButton == nullptr) return;
 
-	if (GET_KEYDOWN(KEY_TYPE::ENTER))
+	if (GET_KEYDOWN(KEY_TYPE::E))
 	{
 		m_buttons[m_currentStageIndex]->m_buttonState = ButtonState::Clicked;
 	}
-	else if (GET_KEYUP(KEY_TYPE::ENTER))
+	else if (GET_KEYUP(KEY_TYPE::E))
 	{
 		m_buttons[m_currentStageIndex]->Click();
 		m_buttons[m_currentStageIndex]->m_buttonState = ButtonState::Selected;
