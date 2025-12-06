@@ -94,6 +94,43 @@ void UnitObject::Render(HDC _hdc)
 		, tex->GetTextureDC()
 		, 0, 0, width, height, RGB(255, 0, 255));
 
-	// HP 텍스트는 HealthBar에서 출력하므로 여기서는 제거
-	// (필요 시 체력바 위치만 이동에 맞춰 동기화)
+	// 체력바 위치/사이즈 동기화 (유닛 하단 조금 아래, 확대된 설정과 동일)
+	if (m_healthBar)
+	{
+		float barW = size.x * 1.0f;
+		float barH = 18.f;
+		float barY = pos.y + size.y * 0.5f + 12.f;
+		m_healthBar->SetPos({ pos.x, barY });
+		m_healthBar->SetSize({ barW, barH });
+
+		// 이름 텍스트(체력바 왼쪽에 출력)
+		if (m_unitData)
+		{
+			const std::wstring& name = m_unitData->GetName();
+
+			// 체력바 중심/크기 기반으로 좌측에 이름 영역 구성
+			float nameBoxW = std::max(100.f, barW * 0.5f); // 최소 폭 확보
+			float nameBoxH = barH;
+
+			RECT nameRc{
+				(LONG)(pos.x - barW * 0.5f - 8.f - nameBoxW), // 바 왼쪽보다 약간 더 왼쪽으로
+				(LONG)(barY - nameBoxH * 0.5f),
+				(LONG)(pos.x - barW * 0.5f - 8.f),             // 바 왼쪽 바로 옆
+				(LONG)(barY + nameBoxH * 0.6f)
+			};
+
+			int oldBk = ::SetBkMode(_hdc, TRANSPARENT);
+			COLORREF oldColor = ::SetTextColor(_hdc, RGB(255, 255, 255));
+			{
+				GDISelector fontSel(_hdc, FontType::BOLD_UI);
+
+
+				// 본문
+				::SetTextColor(_hdc, RGB(0, 0, 0));
+				::DrawTextW(_hdc, name.c_str(), (int)name.length(), &nameRc, DT_RIGHT | DT_VCENTER | DT_SINGLELINE | DT_NOPREFIX);
+			}
+			::SetTextColor(_hdc, oldColor);
+			::SetBkMode(_hdc, oldBk);
+		}
+	}
 }

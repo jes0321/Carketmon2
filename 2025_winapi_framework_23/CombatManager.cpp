@@ -35,17 +35,16 @@ void CombatManager::Update() {
 		m_timer += fDT;
 		if (m_timer >= m_delayTime) {
 			BattleScene* battleScene = GET_SINGLE(SceneManager)->GetBattleScene();
-
+			if (m_actionList.size() <= 0) {
+				m_isWait = false;
+				battleScene->SetWaitTurn(false);
+				return;
+			}
 			m_timer = 0;
 			battleScene->SetDes(m_actionList.front());
 			DamageUnit(m_actionList.front());
 
 			m_actionList.erase(m_actionList.begin());
-			if (m_actionList.size() <= 0) {
-				m_isWait = false;
-				battleScene->SetWaitTurn(false);
-
-			}
 		}
 	}
 }
