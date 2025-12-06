@@ -11,6 +11,7 @@
 
 void BattleScene::Init()
 {
+
     int cardWidth = 48 * 4;
     int cardHeight = 64 * 4;
     int margin = 15;

@@ -12,6 +12,7 @@ public:
 	void SetUnitData(UnitData* _data);
 	void UseCard(int index);
 	void Damage(int dmg,ElementType _type);
+	void Heal(int heal);
 	void SetSelect(bool isSelect) { m_isSelect = isSelect; }
 	UnitData* GetUnitData() const { return m_unitData; }
 	CardData* GetCardRandom() const { return m_unitData->GetCardRandom(); }

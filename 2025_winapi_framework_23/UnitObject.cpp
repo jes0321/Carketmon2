@@ -73,6 +73,25 @@ void UnitObject::Damage(int dmg, ElementType _type)
 	}
 }
 
+void UnitObject::Heal(int heal)
+{
+	m_currentHp += heal;
+	if (m_currentHp > m_unitData->GetMaxHp())
+		m_currentHp = m_unitData->GetMaxHp();
+	// 체력바 값 갱신 (UnitObject가 보관한 포인터에 직접 세팅)
+	if (m_healthBar)
+		m_healthBar->SetValue(m_currentHp, m_unitData ? m_unitData->GetMaxHp() : 0);
+	// 힐 플로팅 생성
+	if (auto scene = GET_SINGLE(SceneManager)->GetCurScene())
+	{
+		Vec2 pos = GetPos();
+		auto* df = new DamageFloat(std::format(L"+{}", heal), RGB(60, 255, 60), 2.f);
+		df->SetPos({ pos.x,pos.y - 40 });
+		df->SetSize({ 120.f, 40.f }); // 텍스트 박스 크기
+		scene->AddObject(df, Layer::CARD);
+	}
+}
+
 int UnitObject::GetStat(StatType _type) const
 {
 	return m_statData->GetStat(_type);

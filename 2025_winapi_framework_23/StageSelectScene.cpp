@@ -4,6 +4,7 @@
 #include "InputManager.h"
 #include "SceneManager.h"
 #include "ResourceManager.h"
+#include "CombatManager.h"
 #include "Stage.h"
 #include "UnitManager.h"
 
@@ -45,7 +46,7 @@ void StageSelectScene::Update()
 		}
 
 		MoveStage();
-
+		GET_SINGLE(CombatManager)->SetEnemy(m_currentStage->GetUnitData());
 		GET_SINGLE(SceneManager)->LoadScene(L"BattleScene");
 	}
 

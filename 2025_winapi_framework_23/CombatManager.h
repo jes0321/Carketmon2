@@ -3,7 +3,9 @@
 class UnitObject;
 class ActionData;
 class CardData;
+class UnitData;
 class BattleDescription;
+
 class CombatManager
 {
 	DECLARE_SINGLE(CombatManager);
@@ -12,6 +14,7 @@ public:
     void Update();
     void Render(HDC _hdc);
 
+    void SetEnemy(UnitData* _data);
     void EndTurn();
     void AddAction(UnitType _target, int index);
     void CancelAction(UnitType _ownerType);
@@ -22,6 +25,7 @@ public:
 
 private:
     void DamageUnit(ActionData* action);
+	void HealUnit(ActionData* action);
 
 private:
 	UnitType m_currentTurn;

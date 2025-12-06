@@ -7,6 +7,7 @@
 #include "SceneManager.h"
 #include "BattleScene.h"
 #include "BattleDescription.h"
+#include "StageManager.h"
 
 void CombatManager::Init()
 {
@@ -41,8 +42,15 @@ void CombatManager::Update() {
 				return;
 			}
 			m_timer = 0;
-			battleScene->SetDes(m_actionList.front());
-			DamageUnit(m_actionList.front());
+			ActionData* action = m_actionList.front();
+			battleScene->SetDes(action);
+			switch (action->GetCardObject()->GetCardEffect())
+			{
+			case CardEffectType::Damage: DamageUnit(action); break;
+			case CardEffectType::Heal: HealUnit(action); break;
+			default:
+				break;
+			}
 
 			m_actionList.erase(m_actionList.begin());
 		}
@@ -55,6 +63,11 @@ void CombatManager::Render(HDC _hdc)
 	{
 		unit->Render(_hdc);
 	}
+}
+
+void CombatManager::SetEnemy(UnitData* _data)
+{
+	GetUnit(UnitType::ENEMY)->SetUnitData(_data);
 }
 
 void CombatManager::EndTurn()
@@ -131,4 +144,13 @@ void CombatManager::DamageUnit(ActionData* action)
 	dmg += action->GetCardObject()->GetEffectValue();
 
 	targetUnit->Damage(dmg, ownerUnit->GetUnitData()->GetElementType());
+}
+
+void CombatManager::HealUnit(ActionData* action)
+{
+	UnitObject* targetUnit = action->GetTargetUnit();
+	UnitObject* ownerUnit = action->GetOwnerUnit();
+	int heal = action->GetCardObject()->GetEffectValue();
+	heal += ownerUnit->GetStat(StatType::Attack) * 0.3f;
+	targetUnit->Heal(heal);
 }
