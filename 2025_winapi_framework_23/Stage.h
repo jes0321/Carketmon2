@@ -24,6 +24,15 @@ public:
 	void AddNextStage(Stage* _stage) { m_nextStages.push_back(_stage); }
 	void SetBeforeStage(Stage* _stage) { m_beforeStage = _stage; }
 
+	Stage* GetBeforeStage() const { return m_beforeStage; }
+	vector<Stage*> GetNextStages() const { return m_nextStages; }
+
+	UnitData* GetUnitData() const { return m_unitData; }
+
+	int GetStageNumber() const { return m_stageNumber; }
+	int GetStageRowIndex() const { return m_stageRowIndex; }
+	int GetStageLengthIndex() const { return m_stageLengthIndex; }
+private:
 	std::wstring StageTypeToString(StageType _stageType)
 	{
 		std::wstring wstr;
@@ -45,13 +54,6 @@ public:
 		wstr.assign(str.begin(), str.end());
 		return wstr;
 	}
-
-	Stage* GetBeforeStage() const { return m_beforeStage; }
-	vector<Stage*> GetNextStages() const { return m_nextStages; }
-
-	int GetStageNumber() const { return m_stageNumber; }
-	int GetStageRowIndex() const { return m_stageRowIndex; }
-	int GetStageLengthIndex() const { return m_stageLengthIndex; }
 public:
 	bool IsAvailable = true;
 	bool IsSeleted = false;
