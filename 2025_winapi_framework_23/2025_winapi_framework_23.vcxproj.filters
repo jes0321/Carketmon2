@@ -169,6 +169,9 @@
     <ClInclude Include="HealthBar.h">
       <Filter>Engine\03. Object</Filter>
     </ClInclude>
+    <ClInclude Include="BattleDescription.h">
+      <Filter>Engine\03. Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2025_winapi_framework_23.rc">
@@ -279,6 +282,9 @@
     </ClCompile>
     <ClCompile Include="ResourceManager.cpp">
       <Filter>Engine\02. Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="BattleDescription.cpp">
+      <Filter>Engine\03. Object</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

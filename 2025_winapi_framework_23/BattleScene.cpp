@@ -6,6 +6,7 @@
 #include "Button.h"
 #include "ButtonSwitcher.h"
 #include "DescriptionText.h"
+#include "BattleDescription.h"
 #undef max;
 
 void BattleScene::Init()
@@ -104,12 +105,32 @@ void BattleScene::Init()
             m_descriptionText->SetTargetCard(m_cardObjs[m_handIndex]); // 현재 선택 카드로 초기화
         AddObject(m_descriptionText, Layer::UI);
     }
+    {
+        // 총 너비 = 4*cardWidth + 3*margin, 중앙 X = 첫 카드 왼쪽 + 총 너비/2
+        float totalWidth = (4.f * cardWidth) + (3.f * margin);
+        float rowCenterY = WINDOW_HEIGHT - cardHeight * 0.5f - margin;
+        float firstCardLeft = (margin + cardWidth * 0.5f) - (cardWidth * 0.5f);
+        float bdCenterX = firstCardLeft + totalWidth * 0.5f;
+
+        float bdWidth = totalWidth;
+        float bdHeight = cardHeight; // 카드 높이와 동일(필요 시 조정)
+
+        m_battleDescription = new BattleDescription;
+        m_battleDescription->SetPos({ bdCenterX, rowCenterY });
+        m_battleDescription->SetSize({ bdWidth, bdHeight });
+        m_battleDescription->SetActive(false);
+        AddObject(m_battleDescription, Layer::UI);
+    }
 }
 
 void BattleScene::Update()
 {
     Scene::Update();
 
+    if (m_waitTurn) {
+        GET_SINGLE(CombatManager)->Update();
+        return;
+    }
     if (m_uiType == UIType::HAND)
         SelectHand();
 }
@@ -129,6 +150,7 @@ void BattleScene::Release()
 
 void BattleScene::OnOffHand(bool _isOn)
 {
+	if (m_waitTurn) return;
     for (auto card : m_cardObjs)
     {
         card->SetActive(_isOn);
@@ -162,6 +184,7 @@ void BattleScene::SelectHand()
 
     if (GET_KEYUP(KEY_TYPE::C))
     {
+        if (m_waitTurn) return;
         UnitType target = AskTargetUnit();
         GET_SINGLE(CombatManager)->AddAction(target, m_handIndex);
         SetCardData();
@@ -187,6 +210,12 @@ UnitType BattleScene::AskTargetUnit()
     }
 }
 
+void BattleScene::SetDes(ActionData* data)
+{
+    if (m_battleDescription)
+		m_battleDescription->SetText(data);
+}
+
 void BattleScene::SetCardData()
 {
     vector<CardData*> handCards = GET_SINGLE(CombatManager)->GetHandCard();
@@ -195,5 +224,20 @@ void BattleScene::SetCardData()
     {
         if (m_cardObjs[i])
             m_cardObjs[i]->SetCardData(handCards[i]);
+    }
+}
+
+void BattleScene::SetWaitTurn(bool _isWait)
+{
+	m_waitTurn = _isWait;
+
+    for(CardObject* card : m_cardObjs)
+    {
+        card->SetActive(!m_waitTurn);
+	}
+    if (m_descriptionText)
+        m_descriptionText->SetActive(!m_waitTurn);
+    if (m_battleDescription) {
+	    m_battleDescription->SetActive(m_waitTurn);
     }
 }

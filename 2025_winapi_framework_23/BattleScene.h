@@ -4,7 +4,9 @@
 
 class CardObject;
 class CardData;
+class BattleDescription;
 class DescriptionText;
+class ActionData;
 class BattleScene : public Scene
 {
 public:
@@ -12,14 +14,19 @@ public:
     void Update() override;
 	void Render(HDC _hdc) override;
 	void Release() override;
+public:
+    void SetDes(ActionData* data);
     void SetCardData();
-
+    void SetWaitTurn(bool _isWait);
+   
 private:
 	void OnOffHand(bool _isOn);
     void SelectHand();
     UnitType AskTargetUnit(); // 윈도우 기본 대화상자(메시지박스)로 선택
 
 private:
+	BattleDescription* m_battleDescription = nullptr;
+    bool m_waitTurn = false;
 	DescriptionText* m_descriptionText = nullptr;
     vector<CardObject*> m_cardObjs;
     int      m_handIndex = 0;

@@ -8,6 +8,7 @@ public:
 	~UnitData();
 public:
 	CardData* GetCardRandom();
+	wstring GetName() const { return m_name; }
 	int GetMaxHp() const { return m_maxHp; }
 	int GetAtk() const { return m_atk; }
 	int GetDef() const { return m_def; }

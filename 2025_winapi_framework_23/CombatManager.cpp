@@ -4,7 +4,9 @@
 #include "ActionData.h"
 #include "CardData.h"
 #include "UnitObject.h"
-
+#include "SceneManager.h"
+#include "BattleScene.h"
+#include "BattleDescription.h"
 
 void CombatManager::Init()
 {
@@ -28,6 +30,25 @@ void CombatManager::Init()
 		m_units[i]->SetUnitData(GET_SINGLE(UnitManager)->GetUnitRandom());
 	}
 }
+void CombatManager::Update() {
+	if (m_isWait) {
+		m_timer += fDT;
+		if (m_timer >= m_delayTime) {
+			BattleScene* battleScene = GET_SINGLE(SceneManager)->GetBattleScene();
+
+			m_timer = 0;
+			battleScene->SetDes(m_actionList.front());
+			DamageUnit(m_actionList.front());
+
+			m_actionList.erase(m_actionList.begin());
+			if (m_actionList.size() <= 0) {
+				m_isWait = false;
+				battleScene->SetWaitTurn(false);
+
+			}
+		}
+	}
+}
 
 void CombatManager::Render(HDC _hdc)
 {
@@ -39,11 +60,20 @@ void CombatManager::Render(HDC _hdc)
 
 void CombatManager::EndTurn()
 {
+	BattleScene* battleScene = GET_SINGLE(SceneManager)->GetBattleScene();
+	battleScene->SetWaitTurn(true);
+
+	UnitObject* enemy = GetUnit(UnitType::ENEMY);
+	UnitObject* target = GetUnit(static_cast<UnitType>(rand() % 2)); // 플레이어 중 랜덤 선택
+	CardData* card = enemy->GetCardInHand(rand() % 4);
+	ActionData* enemyAction = new ActionData(enemy, target, card);
+	m_actionList.push_back(enemyAction);
+
+
 	sort(m_actionList.begin(), m_actionList.end(), ActionData::OrderPtr);
-	for (ActionData* data : m_actionList)
-	{
-		DamageUnit(data);
-	}
+
+	m_timer = m_delayTime/2;
+	m_isWait = true;
 }
 
 void CombatManager::AddAction(UnitType _target, int index)
@@ -60,8 +90,8 @@ void CombatManager::AddAction(UnitType _target, int index)
 
 	if (m_currentTurn == UnitType::ENEMY)
 	{
-		//AddAction(UnitType(rand()%2), rand() % 4);
 		EndTurn();
+		m_currentTurn = UnitType::PLAYER1;
 	}
 
 	for(auto unit : m_units)

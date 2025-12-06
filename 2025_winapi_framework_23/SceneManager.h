@@ -1,6 +1,7 @@
 #pragma once
 //class Scene;
 #include "Scene.h"
+class BattleScene;
 class SceneManager
 {
 	DECLARE_SINGLE(SceneManager);
@@ -17,6 +18,7 @@ public:
 			m_curScene->RequestDestroy(obj);
 	}
 public:
+	BattleScene* GetBattleScene();
 	void RegisterScene(const wstring& _name, std::shared_ptr<Scene> _scene);
 	void LoadScene(const wstring& _name);
 public:

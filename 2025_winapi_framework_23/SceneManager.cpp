@@ -50,6 +50,13 @@ void SceneManager::Render(HDC _hdc)
 	m_curScene->Render(_hdc);
 }
 
+BattleScene* SceneManager::GetBattleScene()
+{
+	if (m_curScene == nullptr)
+		return nullptr;
+	return dynamic_cast<BattleScene*>(m_curScene.get());
+}
+
 void SceneManager::RegisterScene(const wstring& _name, std::shared_ptr<Scene> _scene)
 {
 	if (_name.empty() || _scene == nullptr)
