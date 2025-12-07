@@ -11,7 +11,24 @@ public:
 	void Render(HDC _hdc);
 	void Update() override;
 public:
-	void SetAvailable(bool _isAvailable) { m_isAvailable = _isAvailable; }
+	void SetAvailable(bool _isAvailable) 
+	{
+		if (_isAvailable)
+		{
+			m_currentButton = m_buttons[0];
+			m_currentButton->m_buttonState = ButtonState::Selected;
+		}
+		else
+		{
+			m_currentStageIndex = 0;
+		}
+
+		m_isAvailable = _isAvailable;
+	}
+	bool GetAvailable() { return m_isAvailable; }
+	Button* GetCurrentButton() { return m_currentButton; }
+	vector<Button*> GetCurrentButtons() { return m_buttons; }
+
 	void SetButtons(const vector<Button*>& _buttons)
 	{
 		m_buttons = _buttons;

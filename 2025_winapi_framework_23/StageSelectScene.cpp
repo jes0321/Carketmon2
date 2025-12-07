@@ -11,6 +11,12 @@
 
 void StageSelectScene::Init()
 {
+	m_stages.clear();  
+	m_currentStage = nullptr;     
+	m_currentStageIndex = 0;
+	m_currentStageLength = 0;
+	m_currentSelectStageLength = 0;
+
 	GenerateStage();
 
 	GET_SINGLE(ResourceManager)->Play(L"BGM");
@@ -55,14 +61,14 @@ void StageSelectScene::Update()
 		{
 		case StageType::TreatmentCenter:
 			GET_SINGLE(SceneManager)->LoadScene(L"TreatmentCenterScene");
-			break;
+			return;
 		case StageType::Exchange:
 			GET_SINGLE(SceneManager)->LoadScene(L"ExchangeScene");
-			break;
+			return;
 		case StageType::Normal:
 		case StageType::Boss:
-			GET_SINGLE(SceneManager)->LoadScene(L"BattleScene");
-			break;
+			//GET_SINGLE(SceneManager)->LoadScene(L"BattleScene");
+			return;
 		}
 	}
 

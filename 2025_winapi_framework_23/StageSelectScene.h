@@ -60,7 +60,6 @@ private:
 	const int MinStageCount = 2;
 private:
 	vector<vector<Stage*>> m_stages;
-	vector<Stage*> m_beforeofNextStages;
 	Stage* m_currentStage = nullptr;
 	int m_currentStageLength = 0;
 	int m_currentSelectStageLength = 0;

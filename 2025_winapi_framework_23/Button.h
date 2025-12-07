@@ -1,5 +1,6 @@
 #pragma once
 #include "Object.h"
+#include "Texture.h"
 
 enum ButtonState
 {
@@ -17,6 +18,8 @@ public:
 public:
 	void Render(HDC _hdc);
 	void Update() override;
+public:
+	void SetTexture(Texture* _texture) { m_texture = _texture; }
 	void SetOnClick(std::function<void()> func, std::string message = "")
 	{
 		m_buttonText = message;
@@ -32,8 +35,9 @@ public:
 		}
 	}
 public:
-	std::function<void()> m_onClick;
 	ButtonState m_buttonState = ButtonState::Default;
+	Texture* m_texture = nullptr;
+	std::function<void()> m_onClick;
 	std::string m_buttonText = "Button Å¬¸¯";
 };
 
