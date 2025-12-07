@@ -14,10 +14,13 @@ public:
     void Update();
     void Render(HDC _hdc);
 
+public:
+	void SetUnitData(UnitType _type, UnitData* _data);
     void SetEnemy(UnitData* _data);
     void EndTurn();
     void AddAction(UnitType _target, int index);
     void CancelAction(UnitType _ownerType);
+	void HealAllUnits();
 
     UnitObject* GetUnit(UnitType type);
     vector<CardData*> GetHandCard();
@@ -30,7 +33,10 @@ private:
 	void HealUnit(ActionData* action);
 	void StatControl(ActionData* action);
 	void BuffTarget(ActionData* action);
+	void SetFocus(bool _isFocus, ActionData* action = nullptr);
 private:
+	bool m_isFocus = false;
+	UnitObject* m_focusUnit;
 	UnitType m_currentTurn;
 	bool m_isWait = false;
 	float m_delayTime = 3.f;

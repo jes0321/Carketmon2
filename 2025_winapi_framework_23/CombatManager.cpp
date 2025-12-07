@@ -26,6 +26,8 @@ void CombatManager::Init()
 	m_units[2]->SetSize(size * 4.2f);
 	m_units[2]->SetPos({ WINDOW_WIDTH - 250.f, (WINDOW_HEIGHT / 2.f) - 250.f });// Enemy
 	m_units[0]->SetSelect(true);
+
+
 	for (int i = 0; i < 2; ++i)
 	{
 		m_units[i]->SetUnitData(GET_SINGLE(UnitManager)->GetUnitRandom());
@@ -49,6 +51,7 @@ void CombatManager::Update() {
 					m_units[i]->SetPowerup(false);
 					m_units[i]->SetSheilded(false);
 				}
+				SetFocus(false);
 				return;
 			}
 			m_timer = 0;
@@ -64,6 +67,7 @@ void CombatManager::Update() {
 			case CardEffectType::Shield:
 				action->GetTargetUnit()->SetSheilded(true);
 				break;
+			case CardEffectType::Focus: SetFocus(true, action); break;
 			case CardEffectType::AoE: DamageUnit(action); break;
 			}
 			action->UseCard();
@@ -78,6 +82,11 @@ void CombatManager::Render(HDC _hdc)
 	{
 		unit->Render(_hdc);
 	}
+}
+
+void CombatManager::SetUnitData(UnitType _type, UnitData* _data)
+{
+	GetUnit(_type)->SetUnitData(_data);
 }
 
 void CombatManager::SetEnemy(UnitData* _data)
@@ -109,7 +118,7 @@ void CombatManager::AddAction(UnitType _target, int index)
 
 	CardData* card = current->GetCardInHand(index);
 
-	ActionData* newAction = new ActionData(current, target, card,index);
+	ActionData* newAction = new ActionData(current, target, card, index);
 	m_actionList.push_back(newAction);
 
 	m_currentTurn = UnitType(((UINT)(m_currentTurn)) + 1);
@@ -139,6 +148,14 @@ void CombatManager::CancelAction(UnitType _ownerType)
 	}
 }
 
+void CombatManager::HealAllUnits()
+{
+	for (auto unit : m_units)
+	{
+		unit->Heal(9999,false);
+	}
+}
+
 UnitObject* CombatManager::GetUnit(UnitType type)
 {
 	return m_units[static_cast<int>(type)];
@@ -155,17 +172,22 @@ void CombatManager::EnemyTurn()
 	int idx = rand() % 4;
 	CardData* card = enemy->GetCardInHand(idx);
 	CardEffectType effectType = card->GetCardEffect();
-	if (effectType == CardEffectType::AoE) {
-		for (int i = 0; i < 2; ++i) {
-			m_actionList.push_back(new ActionData(enemy, m_units[i], card, idx));
+	while (true) {
+		if (effectType == CardEffectType::AoE) {
+			for (int i = 0; i < 2; ++i) {
+				m_actionList.push_back(new ActionData(enemy, m_units[i], card, idx));
+			}
+			break;
 		}
-	}
-	else if(effectType== CardEffectType::Heal || effectType== CardEffectType::StatBuff || effectType== CardEffectType::Shield) {
-		m_actionList.push_back(new ActionData(enemy, enemy, card, idx));
-	}
-	else {
-		UnitObject* target = m_units[rand() % 2];
-		m_actionList.push_back(new ActionData(enemy, target, card, idx));
+		else if (effectType == CardEffectType::Heal || effectType == CardEffectType::StatBuff || effectType == CardEffectType::Shield) {
+			m_actionList.push_back(new ActionData(enemy, enemy, card, idx));
+			break;
+		}
+		else if (effectType == CardEffectType::Damage || effectType == CardEffectType::StatDebuff) {
+			UnitObject* target = m_units[rand() % 2];
+			m_actionList.push_back(new ActionData(enemy, target, card, idx));
+			break;
+		}
 	}
 }
 
@@ -173,6 +195,9 @@ void CombatManager::DamageUnit(ActionData* action)
 {
 	UnitObject* targetUnit = action->GetTargetUnit();
 	UnitObject* ownerUnit = action->GetOwnerUnit();
+	if (ownerUnit == GetUnit(UnitType::ENEMY) && m_isFocus) {
+		targetUnit = m_focusUnit;
+	}
 
 	int dmg = (ownerUnit->GetStat(StatType::Attack)) * 0.7f;
 	dmg += action->GetCardObject()->GetEffectValue();
@@ -201,4 +226,15 @@ void CombatManager::BuffTarget(ActionData* action)
 {
 	UnitObject* targetUnit = action->GetTargetUnit();
 	targetUnit->SetPowerup(true);
+}
+
+void CombatManager::SetFocus(bool _isFocus, ActionData* action)
+{
+	m_isFocus = _isFocus;
+	if (_isFocus) {
+		m_focusUnit = action->GetOwnerUnit();
+	}
+	else {
+		m_focusUnit = nullptr;
+	}
 }

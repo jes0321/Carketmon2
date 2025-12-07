@@ -93,7 +93,7 @@ void UnitObject::Damage(int dmg, ElementType _type, bool _isPowerup)
 	}
 }
 
-void UnitObject::Heal(int heal)
+void UnitObject::Heal(int heal,bool _floating)
 {
 	m_currentHp += heal;
 	if (m_currentHp > m_unitData->GetMaxHp())
@@ -102,6 +102,7 @@ void UnitObject::Heal(int heal)
 	if (m_healthBar)
 		m_healthBar->SetValue(m_currentHp, m_unitData ? m_unitData->GetMaxHp() : 0);
 	// 힐 플로팅 생성
+	if (_floating == false) return;
 	if (auto scene = GET_SINGLE(SceneManager)->GetCurScene())
 	{
 		Vec2 pos = GetPos();

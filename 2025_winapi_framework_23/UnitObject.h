@@ -14,7 +14,7 @@ public:
 	void SetBuffStat(StatType _type, int _value);
 	void UseCard(int index);
 	void Damage(int dmg,ElementType _type, bool _isPowerup);
-	void Heal(int heal);
+	void Heal(int heal,bool _floating=true);
 	void SetSelect(bool isSelect) { m_isSelect = isSelect; }
 	void SetPowerup(bool isPowerup) { m_isPowerup = isPowerup; }
 	void SetSheilded(bool isSheilded) { m_isSheilded = isSheilded; }
