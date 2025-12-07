@@ -151,8 +151,8 @@ void BattleScene::Update()
 
 void BattleScene::Render(HDC _hdc)
 {
-	Scene::Render(_hdc);
 	GET_SINGLE(CombatManager)->Render(_hdc);
+	Scene::Render(_hdc);
 }
 
 void BattleScene::Release()

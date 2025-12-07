@@ -26,7 +26,7 @@ void CombatManager::Init()
 	m_units[2]->SetSize(size * 4.2f);
 	m_units[2]->SetPos({ WINDOW_WIDTH - 250.f, (WINDOW_HEIGHT / 2.f) - 250.f });// Enemy
 	m_units[0]->SetSelect(true);
-	for (int i = 0; i < m_units.size(); ++i)
+	for (int i = 0; i < 2; ++i)
 	{
 		m_units[i]->SetUnitData(GET_SINGLE(UnitManager)->GetUnitRandom());
 	}
