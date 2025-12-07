@@ -6,6 +6,8 @@
 #include "ExchangeScene.h"
 #include "TreatmentCenterScene.h"
 #include "BattleScene.h"
+#include "TitleScene.h"
+#include "StartScene.h"
 void SceneManager::PhysicsSyncColliders()
 {
 	for (UINT i = 0; i < (UINT)Layer::END; ++i)
@@ -28,7 +30,9 @@ void SceneManager::Init()
 	RegisterScene(L"TreatmentCenterScene", std::make_shared<TreatmentCenterScene>());
 	RegisterScene(L"ExchangeScene", std::make_shared<ExchangeScene>());
 	RegisterScene(L"BattleScene", std::make_shared<BattleScene>());
-	LoadScene(L"StageSelectScene");
+	RegisterScene(L"TitleScene", std::make_shared<TitleScene>());
+	RegisterScene(L"StartScene", std::make_shared<StartScene>());
+	LoadScene(L"TitleScene");
 	// MenuScene 등록
 }
 void SceneManager::Update()

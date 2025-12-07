@@ -175,6 +175,8 @@
     <ClInclude Include="StageManager.h" />
     <ClInclude Include="UnitInfoObj.h" />
     <ClInclude Include="DeckUIObj.h" />
+    <ClInclude Include="StartScene.h" />
+    <ClInclude Include="TitleScene.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2025_winapi_framework_23.rc">
@@ -292,5 +294,7 @@
     <ClCompile Include="StageManager.cpp" />
     <ClCompile Include="UnitInfoObj.cpp" />
     <ClCompile Include="DeckUIObj.cpp" />
+    <ClCompile Include="StartScene.cpp" />
+    <ClCompile Include="TitleScene.cpp" />
   </ItemGroup>
 </Project>
