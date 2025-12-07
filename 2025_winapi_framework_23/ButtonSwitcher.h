@@ -20,7 +20,9 @@ public:
 	}
 	void Render(HDC _hdc);
 	void Update() override;
+	void OnOffInput(bool _isOn);
 private:
+	bool m_isOn = true;
 	vector<Button*> m_buttons;
 	Button* m_currentButton = nullptr;
 	int m_currentStageIndex = 0;

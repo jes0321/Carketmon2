@@ -170,7 +170,7 @@ void CombatManager::HealUnit(UnitType _type)
 
 UnitObject* CombatManager::GetUnit(UnitType type)
 {
-	return m_units[static_cast<int>(type)];
+	return m_units[(UINT)(type)];
 }
 
 vector<CardData*> CombatManager::GetHandCard()

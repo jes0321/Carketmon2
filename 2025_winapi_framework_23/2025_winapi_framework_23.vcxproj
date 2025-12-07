@@ -194,9 +194,11 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="StageManager.h" />
+    <ClInclude Include="StartScene.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TimeManager.h" />
+    <ClInclude Include="TitleScene.h" />
     <ClInclude Include="UnitData.h" />
     <ClInclude Include="UnitInfoObj.h" />
     <ClInclude Include="UnitManager.h" />
@@ -234,8 +236,10 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="StageManager.cpp" />
+    <ClCompile Include="StartScene.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TimeManager.cpp" />
+    <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="UnitData.cpp" />
     <ClCompile Include="UnitInfoObj.cpp" />
     <ClCompile Include="UnitManager.cpp" />

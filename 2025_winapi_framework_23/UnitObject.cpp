@@ -18,7 +18,6 @@ void UnitObject::SetUnitData(UnitData* _data)
 
     Vec2 pos = GetPos();
     Vec2 size = GetSize();
-
     // 헬스바 사이즈 전반적으로 확대 (폭 100%, 높이 18)
     InitHealthBar(pos, size);
     InitStats();
