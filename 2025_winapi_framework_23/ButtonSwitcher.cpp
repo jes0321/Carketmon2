@@ -17,6 +17,12 @@ void ButtonSwitcher::Render(HDC _hdc)
 }
 void ButtonSwitcher::Update()
 {
+    if (m_isAvailable == false)
+    {
+        for (int i = 0; i < m_buttons.size(); i++)
+            m_buttons[i]->m_buttonState = ButtonState::Default;
+    }
+
     if (!m_isAvailable) return;
     if (m_buttons.empty()) { m_currentButton = nullptr; return; }
 
@@ -42,6 +48,8 @@ void ButtonSwitcher::Update()
         if (!m_currentButton) return;
 
         m_currentButton->m_buttonState = ButtonState::Selected;
+
+        return;
     }
 
     if (GET_KEYUP(KEY_TYPE::DOWN) || GET_KEYUP(KEY_TYPE::S)) {
