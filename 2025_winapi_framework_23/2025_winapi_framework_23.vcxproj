@@ -199,6 +199,7 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TimeManager.h" />
+    <ClInclude Include="TitleScene.h" />
     <ClInclude Include="TreatmentCenterScene.h" />
     <ClInclude Include="UnitData.h" />
     <ClInclude Include="UnitInfoObj.h" />
@@ -241,6 +242,7 @@
     <ClCompile Include="StartScene.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TimeManager.cpp" />
+    <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="TreatmentCenterScene.cpp" />
     <ClCompile Include="UnitData.cpp" />
     <ClCompile Include="UnitInfoObj.cpp" />

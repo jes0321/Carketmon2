@@ -50,7 +50,3 @@ void ButtonSwitcher::Update()
 	}
 }
 
-void ButtonSwitcher::OnOffInput(bool _isOn)
-{
-	m_isOn = _isOn;
-}

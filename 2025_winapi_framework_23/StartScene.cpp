@@ -20,7 +20,7 @@ void StartScene::Init()
     LoadUnitsFromTxt(L"Texture\\UnitList.txt");
 
     m_btnManager = new ButtonSwitcher;
-    m_btnManager->OnOffInput(false);
+    m_btnManager->SetAvailable(false);
     AddObject(m_btnManager, Layer::UI);
 
     vector<Button*> buttons;
@@ -46,7 +46,6 @@ void StartScene::Init()
                 // 선택 2개 검증
                 if (m_selectVec.size() < 2 || !m_selectVec[0] || !m_selectVec[1]) {
                     SetSelectionEnabled(true);
-                    m_btnManager->OnOffInput(false);
                     return;
                 }
                 GET_SINGLE(CombatManager)->SetUnitData(UnitType::PLAYER1, m_selectVec[0]);
@@ -252,5 +251,5 @@ void StartScene::Release()
 void StartScene::SetSelectionEnabled(bool enabled)
 {
     m_isSelectionEnabled = enabled;
-    m_btnManager->OnOffInput(!enabled);
+    m_btnManager->SetAvailable(!enabled);
 }
