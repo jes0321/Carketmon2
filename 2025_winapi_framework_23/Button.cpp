@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "Button.h"
+#include "ResourceManager.h"
 
 Button::Button()
 {
@@ -24,8 +25,6 @@ void Button::Render(HDC _hdc)
 	case Selected:
 		color = RGB(200, 200, 200);
 		break;
-	default:
-		break;
 	}
 
 	HBRUSH hbrush = ::CreateSolidBrush(color);
@@ -37,6 +36,19 @@ void Button::Render(HDC _hdc)
 
 	::SelectObject(_hdc, holdbrush);
 	::DeleteObject(hbrush);
+
+	if (m_texture == nullptr) return;
+
+	LONG width = m_texture->GetWidth();
+	LONG height = m_texture->GetHeight();
+
+	::TransparentBlt(_hdc
+		, (int)(pos.x - size.x / 2)
+		, (int)(pos.y - size.y / 2)
+		, (int)size.x
+		, (int)size.y
+		, m_texture->GetTextureDC()
+		, 0, 0, width, height, RGB(255, 0, 255));
 }
 
 void Button::Update()

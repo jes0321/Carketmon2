@@ -13,12 +13,26 @@ ButtonSwitcher::~ButtonSwitcher()
 
 void ButtonSwitcher::Render(HDC _hdc)
 {
-
+	for (int i = 0; i < m_buttons.size(); i++)
+	{
+		m_buttons[i]->Render(_hdc);
+	}
 }
 
 void ButtonSwitcher::Update()
 {
+	if (m_isAvailable == false)
+	{
+		for (int i = 0; i < m_buttons.size(); i++)
+			m_buttons[i]->m_buttonState = ButtonState::Default;
+	}
+
 	if (m_isAvailable == false || m_currentButton == nullptr) return;
+
+	for (int i = 0; i < m_buttons.size(); i++)
+	{
+		m_buttons[i]->Update();
+	}
 
 	if (GET_KEYDOWN(KEY_TYPE::E))
 	{
@@ -26,8 +40,8 @@ void ButtonSwitcher::Update()
 	}
 	else if (GET_KEYUP(KEY_TYPE::E))
 	{
-		m_buttons[m_currentStageIndex]->Click();
 		m_buttons[m_currentStageIndex]->m_buttonState = ButtonState::Selected;
+		m_buttons[m_currentStageIndex]->Click();
 	}
 
 	if (GET_KEYUP(KEY_TYPE::DOWN) || GET_KEYUP(KEY_TYPE::S))

@@ -61,7 +61,7 @@ void StageSelectScene::Update()
 			break;
 		case StageType::Normal:
 		case StageType::Boss:
-			GET_SINGLE(SceneManager)->LoadScene(L"BattleScene");
+			//GET_SINGLE(SceneManager)->LoadScene(L"BattleScene");
 			break;
 		}
 	}
