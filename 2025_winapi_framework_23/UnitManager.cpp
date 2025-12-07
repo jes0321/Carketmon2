@@ -15,23 +15,38 @@ void UnitManager::Init()
 
 	data->SetCard(cardManager->GetCard(L"파이어볼"),5);
 	data->SetCard(cardManager->GetCard(L"화염방사"),3);
+	data->SetCard(cardManager->GetCard(L"서핑"), 5);
+	data->SetCard(cardManager->GetCard(L"물대포"), 3);
+	data->SetCard(cardManager->GetCard(L"물수리검"), 2);
 
 	data = RegisterUnit(L"파이츄", L"Fire_Rat", 50,18,5,16,ElementType::Fire);
 
 	data->SetCard(cardManager->GetCard(L"파이어볼"), 3);
 	data->SetCard(cardManager->GetCard(L"화염방사"), 5);
+	data->SetCard(cardManager->GetCard(L"서핑"), 5);
+	data->SetCard(cardManager->GetCard(L"물대포"), 3);
+	data->SetCard(cardManager->GetCard(L"물수리검"), 2);
 
 	data = RegisterUnit(L"물꼬부기", L"Water_FishFox", 80,12,16,7,ElementType::Water);
+	
+	data->SetCard(cardManager->GetCard(L"파이어볼"), 3);
+	data->SetCard(cardManager->GetCard(L"화염방사"), 5);
 	data->SetCard(cardManager->GetCard(L"서핑"), 5);
 	data->SetCard(cardManager->GetCard(L"물대포"), 3);
 	data->SetCard(cardManager->GetCard(L"물수리검"), 2);
 
 	data = RegisterUnit(L"잉어킹", L"Water_FishKing", 45,10,4,8,ElementType::Water);
+
+	data->SetCard(cardManager->GetCard(L"파이어볼"), 3);
+	data->SetCard(cardManager->GetCard(L"화염방사"), 5);
 	data->SetCard(cardManager->GetCard(L"서핑"), 3);
 	data->SetCard(cardManager->GetCard(L"물수리검"), 5);
 	data->SetCard(cardManager->GetCard(L"물대포"), 3);
 
 	data = RegisterUnit(L"문어소녀", L"Water_SquidGirl", 55,12,10,10, ElementType::Water);
+
+	data->SetCard(cardManager->GetCard(L"파이어볼"), 3);
+	data->SetCard(cardManager->GetCard(L"화염방사"), 5);
 	data->SetCard(cardManager->GetCard(L"서핑"), 4);
 	data->SetCard(cardManager->GetCard(L"물수리검"), 3);
 	data->SetCard(cardManager->GetCard(L"물대포"), 4);

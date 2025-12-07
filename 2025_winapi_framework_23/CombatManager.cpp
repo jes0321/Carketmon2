@@ -43,7 +43,8 @@ void CombatManager::Update() {
 			if (m_actionList.size() <= 0) {
 				m_isWait = false;
 				battleScene->SetWaitTurn(false);
-				for (int i = 0; i < m_units.size() - 1; ++i)
+				battleScene->SetCardData();
+				for (int i = 0; i < m_units.size(); ++i)
 				{
 					m_units[i]->SetPowerup(false);
 					m_units[i]->SetSheilded(false);
@@ -65,7 +66,7 @@ void CombatManager::Update() {
 				break;
 			case CardEffectType::AoE: DamageUnit(action); break;
 			}
-
+			action->UseCard();
 			m_actionList.erase(m_actionList.begin());
 		}
 	}
@@ -108,7 +109,7 @@ void CombatManager::AddAction(UnitType _target, int index)
 
 	CardData* card = current->GetCardInHand(index);
 
-	ActionData* newAction = new ActionData(current, target, card);
+	ActionData* newAction = new ActionData(current, target, card,index);
 	m_actionList.push_back(newAction);
 
 	m_currentTurn = UnitType(((UINT)(m_currentTurn)) + 1);
@@ -151,19 +152,20 @@ vector<CardData*> CombatManager::GetHandCard()
 void CombatManager::EnemyTurn()
 {
 	UnitObject* enemy = GetUnit(UnitType::ENEMY);
-	CardData* card = enemy->GetCardInHand(rand() % 4);
+	int idx = rand() % 4;
+	CardData* card = enemy->GetCardInHand(idx);
 	CardEffectType effectType = card->GetCardEffect();
 	if (effectType == CardEffectType::AoE) {
 		for (int i = 0; i < 2; ++i) {
-			m_actionList.push_back(new ActionData(enemy, m_units[i], card));
+			m_actionList.push_back(new ActionData(enemy, m_units[i], card, idx));
 		}
 	}
 	else if(effectType== CardEffectType::Heal || effectType== CardEffectType::StatBuff || effectType== CardEffectType::Shield) {
-		m_actionList.push_back(new ActionData(enemy, enemy, card));
+		m_actionList.push_back(new ActionData(enemy, enemy, card, idx));
 	}
 	else {
 		UnitObject* target = m_units[rand() % 2];
-		m_actionList.push_back(new ActionData(enemy, target, card));
+		m_actionList.push_back(new ActionData(enemy, target, card, idx));
 	}
 }
 

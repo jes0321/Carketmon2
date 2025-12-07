@@ -42,6 +42,7 @@ void UnitObject::SetBuffStat(StatType _type, int _value)
 	m_statData->UpgradeStat(_type, _value);
 }
 void UnitObject::UseCard(int index) {
+	m_handCards.erase(m_handCards.begin() + index);
 	m_handCards.push_back(m_unitData->GetCardRandom());
 	m_unitData->UseCard(index);
 }
