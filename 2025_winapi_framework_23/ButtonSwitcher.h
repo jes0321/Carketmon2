@@ -8,6 +8,10 @@ public:
 	ButtonSwitcher();
 	~ButtonSwitcher();
 public:
+	void Render(HDC _hdc);
+	void Update() override;
+public:
+	void SetAvailable(bool _isAvailable) { m_isAvailable = _isAvailable; }
 	void SetButtons(const vector<Button*>& _buttons)
 	{
 		m_buttons = _buttons;
@@ -18,11 +22,10 @@ public:
 			m_currentButton->m_buttonState = ButtonState::Selected;
 		}
 	}
-	void Render(HDC _hdc);
-	void Update() override;
 private:
 	vector<Button*> m_buttons;
 	Button* m_currentButton = nullptr;
 	int m_currentStageIndex = 0;
+	bool m_isAvailable = true;
 };
 

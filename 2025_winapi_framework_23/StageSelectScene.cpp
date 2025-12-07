@@ -6,6 +6,7 @@
 #include "ResourceManager.h"
 #include "CombatManager.h"
 #include "Stage.h"
+#include "UnitObject.h"
 #include "UnitManager.h"
 
 void StageSelectScene::Init()
@@ -20,9 +21,11 @@ void StageSelectScene::Update()
 	Scene::Update();
 
 	//StageDebugLog();
+	//cout << (int)(m_currentStage->GetUnitData()->GetElementType());
 
 	if (GET_KEYDOWN(KEY_TYPE::ENTER) && m_currentStage->IsAvailable == true)
 	{
+		StageType stageType = m_currentStage->GetStageType();
 		m_currentStage->IsCompelet = true;
 		m_currentStageLength = m_currentSelectStageLength;
 		MoveStage();
@@ -47,7 +50,20 @@ void StageSelectScene::Update()
 
 		MoveStage();
 		GET_SINGLE(CombatManager)->SetEnemy(m_currentStage->GetUnitData());
-		GET_SINGLE(SceneManager)->LoadScene(L"BattleScene");
+
+		switch (stageType)
+		{
+		case StageType::TreatmentCenter:
+			GET_SINGLE(SceneManager)->LoadScene(L"TreatmentCenterScene");
+			break;
+		case StageType::Exchange:
+			GET_SINGLE(SceneManager)->LoadScene(L"ExchangeScene");
+			break;
+		case StageType::Normal:
+		case StageType::Boss:
+			GET_SINGLE(SceneManager)->LoadScene(L"BattleScene");
+			break;
+		}
 	}
 
 	if (GET_KEYUP(KEY_TYPE::UP) || GET_KEYUP(KEY_TYPE::W))

@@ -18,7 +18,7 @@ void ButtonSwitcher::Render(HDC _hdc)
 
 void ButtonSwitcher::Update()
 {
-	if (m_currentButton == nullptr) return;
+	if (m_isAvailable == false || m_currentButton == nullptr) return;
 
 	if (GET_KEYDOWN(KEY_TYPE::E))
 	{

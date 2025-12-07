@@ -11,6 +11,7 @@ Stage::Stage(int _stageNum, int _stageRowIndex, int _stageLengthIndex,
 	m_stageRowIndex = _stageRowIndex;
 	m_stageLengthIndex = _stageLengthIndex;
 	m_stageType = _stageType;
+
 	m_unitData = GET_SINGLE(UnitManager)->UnitManager::GetUnitRandom();
 }
 
@@ -93,6 +94,7 @@ void Stage::Render(HDC _hdc)
 	}
 
 	Texture* tex =  GET_SINGLE(ResourceManager)->GetTexture(_texName);
+	tex = m_unitData->GetTexture();
 	LONG width = tex->GetWidth();
 	LONG height = tex->GetHeight();
 
