@@ -6,6 +6,7 @@ class CardData;
 class UnitData;
 class BattleDescription;
 
+class BattleScene;
 class CombatManager
 {
 	DECLARE_SINGLE(CombatManager);
@@ -20,7 +21,7 @@ public:
     void EndTurn();
     void AddAction(UnitType _target, int index);
     void CancelAction(UnitType _ownerType);
-	void HealAllUnits();
+	void HealUnit(UnitType _type);
 
     UnitObject* GetUnit(UnitType type);
     vector<CardData*> GetHandCard();
@@ -28,6 +29,7 @@ public:
 
 private:
 	void EnemyTurn();
+	void EndActions(BattleScene* battleScene);
 
     void DamageUnit(ActionData* action);
 	void HealUnit(ActionData* action);
@@ -44,5 +46,6 @@ private:
 	float m_timer = 0;
 	vector<ActionData*> m_actionList;
 	vector<UnitObject*> m_units;
+	vector<UnitObject*> m_deadUnits;
 };
 

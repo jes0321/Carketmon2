@@ -11,7 +11,7 @@ enum class Layer
 };
 enum class PenType
 {
-	RED, GREEN, END
+	RED, GREEN, YELLOW,END
 };
 enum class BrushType
 {

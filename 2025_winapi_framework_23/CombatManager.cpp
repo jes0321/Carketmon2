@@ -43,15 +43,7 @@ void CombatManager::Update() {
 		if (m_timer >= m_delayTime) {
 			BattleScene* battleScene = GET_SINGLE(SceneManager)->GetBattleScene();
 			if (m_actionList.size() <= 0) {
-				m_isWait = false;
-				battleScene->SetWaitTurn(false);
-				battleScene->SetCardData();
-				for (int i = 0; i < m_units.size(); ++i)
-				{
-					m_units[i]->SetPowerup(false);
-					m_units[i]->SetSheilded(false);
-				}
-				SetFocus(false);
+				EndActions(battleScene);
 				return;
 			}
 			m_timer = 0;
@@ -74,6 +66,24 @@ void CombatManager::Update() {
 			m_actionList.erase(m_actionList.begin());
 		}
 	}
+}
+
+void CombatManager::EndActions(BattleScene* battleScene)
+{
+	m_isWait = false;
+	battleScene->SetWaitTurn(false);
+	battleScene->SetCardData();
+	for (int i = 0; i < m_units.size(); ++i) {
+		m_units[i]->SetPowerup(false);
+		m_units[i]->SetSheilded(false);
+	}
+	SetFocus(false);
+
+	for (auto unit : m_deadUnits) {
+		unit->Heal(9999, false);  // HP만 채우고
+		unit->StartRevive();      // 리바이브 연출 시작
+	}
+	m_deadUnits.clear();
 }
 
 void CombatManager::Render(HDC _hdc)
@@ -148,13 +158,11 @@ void CombatManager::CancelAction(UnitType _ownerType)
 	}
 }
 
-void CombatManager::HealAllUnits()
+void CombatManager::HealUnit(UnitType _type)
 {
-	for (auto unit : m_units)
-	{
-		unit->Heal(9999,false);
-	}
+	GetUnit(_type)->Heal(9999, false);
 }
+
 
 UnitObject* CombatManager::GetUnit(UnitType type)
 {
@@ -202,7 +210,23 @@ void CombatManager::DamageUnit(ActionData* action)
 	int dmg = (ownerUnit->GetStat(StatType::Attack)) * 0.7f;
 	dmg += action->GetCardObject()->GetEffectValue();
 
-	targetUnit->Damage(dmg, ownerUnit->GetUnitData()->GetElementType(), targetUnit->IsPowerup());
+	bool isDead = targetUnit->Damage(dmg, ownerUnit->GetUnitData()->GetElementType(), targetUnit->IsPowerup());
+	if (isDead) {
+		bool targetIsEnemy = targetUnit == GetUnit(UnitType::ENEMY);
+		if (targetIsEnemy) {
+			//스테이지 성공 처리 해야함
+		}
+		else {
+			--m_lifeCount;
+			if (m_lifeCount <= 0) {
+				//여기 게임 오버 처리 해야함
+			}
+			else {
+				m_deadUnits.push_back(targetUnit);
+			}
+		}
+
+	}
 }
 
 void CombatManager::HealUnit(ActionData* action)
