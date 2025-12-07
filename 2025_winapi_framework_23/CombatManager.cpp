@@ -32,6 +32,10 @@ void CombatManager::Init()
 	}
 }
 void CombatManager::Update() {
+	for (int i = 0; i < m_units.size(); ++i)
+	{
+		m_units[i]->Update();
+	}
 	if (m_isWait) {
 		m_timer += fDT;
 		if (m_timer >= m_delayTime) {
@@ -39,9 +43,10 @@ void CombatManager::Update() {
 			if (m_actionList.size() <= 0) {
 				m_isWait = false;
 				battleScene->SetWaitTurn(false);
-				for(int i=0;i<m_units.size()-1;++i)
+				for (int i = 0; i < m_units.size() - 1; ++i)
 				{
 					m_units[i]->SetPowerup(false);
+					m_units[i]->SetSheilded(false);
 				}
 				return;
 			}
@@ -55,8 +60,10 @@ void CombatManager::Update() {
 			case CardEffectType::StatBuff: StatControl(action); break;
 			case CardEffectType::StatDebuff: StatControl(action); break;
 			case CardEffectType::Buff: BuffTarget(action); break;
-			default:
+			case CardEffectType::Shield:
+				action->GetTargetUnit()->SetSheilded(true);
 				break;
+			case CardEffectType::AoE: DamageUnit(action); break;
 			}
 
 			m_actionList.erase(m_actionList.begin());
@@ -82,12 +89,7 @@ void CombatManager::EndTurn()
 	BattleScene* battleScene = GET_SINGLE(SceneManager)->GetBattleScene();
 	battleScene->SetWaitTurn(true);
 
-	UnitObject* enemy = GetUnit(UnitType::ENEMY);
-	UnitObject* target = GetUnit(static_cast<UnitType>(rand() % 2)); // 플레이어 중 랜덤 선택
-	CardData* card = enemy->GetCardInHand(rand() % 4);
-	ActionData* enemyAction = new ActionData(enemy, target, card);
-	m_actionList.push_back(enemyAction);
-
+	EnemyTurn();
 
 	sort(m_actionList.begin(), m_actionList.end(), ActionData::OrderPtr);
 
@@ -146,6 +148,25 @@ vector<CardData*> CombatManager::GetHandCard()
 	return m_units[static_cast<int>(m_currentTurn)]->GetHandCards();
 }
 
+void CombatManager::EnemyTurn()
+{
+	UnitObject* enemy = GetUnit(UnitType::ENEMY);
+	CardData* card = enemy->GetCardInHand(rand() % 4);
+	CardEffectType effectType = card->GetCardEffect();
+	if (effectType == CardEffectType::AoE) {
+		for (int i = 0; i < 2; ++i) {
+			m_actionList.push_back(new ActionData(enemy, m_units[i], card));
+		}
+	}
+	else if(effectType== CardEffectType::Heal || effectType== CardEffectType::StatBuff || effectType== CardEffectType::Shield) {
+		m_actionList.push_back(new ActionData(enemy, enemy, card));
+	}
+	else {
+		UnitObject* target = m_units[rand() % 2];
+		m_actionList.push_back(new ActionData(enemy, target, card));
+	}
+}
+
 void CombatManager::DamageUnit(ActionData* action)
 {
 	UnitObject* targetUnit = action->GetTargetUnit();
@@ -154,7 +175,7 @@ void CombatManager::DamageUnit(ActionData* action)
 	int dmg = (ownerUnit->GetStat(StatType::Attack)) * 0.7f;
 	dmg += action->GetCardObject()->GetEffectValue();
 
-	targetUnit->Damage(dmg, ownerUnit->GetUnitData()->GetElementType(),targetUnit->IsPowerup());
+	targetUnit->Damage(dmg, ownerUnit->GetUnitData()->GetElementType(), targetUnit->IsPowerup());
 }
 
 void CombatManager::HealUnit(ActionData* action)

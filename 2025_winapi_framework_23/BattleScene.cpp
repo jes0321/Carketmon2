@@ -210,13 +210,16 @@ void BattleScene::SelectHand()
 	{
 		if (m_waitTurn) return;
 		UnitType target = UnitType::SELF;
-		if (m_cardObjs[m_handIndex]->GetCardData()->GetCardEffect() != CardEffectType::StatBuff) {
+		CardEffectType effectType = m_cardObjs[m_handIndex]->GetCardData()->GetCardEffect();
+		if (effectType != CardEffectType::StatBuff&& effectType!=CardEffectType::Shield) {
 			target = AskTargetUnit();
 		}
 		GET_SINGLE(CombatManager)->AddAction(target, m_handIndex);
 		SetCardData();
 	}
 }
+
+
 
 UnitType BattleScene::AskTargetUnit()
 {

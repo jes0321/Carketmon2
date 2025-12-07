@@ -9,11 +9,11 @@ void CardManager::Init()
 	RegisterCard(L"파이어볼",L"Fireball",
 		ElementType::Fire, CardEffectType::Heal, 30);
 	RegisterCard(L"화염방사", L"Flamethrower",
-		ElementType::Fire, CardEffectType::Damage, 20);
+		ElementType::Fire, CardEffectType::Damage,20);
 	RegisterCard(L"서핑",  L"WaterSurfing",
 		ElementType::Water, CardEffectType::Heal, 20);
 	RegisterCard(L"물대포", L"WaterCannon",
-		ElementType::Water, CardEffectType::StatBuff, 2,1,StatType::Attack);
+		ElementType::Water, CardEffectType::Damage, 20);
 	RegisterCard(L"물수리검", L"WaterShuriken",
 		ElementType::Water, CardEffectType::Damage, 20);
 }

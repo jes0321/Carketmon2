@@ -51,6 +51,7 @@ wstring CardData::ToEffectDesc()
 	case CardEffectType::Buff:     return L"대상의 이번 턴 데미지를 증가시킵니다.";
 	case CardEffectType::AoE:      return L"두명의 적을 공격합니다.";
 	case CardEffectType::Shield:   return L"공격을 방어합니다.";
+	case CardEffectType::Focus:    return L"모든 공격이 나를 향해 옵니다.";
 	default:                       return L"효과 설명 없음.";
 	}
 }

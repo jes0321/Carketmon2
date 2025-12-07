@@ -33,7 +33,7 @@ enum class CardEffectType {
 	Buff,
 	AoE,
 	Shield,
-	SelfHeal,
+	Focus,
 };
 enum class CardValueType {
 	IntValue,

@@ -49,7 +49,6 @@ void UnitObject::UseCard(int index) {
 void UnitObject::Damage(int dmg, ElementType _type, bool _isPowerup)
 {
 	int Dmg = dmg - (m_statData->GetStat(StatType::Defense) * 0.4f);
-
 	if (IsStrongAgainst(_type))
 	{
 		Dmg *= 2;
@@ -62,13 +61,25 @@ void UnitObject::Damage(int dmg, ElementType _type, bool _isPowerup)
 	{
 		Dmg *= 1.5f;
 	}
+	if (m_isSheilded)
+	{
+		Dmg = 0;
+	}
+	else {
+		m_isBlinking     = true;
+		m_isBlinkVisible = false;   // 첫 토글은 숨김
+		m_blinkRemain    = 0.4f;    // 총 400ms = 0.4초
+		m_blinkAccum     = 0.f;     // 누적 초기화
+	}
 	m_currentHp -= Dmg;
 	if (m_currentHp < 0)
 		m_currentHp = 0;
 
+
 	// 체력바 값 갱신 (UnitObject가 보관한 포인터에 직접 세팅)
-	if (m_healthBar)
-		m_healthBar->SetValue(m_currentHp, m_unitData ? m_unitData->GetMaxHp() : 0);
+	if (m_healthBar && m_unitData) {
+		m_healthBar->SetValue(m_currentHp, m_unitData->GetMaxHp());
+	}
 
 	// 데미지 플로팅 생성
 	if (auto scene = GET_SINGLE(SceneManager)->GetCurScene())
@@ -145,13 +156,16 @@ void UnitObject::Render(HDC _hdc)
 	LONG width = tex->GetWidth();
 	LONG height = tex->GetHeight();
 
-	::TransparentBlt(_hdc
-		, (int)(pos.x - size.x / 2)
-		, (int)(pos.y - size.y / 2)
-		, (int)size.x
-		, (int)size.y
-		, tex->GetTextureDC()
-		, 0, 0, width, height, RGB(255, 0, 255));
+	// 블링크 상태일 때만 본체 숨김
+	if (!m_isBlinking || m_isBlinkVisible) {
+		::TransparentBlt(_hdc
+			, (int)(pos.x - size.x / 2)
+			, (int)(pos.y - size.y / 2)
+			, (int)size.x
+			, (int)size.y
+			, tex->GetTextureDC()
+			, 0, 0, width, height, RGB(255, 0, 255));
+	}
 
 	// 체력바 위치/사이즈 동기화 (유닛 하단 조금 아래, 확대된 설정과 동일)
 	if (m_healthBar)
@@ -190,6 +204,29 @@ void UnitObject::Render(HDC _hdc)
 			}
 			::SetTextColor(_hdc, oldColor);
 			::SetBkMode(_hdc, oldBk);
+		}
+	}
+}
+
+// 깜빡임 타이밍 업데이트 (프레임마다 호출 보장되는 지점에서 호출)
+// Object::Update()를 이미 사용 중이라면 그 끝에서 호출해도 되고, 여기서 override로 처리해도 됩니다.
+void UnitObject::Update()
+{
+	Object::Update(); // 기존 동작 유지
+
+	// fDT를 사용해 시간 누적
+	const float dt = fDT;
+
+	if (m_isBlinking) {
+		m_blinkRemain -= dt;
+		m_blinkAccum  += dt;
+
+		if (m_blinkRemain <= 0.f) {
+			m_isBlinking     = false;
+			m_isBlinkVisible = true;
+		} else if (m_blinkAccum >= m_blinkInterval) {
+			m_isBlinkVisible = !m_isBlinkVisible;
+			m_blinkAccum     = 0.f;
 		}
 	}
 }

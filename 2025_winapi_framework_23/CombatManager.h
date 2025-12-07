@@ -24,6 +24,8 @@ public:
 
 
 private:
+	void EnemyTurn();
+
     void DamageUnit(ActionData* action);
 	void HealUnit(ActionData* action);
 	void StatControl(ActionData* action);
