@@ -8,7 +8,7 @@
 #include "BattleScene.h"
 #include "BattleDescription.h"
 #include "StageManager.h"
-
+#include "UnitListSys.h"
 void CombatManager::Init()
 {
 	m_currentTurn = UnitType::PLAYER1;
@@ -176,6 +176,13 @@ UnitObject* CombatManager::GetUnit(UnitType type)
 vector<CardData*> CombatManager::GetHandCard()
 {
 	return m_units[static_cast<int>(m_currentTurn)]->GetHandCards();
+}
+
+
+void CombatManager::CatchEnemy()
+{
+	std::wstring name = GetUnit(UnitType::ENEMY)->GetUnitData()->GetName();
+	UnitListSys::AppendIfNotExists(name);
 }
 
 void CombatManager::EnemyTurn()

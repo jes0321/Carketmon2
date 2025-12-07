@@ -28,6 +28,7 @@ public:
 	int GetLifeCount() const { return m_lifeCount; }
 
 private:
+	void CatchEnemy();
 	void EnemyTurn();
 	void EndActions(BattleScene* battleScene);
 

@@ -8,6 +8,7 @@
 #include "SceneManager.h"
 #include "InputManager.h"
 #include "CombatManager.h"
+#include "UnitListSys.h"
 #include <fstream>
 #include <sstream>
 #include <algorithm>
@@ -17,7 +18,14 @@ void StartScene::Init()
     m_selectVec.clear();
     m_candidates.clear();
 
-    LoadUnitsFromTxt(L"Texture\\UnitList.txt");
+    // 기존 LoadUnitsFromTxt 대신 공용 유틸 사용
+    {
+        auto names = UnitListSys::ReadNames();
+        for (const auto& name : names) {
+            UnitData* data = GET_SINGLE(UnitManager)->GetUnit(name);
+            if (data) m_candidates.push_back(data);
+        }
+    }
 
     m_btnManager = new ButtonSwitcher;
     m_btnManager->SetAvailable(false);
@@ -62,44 +70,6 @@ void StartScene::Init()
     m_btnManager->SetButtons(buttons);
 }
 
-void StartScene::LoadUnitsFromTxt(const std::wstring& relativeTxtPath)
-{
-    wchar_t buf[MAX_PATH] = {};
-    ::GetModuleFileNameW(nullptr, buf, MAX_PATH);
-    fs::path exeDir = fs::path(buf).parent_path();
-    fs::path resourceDir = exeDir.parent_path() / L"build" / L"Resource\\";
-    fs::path txtPath = resourceDir / relativeTxtPath;
-
-    std::ifstream fin(txtPath.string(), std::ios::binary);
-    if (!fin.is_open()) return;
-
-    std::string line;
-    char bom[3] = {};
-    fin.read(bom, 3);
-    if (!(bom[0] == char(0xEF) && bom[1] == char(0xBB) && bom[2] == char(0xBF))) {
-        fin.seekg(0);
-    }
-    std::getline(fin, line);
-    fin.close();
-
-    int wlen = ::MultiByteToWideChar(CP_UTF8, 0, line.c_str(), (int)line.size(), nullptr, 0);
-    if (wlen <= 0) return;
-    std::wstring content;
-    content.resize(wlen);
-    ::MultiByteToWideChar(CP_UTF8, 0, line.c_str(), (int)line.size(), &content[0], wlen);
-
-    std::wstringstream ss(content);
-    std::wstring name;
-    while (std::getline(ss, name, L','))
-    {
-        name.erase(0, name.find_first_not_of(L" \t\r\n"));
-        if (!name.empty()) name.erase(name.find_last_not_of(L" \t\r\n") + 1);
-        if (name.empty()) continue;
-
-        UnitData* data = GET_SINGLE(UnitManager)->GetUnit(name);
-        if (data) m_candidates.push_back(data);
-    }
-}
 
 void StartScene::CancelSelectAll()
 {

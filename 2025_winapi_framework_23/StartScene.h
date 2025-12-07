@@ -14,9 +14,6 @@ public:
     void SetSelectionEnabled(bool enabled);
     void CancelSelectAll();
 private:
-    void LoadUnitsFromTxt(const std::wstring& relativeTxtPath);
-
-private:
     // UI
     ButtonSwitcher* m_btnManager = nullptr;
 
