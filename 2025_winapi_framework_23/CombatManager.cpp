@@ -49,6 +49,10 @@ void CombatManager::Update() {
 			m_timer = 0;
 			ActionData* action = m_actionList.front();
 			battleScene->SetDes(action);
+			if(action->GetOwnerUnit()->IsDead()){
+				m_actionList.erase(m_actionList.begin());
+				return;
+			}
 			switch (action->GetCardObject()->GetCardEffect())
 			{
 			case CardEffectType::Damage: DamageUnit(action); break;

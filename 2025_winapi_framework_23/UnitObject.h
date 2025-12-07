@@ -21,8 +21,13 @@ public:
 	UnitData* GetUnitData() const { return m_unitData; }
 	CardData* GetCardRandom() const { return m_unitData->GetCardRandom(); }
 	CardData* GetCardInHand(int index) const { return m_handCards[index]; }
+	vector<CardData*> GetDeck() const {
+		if (!m_unitData) return {};
+		return m_unitData->GetDeck();
+	}
 	vector<CardData*> GetHandCards() const { return m_handCards; }
 
+	bool IsDead() const { return m_currentHp <= 0; }
 	bool IsPowerup() const { return m_isPowerup; }
 	int GetCurrentHp() const { return m_currentHp; }
 	int GetStat(StatType _type) const;
@@ -54,15 +59,15 @@ private:
 	HealthBar* m_healthBar = nullptr;
 
 	// 블링크 상태
-	bool  m_isBlinking     = false;
+	bool  m_isBlinking = false;
 	bool  m_isBlinkVisible = true;
-	float m_blinkRemain    = 0.f;
-	float m_blinkAccum     = 0.f;
-	float m_blinkInterval  = 0.08f;
+	float m_blinkRemain = 0.f;
+	float m_blinkAccum = 0.f;
+	float m_blinkInterval = 0.08f;
 
 	// 리바이브 상태
-	bool  m_isReviving     = false;
+	bool  m_isReviving = false;
 	float m_reviveTimeLeft = 0.f;
 	float m_reviveDuration = 1.5f;
-	float m_reviveLift     = 15.f;
+	float m_reviveLift = 15.f;
 };

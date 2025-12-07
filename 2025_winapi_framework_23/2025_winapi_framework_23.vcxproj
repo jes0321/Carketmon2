@@ -175,6 +175,7 @@
     <ClInclude Include="Component.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="DamageFloat.h" />
+    <ClInclude Include="DeckUIObj.h" />
     <ClInclude Include="Defines.h" />
     <ClInclude Include="DescriptionText.h" />
     <ClInclude Include="HealthBar.h" />
@@ -219,6 +220,7 @@
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="DamageFloat.cpp" />
+    <ClCompile Include="DeckUIObj.cpp" />
     <ClCompile Include="DescriptionText.cpp" />
     <ClCompile Include="HealthBar.cpp" />
     <ClCompile Include="Stage.cpp" />

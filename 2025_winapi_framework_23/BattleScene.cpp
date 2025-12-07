@@ -10,6 +10,7 @@
 #include "CardData.h"
 #include "UnitInfoObj.h"
 #include "UnitObject.h"
+#include "DeckUIObj.h"
 #undef max;
 
 void BattleScene::Init()
@@ -57,6 +58,7 @@ void BattleScene::Init()
 				m_uiType = UIType::HAND;
 				OnOffHand(true);
 				OnOffInfo(false);
+				OnOffDeck(false);
 				}, "UIType::HAND으로 변경");
 		}
 		break;
@@ -66,6 +68,7 @@ void BattleScene::Init()
 				m_uiType = UIType::INFO;
 				OnOffHand(false);
 				OnOffInfo(true);
+				OnOffDeck(false);
 				}, "UIType::INFO으로 변경");
 		}
 		break;
@@ -75,6 +78,7 @@ void BattleScene::Init()
 				m_uiType = UIType::DECK;
 				OnOffHand(false);
 				OnOffInfo(false);
+				OnOffDeck(true);
 				}, "UIType::DECK으로 변경");
 		}
 		break;
@@ -109,7 +113,7 @@ void BattleScene::Init()
 		m_descriptionText->SetPos({ centerX, centerY });
 		m_descriptionText->SetSize({ width, height });
 		if (!m_cardObjs.empty())
-			m_descriptionText->SetTargetCard(m_cardObjs[m_handIndex]); // 현재 선택 카드로 초기화
+			m_descriptionText->SetTargetCard(m_cardObjs[m_handIndex]->GetCardData()); // 현재 선택 카드로 초기화
 		AddObject(m_descriptionText, Layer::UI);
 	}
 
@@ -134,6 +138,13 @@ void BattleScene::Init()
 		m_unitInfoObj->SetSize({ bdWidth, bdHeight });
 		m_unitInfoObj->SetActive(false);
 		AddObject(m_unitInfoObj, Layer::UI);
+	}
+	{
+		m_deckUIObj = new DeckUIObj;
+		m_deckUIObj->SetPos({ bdCenterX, rowCenterY });
+		m_deckUIObj->SetSize({ bdWidth, bdHeight });
+		m_deckUIObj->SetActive(false);
+		AddObject(m_deckUIObj, Layer::UI);
 	}
 }
 
@@ -182,6 +193,18 @@ void BattleScene::OnOffHand(bool _isOn)
 	if (m_descriptionText) m_descriptionText->SetActive(_isOn);
 }
 
+void BattleScene::OnOffDeck(bool _isOn)
+{
+	if (m_waitTurn) return;
+	if (_isOn == true) {
+		UnitType targetUnit = AskTargetUnit();
+		m_deckUIObj->SetCards(GET_SINGLE(CombatManager)->GetUnit(targetUnit)->GetDeck());
+		m_descriptionText->SetActive(true);
+	}
+	if (m_deckUIObj)
+		m_deckUIObj->SetActive(_isOn);
+}
+
 void BattleScene::SelectHand()
 {
 	if (m_cardObjs.size() < 4) return;
@@ -203,7 +226,7 @@ void BattleScene::SelectHand()
 		for (int i = 0; i < 4; ++i)
 			m_cardObjs[i]->SetSelect(i == m_handIndex);
 		if (m_descriptionText)
-			m_descriptionText->SetTargetCard(m_cardObjs[m_handIndex]); // 설명 대상 갱신
+			m_descriptionText->SetTargetCard(m_cardObjs[m_handIndex]->GetCardData()); // 설명 대상 갱신
 	}
 
 	if (GET_KEYUP(KEY_TYPE::C))
@@ -238,6 +261,11 @@ UnitType BattleScene::AskTargetUnit()
 	case IDCANCEL: return UnitType::ENEMY;
 	default:       return UnitType::ENEMY;
 	}
+}
+
+void BattleScene::SetCardDes(CardData* _data)
+{
+	m_descriptionText->SetTargetCard(_data);
 }
 
 void BattleScene::SetDes(ActionData* data)

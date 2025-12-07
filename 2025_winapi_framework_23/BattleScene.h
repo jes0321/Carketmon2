@@ -7,6 +7,7 @@ class CardData;
 class BattleDescription;
 class DescriptionText;
 class UnitInfoObj;
+class DeckUIObj;
 class ActionData;
 class BattleScene : public Scene
 {
@@ -16,6 +17,7 @@ public:
 	void Render(HDC _hdc) override;
 	void Release() override;
 public:
+    void SetCardDes(CardData* _data);
     void SetDes(ActionData* data);
     void SetCardData();
     void SetWaitTurn(bool _isWait);
@@ -23,6 +25,7 @@ public:
 private:
 	void OnOffInfo(bool _isOn);
 	void OnOffHand(bool _isOn);
+	void OnOffDeck(bool _isOn);
     void SelectHand();
     UnitType AskTargetUnit(); // 윈도우 기본 대화상자(메시지박스)로 선택
 
@@ -31,6 +34,7 @@ private:
     bool m_waitTurn = false;
 	DescriptionText* m_descriptionText = nullptr;
     vector<CardObject*> m_cardObjs;
+	DeckUIObj* m_deckUIObj = nullptr;
 	UnitInfoObj* m_unitInfoObj = nullptr;
     int      m_handIndex = 0;
     UIType   m_uiType = UIType::NONE;

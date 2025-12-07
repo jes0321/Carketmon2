@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "DescriptionText.h"
-#include "CardObject.h"
+#include "CardData.h"
 
 void DescriptionText::Render(HDC _hdc)
 {
@@ -8,8 +8,8 @@ void DescriptionText::Render(HDC _hdc)
 		return;
 
 	// 카드 이름/설명 가져오기
-	const std::wstring name = m_targetCardObj->GetCardName();
-	const std::wstring desc = m_targetCardObj->GetCardDescription();
+	const std::wstring name = m_targetCardObj->GetName();
+	const std::wstring desc = m_targetCardObj->GetDescription();
 
 	// 출력 문자열
 	const std::wstring lineName = std::format(L"이름 : {}", name);

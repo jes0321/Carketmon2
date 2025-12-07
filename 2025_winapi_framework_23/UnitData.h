@@ -15,6 +15,8 @@ public:
 	int GetSpeed() const { return m_speed; }
 	void SetCard(CardData* card, int cnt);
 	void UseCard(int index);
+
+	vector<CardData*> GetDeck() const { return m_deck; }
 	Texture* GetTexture() const { return m_pTexture; }
 	ElementType GetElementType() const { return m_elementType; }
 private:
