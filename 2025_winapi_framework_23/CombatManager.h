@@ -24,7 +24,7 @@ public:
 
     UnitObject* GetUnit(UnitType type);
     vector<CardData*> GetHandCard();
-
+	int GetLifeCount() const { return m_lifeCount; }
 
 private:
 	void EnemyTurn();
@@ -35,6 +35,7 @@ private:
 	void BuffTarget(ActionData* action);
 	void SetFocus(bool _isFocus, ActionData* action = nullptr);
 private:
+	int m_lifeCount = 3;
 	bool m_isFocus = false;
 	UnitObject* m_focusUnit;
 	UnitType m_currentTurn;
