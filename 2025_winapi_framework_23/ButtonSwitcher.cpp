@@ -18,10 +18,9 @@ void ButtonSwitcher::Render(HDC _hdc)
 
 void ButtonSwitcher::Update()
 {
-	// ÀÔ·Â ²¨Áü ¶Ç´Â ¹öÆ° ¾øÀ½ÀÌ¸é ¸®ÅÏ
-	if (!m_isOn || m_buttons.empty()) return;
+	if (m_isAvailable == false || m_currentButton == nullptr) return;
 
-	// ÀÎµ¦½º Å¬·¥ÇÁ ¹× ÇöÀç ¹öÆ° µ¿±âÈ­
+	// ï¿½Îµï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½È­
 	if (m_currentStageIndex < 0) m_currentStageIndex = 0;
 	if (m_currentStageIndex >= (int)m_buttons.size()) m_currentStageIndex = (int)m_buttons.size() - 1;
 	m_currentButton = m_buttons[m_currentStageIndex];

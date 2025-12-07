@@ -24,10 +24,13 @@ public:
 	void AddNextStage(Stage* _stage) { m_nextStages.push_back(_stage); }
 	void SetBeforeStage(Stage* _stage) { m_beforeStage = _stage; }
 
+	void SetUnitData(UnitData* _unitData) { m_unitData = _unitData; }
+
 	Stage* GetBeforeStage() const { return m_beforeStage; }
 	vector<Stage*> GetNextStages() const { return m_nextStages; }
 
 	UnitData* GetUnitData() const { return m_unitData; }
+	StageType GetStageType() const { return m_stageType; }
 
 	int GetStageNumber() const { return m_stageNumber; }
 	int GetStageRowIndex() const { return m_stageRowIndex; }
@@ -48,7 +51,6 @@ private:
 			break;
 		case StageType::Exchange:		str = "Exchange";
 			break;
-		default:						str = "UNKNOWN";
 		}
 
 		wstr.assign(str.begin(), str.end());

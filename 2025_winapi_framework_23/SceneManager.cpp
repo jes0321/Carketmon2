@@ -3,6 +3,8 @@
 #include "Object.h"
 #include "Collider.h"
 #include "StageSelectScene.h"
+#include "ExchangeScene.h"
+#include "TreatmentCenterScene.h"
 #include "BattleScene.h"
 #include "TitleScene.h"
 #include "StartScene.h"
@@ -25,6 +27,8 @@ void SceneManager::Init()
 {
 	m_curScene = nullptr;
 	RegisterScene(L"StageSelectScene", std::make_shared<StageSelectScene>());
+	RegisterScene(L"TreatmentCenterScene", std::make_shared<TreatmentCenterScene>());
+	RegisterScene(L"ExchangeScene", std::make_shared<ExchangeScene>());
 	RegisterScene(L"BattleScene", std::make_shared<BattleScene>());
 	RegisterScene(L"TitleScene", std::make_shared<TitleScene>());
 	RegisterScene(L"StartScene", std::make_shared<StartScene>());
