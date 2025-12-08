@@ -90,7 +90,6 @@ void BattleScene::Init()
 	}
 
 	buttonSwitcher->SetButtons(buttons);
-	SetCardData();
 
 #pragma endregion
 
@@ -146,6 +145,8 @@ void BattleScene::Init()
 		m_deckUIObj->SetActive(false);
 		AddObject(m_deckUIObj, Layer::UI);
 	}
+	SetCardData();
+
 }
 
 void BattleScene::Update()
@@ -283,6 +284,7 @@ void BattleScene::SetCardData()
 		if (m_cardObjs[i])
 			m_cardObjs[i]->SetCardData(handCards[i]);
 	}
+	m_descriptionText->SetTargetCard((m_cardObjs[m_handIndex])->GetCardData());
 }
 
 void BattleScene::SetWaitTurn(bool _isWait)

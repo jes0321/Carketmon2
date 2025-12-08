@@ -7,13 +7,13 @@ void CardManager::Init()
 {
 	//여기다 이제 카드 생기는 데이터 전부다 넣으면 됨
 	RegisterCard(L"파이어볼",L"Fireball",
-		ElementType::Fire, CardEffectType::Heal, 30);
+		ElementType::Fire, CardEffectType::Heal, 10);
 	RegisterCard(L"화염방사", L"Flamethrower",
-		ElementType::Fire, CardEffectType::Damage,20);
+		ElementType::Fire, CardEffectType::Damage,100);
 	RegisterCard(L"서핑",  L"WaterSurfing",
-		ElementType::Water, CardEffectType::Heal, 20);
+		ElementType::Water, CardEffectType::Heal, 10);
 	RegisterCard(L"물대포", L"WaterCannon",
-		ElementType::Water, CardEffectType::Damage, 20);
+		ElementType::Water, CardEffectType::Damage, 50);
 	RegisterCard(L"물수리검", L"WaterShuriken",
 		ElementType::Water, CardEffectType::Damage, 20);
 }

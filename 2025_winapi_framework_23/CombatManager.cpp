@@ -226,6 +226,7 @@ void CombatManager::DamageUnit(ActionData* action)
 		bool targetIsEnemy = targetUnit == GetUnit(UnitType::ENEMY);
 		if (targetIsEnemy) {
 			//스테이지 성공 처리 해야함
+			CatchEnemy();
 		}
 		else {
 			--m_lifeCount;
