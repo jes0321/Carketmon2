@@ -6,6 +6,8 @@
 
 void ExchangeScene::Init()
 {
+	GET_SINGLE(CombatManager)->CombatManager::HealUnit(UnitType::PLAYER1);
+	GET_SINGLE(CombatManager)->CombatManager::HealUnit(UnitType::PLAYER2);
 }
 
 void ExchangeScene::Update()
