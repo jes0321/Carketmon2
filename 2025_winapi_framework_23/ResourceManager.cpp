@@ -98,6 +98,7 @@ void ResourceManager::RegisterGDI()
 	m_Pens[(UINT)PenType::RED] = ::CreatePen(PS_SOLID, 1, RGB(255, 0, 0));
 	m_Pens[(UINT)PenType::GREEN] = ::CreatePen(PS_SOLID, 1, RGB(0, 255, 0));
 	m_Pens[(UINT)PenType::BOLD_GREEN] = ::CreatePen(PS_SOLID, 5, RGB(0, 255, 0));
+	m_Pens[(UINT)PenType::BOLD_GRAY] = ::CreatePen(PS_SOLID, 5, RGB(128, 128, 128));
 	m_Pens[(UINT)PenType::YELLOW] = ::CreatePen(PS_SOLID, 1, RGB(255, 220, 0));
 
 	// 폰트 등록

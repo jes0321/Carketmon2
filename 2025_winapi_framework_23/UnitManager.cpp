@@ -11,33 +11,33 @@ void UnitManager::Init()
 {
 	CardManager* cardManager = GET_SINGLE(CardManager);
 
-	UnitData* data = RegisterUnit(L"불꽃부기", L"Fire_Turtle", 60,22,6,12, ElementType::Fire);
+	UnitData* data = RegisterUnit(L"불꽃부기", L"Fire_Turtle", 60,22,6,12, ElementType::Fire,UnitCategory::DEALER);
 
 	data->SetCard(cardManager->GetCard(L"파이어볼"),4);
 	data->SetCard(cardManager->GetCard(L"화염방사"),4);
 	data->SetCard(cardManager->GetCard(L"서핑"), 4);
 	data->SetCard(cardManager->GetCard(L"물수리검"), 4);
 
-	data = RegisterUnit(L"파이츄", L"Fire_Rat", 50,18,5,16,ElementType::Fire);
+	data = RegisterUnit(L"파이츄", L"Fire_Rat", 50,18,5,16,ElementType::Fire,UnitCategory::SUPPORT);
 
 	data->SetCard(cardManager->GetCard(L"파이어볼"), 4);
 	data->SetCard(cardManager->GetCard(L"화염방사"), 4);
 	data->SetCard(cardManager->GetCard(L"서핑"), 4);
 	data->SetCard(cardManager->GetCard(L"물수리검"), 4);
 
-	data = RegisterUnit(L"물꼬부기", L"Water_FishFox", 80,12,16,7,ElementType::Water);
+	data = RegisterUnit(L"물꼬부기", L"Water_FishFox", 80,12,16,7,ElementType::Water, UnitCategory::DEALER);
 	data->SetCard(cardManager->GetCard(L"파이어볼"), 4);
 	data->SetCard(cardManager->GetCard(L"화염방사"), 4);
 	data->SetCard(cardManager->GetCard(L"서핑"), 4);
 	data->SetCard(cardManager->GetCard(L"물수리검"), 4);
 
-	data = RegisterUnit(L"잉어킹", L"Water_FishKing", 45,10,4,8,ElementType::Water);
+	data = RegisterUnit(L"잉어킹", L"Water_FishKing", 45,10,4,8,ElementType::Water, UnitCategory::DEALER);
 	data->SetCard(cardManager->GetCard(L"파이어볼"), 4);
 	data->SetCard(cardManager->GetCard(L"화염방사"), 4);
 	data->SetCard(cardManager->GetCard(L"서핑"), 4);
 	data->SetCard(cardManager->GetCard(L"물수리검"), 4);
 
-	data = RegisterUnit(L"문어소녀", L"Water_SquidGirl", 55,12,10,10, ElementType::Water);
+	data = RegisterUnit(L"문어소녀", L"Water_SquidGirl", 55,12,10,10, ElementType::Water, UnitCategory::DEALER);
 	data->SetCard(cardManager->GetCard(L"파이어볼"), 4);
 	data->SetCard(cardManager->GetCard(L"화염방사"), 4);
 	data->SetCard(cardManager->GetCard(L"서핑"), 4);
@@ -76,11 +76,11 @@ UnitData* UnitManager::GetUnitRandom()
 	return iter->second;
 }
 
-UnitData* UnitManager::RegisterUnit(wstring _name, wstring _texName, int _maxHp, int _atk, int _def, int _spd, ElementType _type)
+UnitData* UnitManager::RegisterUnit(wstring _name, wstring _texName, int _maxHp, int _atk, int _def, int _spd, ElementType _type,UnitCategory _category)
 {
 	Texture* texture = GET_SINGLE(ResourceManager)->GetTexture(_texName);
 
-	UnitData* unitData = new UnitData(_name,_maxHp,_atk,_def,_spd, _type,texture);
+	UnitData* unitData = new UnitData(_name,_maxHp,_atk,_def,_spd, _type,texture,_category);
 	m_mapUnits.insert({ _name,unitData });
 	return unitData;
 }

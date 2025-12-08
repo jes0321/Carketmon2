@@ -220,8 +220,11 @@ void CombatManager::DamageUnit(ActionData* action)
 
 	int dmg = (ownerUnit->GetStat(StatType::Attack)) * 0.7f;
 	dmg += action->GetCardObject()->GetEffectValue();
+	if(ownerUnit->SameType(action->GetCardObject()->GetCardType()))
+		dmg *=1.5f;
 
 	bool isDead = targetUnit->Damage(dmg, ownerUnit->GetUnitData()->GetElementType(), targetUnit->IsPowerup());
+
 	if (isDead) {
 		bool targetIsEnemy = targetUnit == GetUnit(UnitType::ENEMY);
 		if (targetIsEnemy) {

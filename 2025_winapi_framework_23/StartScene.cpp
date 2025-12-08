@@ -158,19 +158,109 @@ void StartScene::Render(HDC _hdc)
     const float startX = (bgCenterX - bgW * 0.5f) + m_innerPadX;
     const float startY = (bgCenterY - bgH * 0.5f) + m_innerPadY;
 
-    {
-        const float padX = 20.f;
-        const float padY = 20.f;
-        const float bW = gridWidth + padX * 2.f;
-        const float bH = gridHeight + padY * 2.f;
-        const float bCX = startX + gridWidth * 0.5f;
-        const float bCY = startY + gridHeight * 0.5f;
+    // 왼쪽 그리드 박스 (먼저 계산)
+    const float padX = 20.f;
+    const float padY = 20.f;
+    const float bW = gridWidth + padX * 2.f;
+    const float bH = gridHeight + padY * 2.f;
+    const float bCX = startX + gridWidth * 0.5f;
+    const float bCY = startY + gridHeight * 0.5f;
 
+    // 선택 사각형의 오른쪽 모서리
+    const float selectionBoxRight = bCX + bW * 0.5f;
+
+    // 우측 설명 박스 (선택 사각형보다 조금 작게)
+    const float descBoxLeft = selectionBoxRight + 30.f;
+    const float descBoxWidth = 350.f;
+    const float descBoxTop = bCY - bH * 0.5f + 60.f; // 위쪽 여백 60px 확보
+    const float descBoxHeight = bH - 60.f; // 높이를 60px 줄임
+    const float descBoxCenterX = descBoxLeft + descBoxWidth * 0.5f;
+    const float descBoxCenterY = descBoxTop + descBoxHeight * 0.5f;
+
+    // 타이틀 텍스트 (설명 박스 위쪽, 이제 충분한 공간 확보됨)
+    {
+        GDISelector fontSel(_hdc, FontType::BIG_UI);
+        SetBkMode(_hdc, TRANSPARENT);
+        SetTextColor(_hdc, RGB(50, 50, 50));
+
+        const wchar_t* title = L"캐릭터 선택";
+        RECT titleRect;
+        titleRect.left = static_cast<LONG>(descBoxLeft);
+        titleRect.right = static_cast<LONG>(descBoxLeft + descBoxWidth);
+        titleRect.top = static_cast<LONG>(bCY - bH * 0.5f); // 선택 박스 상단과 동일
+        titleRect.bottom = static_cast<LONG>(descBoxTop - 5.f); // 설명 박스 위쪽까지
+
+        DrawTextW(_hdc, title, -1, &titleRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE | DT_NOPREFIX);
+    }
+
+    // 현재 선택중인 유닛 설명 박스
+    if (!m_candidates.empty() && m_cursor >= 0 && m_cursor < (int)m_candidates.size()) {
+        UnitData* currentUnit = m_candidates[m_cursor];
+        if (currentUnit) {
+            // 설명 박스 외곽선 렌더링
+            {
+                GDISelector penSel(_hdc, PenType::BOLD_GRAY);
+                GDISelector brushSel(_hdc, BrushType::HOLLOW);
+                RECT_RENDER(_hdc, descBoxCenterX, descBoxCenterY, descBoxWidth, descBoxHeight);
+            }
+
+            // 설명 텍스트 렌더링 (줄 간격 수동 조정)
+            {
+                GDISelector fontSel(_hdc, FontType::BIG_UI);
+                SetBkMode(_hdc, TRANSPARENT);
+                SetTextColor(_hdc, RGB(30, 30, 30));
+
+                std::wstring description = currentUnit->GetDescription();
+
+                // 줄 분리
+                std::vector<std::wstring> lines;
+                size_t start = 0;
+                while (true) {
+                    size_t p = description.find(L'\n', start);
+                    if (p == std::wstring::npos) {
+                        lines.push_back(description.substr(start));
+                        break;
+                    }
+                    lines.push_back(description.substr(start, p - start));
+                    start = p + 1;
+                }
+
+                const int padding = 20;
+                const int lineSpacing = 8; // 줄 간격 추가
+
+                RECT tempRect = { 0, 0, static_cast<LONG>(descBoxWidth - padding * 2), 0 };
+
+                LONG curY = static_cast<LONG>(descBoxTop + padding);
+
+                for (const auto& line : lines) {
+                    // 각 줄의 높이 계산
+                    RECT calc = tempRect;
+                    DrawTextW(_hdc, line.c_str(), -1, &calc, DT_LEFT | DT_TOP | DT_WORDBREAK | DT_NOPREFIX | DT_CALCRECT);
+                    LONG lineHeight = calc.bottom - calc.top;
+
+                    // 실제 렌더링
+                    RECT lineRect;
+                    lineRect.left = static_cast<LONG>(descBoxLeft + padding);
+                    lineRect.right = static_cast<LONG>(descBoxLeft + descBoxWidth - padding);
+                    lineRect.top = curY;
+                    lineRect.bottom = curY + lineHeight;
+
+                    DrawTextW(_hdc, line.c_str(), -1, &lineRect, DT_LEFT | DT_TOP | DT_WORDBREAK | DT_NOPREFIX);
+
+                    curY += lineHeight + lineSpacing; // 줄 간격 추가
+                }
+            }
+        }
+    }
+
+    // 왼쪽 그리드 박스
+    {
         GDISelector penSel(_hdc, PenType::BOLD_GREEN);
         GDISelector brushSel(_hdc, BrushType::HOLLOW);
         RECT_RENDER(_hdc, bCX, bCY, bW, bH);
     }
 
+    // 유닛 타일 렌더링
     int maxDraw = std::min<int>((int)m_candidates.size(), m_cols * m_rows);
     for (int i = 0; i < maxDraw; ++i) {
         int col = i % m_cols;

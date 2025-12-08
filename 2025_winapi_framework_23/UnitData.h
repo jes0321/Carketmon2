@@ -1,14 +1,21 @@
 #pragma once
 class CardData;
 class Texture;
+
+enum class UnitCategory {
+	DEALER,
+	SUPPORT,
+	MULTI,
+};
 class UnitData
 {
 public:
-	UnitData(wstring _name,int _maxHp,int _atk,int _def,int _spd,ElementType _type,Texture* _tex);
+	UnitData(wstring _name,int _maxHp,int _atk,int _def,int _spd,ElementType _type,Texture* _tex, UnitCategory _category);
 	~UnitData();
 public:
 	CardData* GetCardRandom();
 	wstring GetName() const { return m_name; }
+	wstring GetDescription() const { return m_description; }
 	int GetMaxHp() const { return m_maxHp; }
 	int GetAtk() const { return m_atk; }
 	int GetDef() const { return m_def; }
@@ -21,6 +28,7 @@ public:
 	ElementType GetElementType() const { return m_elementType; }
 private:
 	wstring m_name;
+	wstring m_description;
 	int m_maxHp;
 	int m_atk;
 	int m_def;

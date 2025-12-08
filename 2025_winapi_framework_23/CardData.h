@@ -17,6 +17,17 @@ public:
 	StatType GetStatType() const { return m_statType; }
 	int GetEffectValue() const { return m_integerValue; }
 	int GetPriority() const { return m_priority; }
+	static const wchar_t* ToElementName(ElementType t)
+	{
+		switch (t)
+		{
+		case ElementType::Fire:  return L"Fire";
+		case ElementType::Water: return L"Water";
+		case ElementType::Ice:   return L"Ice";
+		case ElementType::Grace: return L"Grace";
+		default:                 return L"Unknown";
+		}
+	}
 private:
 	wstring ToEffectDesc();
 

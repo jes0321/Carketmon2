@@ -1,17 +1,7 @@
 #include "pch.h"
 #include "CardData.h"
 
-static const wchar_t* ToElementName(ElementType t)
-{
-	switch (t)
-	{
-	case ElementType::Fire:  return L"Fire";
-	case ElementType::Water: return L"Water";
-	case ElementType::Ice:   return L"Ice";
-	case ElementType::Grace: return L"Grace";
-	default:                 return L"Unknown";
-	}
-}
+
 static const wchar_t* ToStatName(StatType t)
 {
 	switch (t)
