@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "Iamge.h"
+#include "Image.h"
 #include "ResourceManager.h"
 
 Image::Image(Texture* _texture)
