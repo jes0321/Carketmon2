@@ -4,6 +4,7 @@
     #include "UnitData.h"
     #include "UnitObject.h"
     #include "CombatManager.h"
+    #include "InputManager.h"
     #include "UnitManager.h"
     #include "Button.h"
     #include "ButtonSwitcher.h"
@@ -94,6 +95,7 @@ void TreatmentCenterScene::Init()
 
             obj->SetOnClick([this]() {
                 m_isCompelet = true;
+				GET_SINGLE(CombatManager)->SetUnitData(m_playerType, m_unit1);
                 }, "카켓몬1로 변경");
         }
         break;
@@ -103,6 +105,7 @@ void TreatmentCenterScene::Init()
 
             obj->SetOnClick([this]() {
                 m_isCompelet = true;
+                GET_SINGLE(CombatManager)->SetUnitData(m_playerType, m_unit1);
                 }, "카켓몬2로 변경");
         }
         break;
@@ -132,7 +135,8 @@ void TreatmentCenterScene::Init()
 
         if (m_isCompelet)
         {
-            GET_SINGLE(SceneManager)->LoadScene(L"StageSelectScene");
+            if(GET_KEYUP(KEY_TYPE::ENTER))
+                GET_SINGLE(SceneManager)->LoadScene(L"StageSelectScene");
         }
     }
 
