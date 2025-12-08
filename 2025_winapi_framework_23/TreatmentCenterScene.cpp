@@ -8,7 +8,12 @@
     #include "Button.h"
     #include "ButtonSwitcher.h"
 
-    void TreatmentCenterScene::Init()
+TreatmentCenterScene::~TreatmentCenterScene()
+{
+    m_isCompelet = false;
+}
+
+void TreatmentCenterScene::Init()
     {
         m_unit1 = GET_SINGLE(UnitManager)->UnitManager::GetUnitRandom();
         m_unit2 = GET_SINGLE(UnitManager)->UnitManager::GetUnitRandom();
@@ -58,7 +63,7 @@
             case 2:
             {
                 obj->SetOnClick([this]() {
-                    GET_SINGLE(SceneManager)->LoadScene(L"ExchangeScene");
+                    m_isCompelet = true;
                     }, "변경 안하기");
             }
             break;
@@ -121,6 +126,11 @@
     void TreatmentCenterScene::Update()
     {
         Scene::Update();
+
+        if (m_isCompelet)
+        {
+            GET_SINGLE(SceneManager)->LoadScene(L"StageSelectScene");
+        }
     }
 
     void TreatmentCenterScene::LateUpdate()

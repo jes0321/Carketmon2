@@ -9,14 +9,17 @@
 #include "UnitObject.h"
 #include "UnitManager.h"
 
-void StageSelectScene::Init()
+StageSelectScene::~StageSelectScene()
 {
-	m_stages.clear();  
-	m_currentStage = nullptr;     
+	m_stages.clear();
+	m_currentStage = nullptr;
 	m_currentStageIndex = 0;
 	m_currentStageLength = 0;
 	m_currentSelectStageLength = 0;
+}
 
+void StageSelectScene::Init()
+{
 	GenerateStage();
 
 	GET_SINGLE(ResourceManager)->Play(L"BGM");
@@ -67,7 +70,7 @@ void StageSelectScene::Update()
 			return;
 		case StageType::Normal:
 		case StageType::Boss:
-			GET_SINGLE(SceneManager)->LoadScene(L"BattleScene");
+			//GET_SINGLE(SceneManager)->LoadScene(L"BattleScene");
 			return;
 		}
 	}
