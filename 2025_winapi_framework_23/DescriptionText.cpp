@@ -39,7 +39,7 @@ void DescriptionText::Render(HDC _hdc)
 
 	// 이름: TITLE 폰트, 가운데 정렬 한 줄
 	{
-		GDISelector fontTitle(_hdc, FontType::BOLD_UI);
+		GDISelector fontTitle(_hdc, FontType::PIXEL_MIDIUM);
 		// 그림자
 		::SetTextColor(_hdc, RGB(0, 0, 0));
 		::DrawTextW(_hdc, lineName.c_str(), (int)lineName.size(), &rcName, DT_CENTER | DT_SINGLELINE | DT_VCENTER | DT_NOPREFIX);
@@ -47,7 +47,7 @@ void DescriptionText::Render(HDC _hdc)
 
 	// 설명: UI 폰트, 워드브레이크로 여러 줄
 	{
-		GDISelector fontUI(_hdc, FontType::BOLD_UI);
+		GDISelector fontUI(_hdc, FontType::PIXEL_MIDIUM);
 		::SetTextColor(_hdc, RGB(0, 0, 0));
 		::DrawTextW(_hdc, lineDesc.c_str(), (int)lineDesc.size(), &rcDesc, DT_CENTER | DT_WORDBREAK | DT_NOPREFIX);
 	}

@@ -20,7 +20,9 @@ enum class BrushType
 
 enum class FontType
 {
-	UI, TITLE, BIG_UI,BOLD_UI,END
+	UI, TITLE, BIG_UI,BOLD_UI,
+	PIXEL_MIDIUM, PIXEL_NORMAL,PIXEL_BIG,
+	END
 };
 enum class ElementType {
 	Fire,Water,Ice,Grace

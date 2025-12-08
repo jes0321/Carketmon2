@@ -179,7 +179,7 @@ void StartScene::Render(HDC _hdc)
 
     // 타이틀 텍스트 (설명 박스 위쪽, 이제 충분한 공간 확보됨)
     {
-        GDISelector fontSel(_hdc, FontType::BIG_UI);
+        GDISelector fontSel(_hdc, FontType::PIXEL_BIG);
         SetBkMode(_hdc, TRANSPARENT);
         SetTextColor(_hdc, RGB(50, 50, 50));
 
@@ -206,7 +206,7 @@ void StartScene::Render(HDC _hdc)
 
             // 설명 텍스트 렌더링 (줄 간격 수동 조정)
             {
-                GDISelector fontSel(_hdc, FontType::BIG_UI);
+                GDISelector fontSel(_hdc, FontType::PIXEL_BIG);
                 SetBkMode(_hdc, TRANSPARENT);
                 SetTextColor(_hdc, RGB(30, 30, 30));
 
@@ -226,7 +226,7 @@ void StartScene::Render(HDC _hdc)
                 }
 
                 const int padding = 20;
-                const int lineSpacing = 8; // 줄 간격 추가
+                const int lineSpacing = 20; // 줄 간격 추가
 
                 RECT tempRect = { 0, 0, static_cast<LONG>(descBoxWidth - padding * 2), 0 };
 

@@ -54,19 +54,18 @@ void HealthBar::Render(HDC _hdc)
 		::DeleteObject(borderPen);
 	}
 
-	// 중앙 텍스트(현재/최대) - 살짝 위로 올림 (예: 2px)
 	std::wstring hpText = std::format(L"{} / {}", m_curHp, m_maxHp);
 	RECT rcText{
 		(LONG)(p.x - s.x / 2),
-		(LONG)(p.y - s.y / 2 - 2),  // 위로 조금 올림
+		(LONG)(p.y - s.y / 2),  
 		(LONG)(p.x + s.x / 2),
-		(LONG)(p.y + s.y / 2 - 2)   // 위로 조금 올림
+		(LONG)(p.y + s.y / 2)
 	};
 
 	int oldBk = ::SetBkMode(_hdc, TRANSPARENT);
 	COLORREF oldColor = ::SetTextColor(_hdc, RGB(255, 255, 255));
 	{
-		GDISelector fontSel(_hdc, FontType::UI);
+		GDISelector fontSel(_hdc, FontType::PIXEL_NORMAL);
 
 		::SetTextColor(_hdc, RGB(0, 0, 0));
 		RECT shadow = rcText; ::OffsetRect(&shadow, 1, 1);

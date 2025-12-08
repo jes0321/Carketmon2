@@ -34,7 +34,7 @@ void BattleDescription::Render(HDC _hdc)
 	if (m_text.empty()) return;
 
 	// 폰트/텍스트(검정)
-	GDISelector fontSel(_hdc, FontType::BIG_UI);
+	GDISelector fontSel(_hdc, FontType::PIXEL_BIG);
 	int oldBk = ::SetBkMode(_hdc, TRANSPARENT);
 	COLORREF oldColor = ::SetTextColor(_hdc, RGB(0, 0, 0));
 	::DrawTextW(_hdc, m_text.c_str(), (int)m_text.length(), &rc, DT_CENTER | DT_VCENTER | DT_SINGLELINE);

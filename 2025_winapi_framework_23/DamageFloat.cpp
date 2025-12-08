@@ -28,7 +28,7 @@ void DamageFloat::Render(HDC _hdc)
     if (!IsActive()) return;
 
     // 투명 배경 + UI 폰트 선택
-    GDISelector fontSel(_hdc, FontType::UI);
+    GDISelector fontSel(_hdc, FontType::PIXEL_NORMAL);
 
     // 페이드(명도) 계산
     float t = m_elapsed / m_lifeTime; // 0 -> 1

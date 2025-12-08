@@ -249,7 +249,7 @@ void UnitObject::RenderNameLeftOfBar(HDC _hdc, const wstring& name, float barW, 
     int oldBk = ::SetBkMode(_hdc, TRANSPARENT);
     COLORREF oldColor = ::SetTextColor(_hdc, RGB(255, 255, 255));
     {
-        GDISelector fontSel(_hdc, FontType::BOLD_UI);
+        GDISelector fontSel(_hdc, FontType::PIXEL_NORMAL);
         // º»¹®
         ::SetTextColor(_hdc, RGB(0, 0, 0));
         ::DrawTextW(_hdc, name.c_str(), (int)name.length(), &nameRc, DT_RIGHT | DT_VCENTER | DT_SINGLELINE | DT_NOPREFIX);
