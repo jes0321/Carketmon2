@@ -53,14 +53,28 @@ void ButtonSwitcher::Update()
     }
 
     if (GET_KEYUP(KEY_TYPE::DOWN) || GET_KEYUP(KEY_TYPE::S)) {
-        if (m_currentStageIndex + 1 >= (int)m_buttons.size()) return;
+        if (m_currentStageIndex + 1 >= (int)m_buttons.size())
+        {
+            m_buttons[m_currentStageIndex]->m_buttonState = ButtonState::Default;
+            m_currentStageIndex = 0;
+            m_currentButton = m_buttons[m_currentStageIndex];
+            if (m_currentButton) m_currentButton->m_buttonState = ButtonState::Selected;
+            return;
+        }
         if (m_buttons[m_currentStageIndex]) m_buttons[m_currentStageIndex]->m_buttonState = ButtonState::Default;
         ++m_currentStageIndex;
         m_currentButton = m_buttons[m_currentStageIndex];
         if (m_currentButton) m_currentButton->m_buttonState = ButtonState::Selected;
     }
     if (GET_KEYUP(KEY_TYPE::UP) || GET_KEYUP(KEY_TYPE::W)) {
-        if (m_currentStageIndex - 1 < 0) return;
+        if (m_currentStageIndex - 1 < 0)
+        {
+            m_buttons[m_currentStageIndex]->m_buttonState = ButtonState::Default;
+            m_currentStageIndex = m_buttons.size() - 1;
+            m_currentButton = m_buttons[m_currentStageIndex];
+            if (m_currentButton) m_currentButton->m_buttonState = ButtonState::Selected;
+            return;
+        }
         if (m_buttons[m_currentStageIndex]) m_buttons[m_currentStageIndex]->m_buttonState = ButtonState::Default;
         --m_currentStageIndex;
         m_currentButton = m_buttons[m_currentStageIndex];

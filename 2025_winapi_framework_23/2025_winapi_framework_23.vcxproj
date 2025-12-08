@@ -180,6 +180,7 @@
     <ClInclude Include="DescriptionText.h" />
     <ClInclude Include="ExchangeScene.h" />
     <ClInclude Include="HealthBar.h" />
+    <ClInclude Include="Image.h" />
     <ClInclude Include="Random.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="StageSelectScene.h" />
@@ -194,9 +195,9 @@
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
-    <ClInclude Include="StageManager.h" />
     <ClInclude Include="StartScene.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="Text.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="TitleScene.h" />
@@ -229,6 +230,7 @@
     <ClCompile Include="DescriptionText.cpp" />
     <ClCompile Include="ExchangeScene.cpp" />
     <ClCompile Include="HealthBar.cpp" />
+    <ClCompile Include="Image.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="StageSelectScene.cpp" />
     <ClCompile Include="GDISelector.cpp" />
@@ -239,8 +241,8 @@
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
-    <ClCompile Include="StageManager.cpp" />
     <ClCompile Include="StartScene.cpp" />
+    <ClCompile Include="Text.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="TitleScene.cpp" />

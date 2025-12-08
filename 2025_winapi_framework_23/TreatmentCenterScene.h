@@ -7,6 +7,8 @@ class TreatmentCenterScene :
     public Scene
 {
 public:
+	~TreatmentCenterScene() override;
+public:
     void Init() override;
     void Update() override;
     void LateUpdate() override;

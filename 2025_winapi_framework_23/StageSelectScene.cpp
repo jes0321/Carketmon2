@@ -9,10 +9,15 @@
 #include "UnitObject.h"
 #include "UnitManager.h"
 
+StageSelectScene::~StageSelectScene()
+{
+
+}
+
 void StageSelectScene::Init()
 {
-	m_stages.clear();  
-	m_currentStage = nullptr;     
+	m_stages.clear();
+	m_currentStage = nullptr;
 	m_currentStageIndex = 0;
 	m_currentStageLength = 0;
 	m_currentSelectStageLength = 0;

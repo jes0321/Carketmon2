@@ -40,10 +40,10 @@ public:
 		}
 	}
 private:
-	bool m_isOn = true;
 	vector<Button*> m_buttons;
 	Button* m_currentButton = nullptr;
 	int m_currentStageIndex = 0;
 	bool m_isAvailable = true;
+	bool m_isOn = true;
 };
 
