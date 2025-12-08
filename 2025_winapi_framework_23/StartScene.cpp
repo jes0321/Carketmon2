@@ -9,9 +9,6 @@
 #include "InputManager.h"
 #include "CombatManager.h"
 #include "UnitListSys.h"
-#include <fstream>
-#include <sstream>
-#include <algorithm>
 
 void StartScene::Init()
 {
