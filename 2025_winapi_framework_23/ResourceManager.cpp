@@ -112,7 +112,7 @@ void ResourceManager::RegisterGDI()
 	RegisterFont(FontType::BOLD_UI, L"³ª´®¼Õ±Û¾¾ ¾Ï½ºÅ×¸£´ã", -18, FW_BOLD);
 	RegisterFont(FontType::PIXEL_BIG, L"Galmuri7", -24, FW_BOLD, false, NONANTIALIASED_QUALITY);
 	RegisterFont(FontType::PIXEL_MIDIUM, L"Galmuri7", -18, FW_BOLD, false, NONANTIALIASED_QUALITY);
-	RegisterFont(FontType::PIXEL_NORMAL, L"Galmuri7", -8,FW_BOLD, false, NONANTIALIASED_QUALITY);
+	RegisterFont(FontType::PIXEL_NORMAL, L"Galmuri7", -12,FW_BOLD, false, NONANTIALIASED_QUALITY);
 	//RegisterFont(FontType::PIXEL_NORMAL, L"neodgm", 0, false, NONANTIALIASED_QUALITY);
 }
 void ResourceManager::ReleaseGDI()
