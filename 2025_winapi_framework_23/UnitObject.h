@@ -31,6 +31,8 @@ public:
 		if (!m_unitData) return false;
 		return m_unitData->GetElementType() == other;
 	}
+	
+	bool NeedHeal();
 	bool IsDead() const { return m_currentHp <= 0; }
 	bool IsPowerup() const { return m_isPowerup; }
 	int GetCurrentHp() const { return m_currentHp; }

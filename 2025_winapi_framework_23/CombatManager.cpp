@@ -49,7 +49,7 @@ void CombatManager::Update() {
 			m_timer = 0;
 			ActionData* action = m_actionList.front();
 			battleScene->SetDes(action);
-			if(action->GetOwnerUnit()->IsDead()){
+			if (action->GetOwnerUnit()->IsDead()) {
 				m_actionList.erase(m_actionList.begin());
 				return;
 			}
@@ -188,24 +188,33 @@ void CombatManager::CatchEnemy()
 void CombatManager::EnemyTurn()
 {
 	UnitObject* enemy = GetUnit(UnitType::ENEMY);
-	int idx = rand() % 4;
-	CardData* card = enemy->GetCardInHand(idx);
-	CardEffectType effectType = card->GetCardEffect();
+	CardData* card;
+	int idx;
+
 	while (true) {
-		if (effectType == CardEffectType::AoE) {
-			for (int i = 0; i < 2; ++i) {
-				m_actionList.push_back(new ActionData(enemy, m_units[i], card, idx));
+		idx = rand() % 4;
+		card = enemy->GetCardInHand(idx);
+		CardEffectType effectType = card->GetCardEffect();
+
+		if (enemy->NeedHeal() == false && effectType == CardEffectType::Heal)
+			continue;
+
+		while (true) {
+			if (effectType == CardEffectType::AoE) {
+				for (int i = 0; i < 2; ++i) {
+					m_actionList.push_back(new ActionData(enemy, m_units[i], card, idx));
+				}
+				break;
 			}
-			break;
-		}
-		else if (effectType == CardEffectType::Heal || effectType == CardEffectType::StatBuff || effectType == CardEffectType::Shield) {
-			m_actionList.push_back(new ActionData(enemy, enemy, card, idx));
-			break;
-		}
-		else if (effectType == CardEffectType::Damage || effectType == CardEffectType::StatDebuff) {
-			UnitObject* target = m_units[rand() % 2];
-			m_actionList.push_back(new ActionData(enemy, target, card, idx));
-			break;
+			else if (effectType == CardEffectType::Heal || effectType == CardEffectType::StatBuff || effectType == CardEffectType::Shield) {
+				m_actionList.push_back(new ActionData(enemy, enemy, card, idx));
+				break;
+			}
+			else if (effectType == CardEffectType::Damage || effectType == CardEffectType::StatDebuff) {
+				UnitObject* target = m_units[rand() % 2];
+				m_actionList.push_back(new ActionData(enemy, target, card, idx));
+				break;
+			}
 		}
 	}
 }
@@ -220,8 +229,8 @@ void CombatManager::DamageUnit(ActionData* action)
 
 	int dmg = (ownerUnit->GetStat(StatType::Attack)) * 0.7f;
 	dmg += action->GetCardObject()->GetEffectValue();
-	if(ownerUnit->SameType(action->GetCardObject()->GetCardType()))
-		dmg *=1.5f;
+	if (ownerUnit->SameType(action->GetCardObject()->GetCardType()))
+		dmg *= 1.5f;
 
 	bool isDead = targetUnit->Damage(dmg, ownerUnit->GetUnitData()->GetElementType(), targetUnit->IsPowerup());
 

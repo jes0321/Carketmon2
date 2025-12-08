@@ -121,6 +121,12 @@ void UnitObject::Heal(int heal, bool _floating)
     }
 }
 
+bool UnitObject::NeedHeal()
+{
+	float hpRatio = 0.6f;//현재 hp가 0.6 이하일 때 힐 필요
+    return m_currentHp <= (m_unitData->GetMaxHp() * hpRatio);
+}
+
 int UnitObject::GetStat(StatType _type) const
 {
     return m_statData->GetStat(_type);
