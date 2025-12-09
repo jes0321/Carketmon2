@@ -8,10 +8,10 @@ class StageSelectScene : public Scene
 public:
 	~StageSelectScene() override;
 public:
-	// SceneÀ»(¸¦) ÅëÇØ »ó¼ÓµÊ
+	// Sceneï¿½ï¿½(ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Óµï¿½
 	void Init() override;
 	void Update() override;
-	void Release() override;
+	void Render(HDC _hdc) override;
 public:
 	Stage* GetCurrentStage() const { return m_currentStage; }
 private:
@@ -67,5 +67,6 @@ private:
 	int m_currentStageLength = 0;
 	int m_currentSelectStageLength = 0;
 	int m_currentStageIndex = 0;
+	int m_LifeCount = 0;
 };
 

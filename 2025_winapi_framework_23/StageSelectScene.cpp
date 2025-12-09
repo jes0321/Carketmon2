@@ -17,14 +17,20 @@ StageSelectScene::~StageSelectScene()
 
 void StageSelectScene::Init()
 {
-	m_stages.clear();
-	m_currentStage = nullptr;
-	m_currentStageIndex = 0;
-	m_currentStageLength = 0;
-	m_currentSelectStageLength = 0;
+	srand((unsigned int)time(NULL));
 
-	GenerateStage();
+	if (m_LifeCount != GET_SINGLE(CombatManager)->GetLifeCount())
+	{
+		m_LifeCount = GET_SINGLE(CombatManager)->GetLifeCount();
 
+		m_stages.clear();
+		m_currentStage = nullptr;
+		m_currentStageIndex = 0;
+		m_currentStageLength = 0;
+		m_currentSelectStageLength = 0;
+		GenerateStage();
+	}
+	
 	LifeUI* lifeUI = new LifeUI;
 	lifeUI->Init();
 	AddObject(lifeUI, Layer::UI);
@@ -77,7 +83,7 @@ void StageSelectScene::Update()
 			GET_SINGLE(SceneManager)->LoadScene(L"ExchangeScene");
 			return;
 		case StageType::Normal:
-			GET_SINGLE(SceneManager)->LoadScene(L"BattleScene");
+			//GET_SINGLE(SceneManager)->LoadScene(L"BattleScene");
 			return;
 		case StageType::Boss:
 			GET_SINGLE(SceneManager)->LoadScene(L"BattleScene");
@@ -138,6 +144,18 @@ void StageSelectScene::Update()
 
 		SetCurrentStage(m_currentStage->GetBeforeStage()->GetNextStages()[m_currentStageIndex]);
 	}
+
+	for (auto stageRow : m_stages)
+		for (auto stage : stageRow)
+			stage->Update();
+}
+
+void StageSelectScene::Render(HDC _hdc)
+{
+	for (auto stageRow : m_stages)
+		for (auto stage : stageRow)
+			stage->Render(_hdc);
+
 }
 
 void StageSelectScene::Release()
@@ -175,7 +193,7 @@ void StageSelectScene::GenerateStage()
 			Stage* obj = new Stage(stageNumber, j - 1, i, randStageType);
 			obj->SetPos({ posX , (-120 * i) + 300 });
 			obj->SetSize({ 100,100 });
-			AddObject(obj, Layer::DEFAULT);
+			//AddObject(obj, Layer::DEFAULT);
 			stageRow.push_back(obj);
 
 			++stageNumber;
