@@ -11,6 +11,7 @@ public:
 	// Scene을(를) 통해 상속됨
 	void Init() override;
 	void Update() override;
+	void Render(HDC _hdc) override;
 public:
 	Stage* GetCurrentStage() const { return m_currentStage; }
 private:
@@ -66,5 +67,6 @@ private:
 	int m_currentStageLength = 0;
 	int m_currentSelectStageLength = 0;
 	int m_currentStageIndex = 0;
+	int m_LifeCount = 0;
 };
 
