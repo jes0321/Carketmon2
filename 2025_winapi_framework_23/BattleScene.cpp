@@ -54,6 +54,7 @@ void BattleScene::Init()
 		{
 		case 0:
 		{
+			obj->SetButtonType(UIType::HAND);
 			obj->SetOnClick([this]() {
 				m_uiType = UIType::HAND;
 				OnOffHand(true);
@@ -64,6 +65,7 @@ void BattleScene::Init()
 		break;
 		case 1:
 		{
+			obj->SetButtonType(UIType::INFO);
 			obj->SetOnClick([this]() {
 				m_uiType = UIType::INFO;
 				OnOffHand(false);
@@ -74,6 +76,7 @@ void BattleScene::Init()
 		break;
 		case 2:
 		{
+			obj->SetButtonType(UIType::DECK);
 			obj->SetOnClick([this]() {
 				m_uiType = UIType::DECK;
 				OnOffHand(false);

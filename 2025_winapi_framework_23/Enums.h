@@ -49,7 +49,9 @@ enum class UIType {
 	NONE,
 	HAND,
 	INFO,
-	DECK
+	DECK,
+	CANCEL,
+	START,
 };
 enum class StatType {
 	Attack,

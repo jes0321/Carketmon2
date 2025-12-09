@@ -79,9 +79,21 @@ void ResourceManager::RegisterTexture()
 #pragma endregion
 
 #pragma region UI
-	LoadTexture(L"Button_Deck", L"Texture\\UI\\Button_Deck.bmp");
-	LoadTexture(L"Button_Hand", L"Texture\\UI\\Button_Hand.bmp");
-	LoadTexture(L"Button_Hand", L"Texture\\UI\\Button_Stat.bmp");
+	LoadTexture(L"Button_Deck_Default", L"Texture\\UI\\Button_Deck_Default.bmp");
+	LoadTexture(L"Button_Deck_Select", L"Texture\\UI\\Button_Deck_Select.bmp");
+	LoadTexture(L"Button_Deck_Click", L"Texture\\UI\\Button_Deck_Click.bmp");
+	LoadTexture(L"Button_Hand_Default", L"Texture\\UI\\Button_Hand_Default.bmp");
+	LoadTexture(L"Button_Hand_Select", L"Texture\\UI\\Button_Hand_Select.bmp");
+	LoadTexture(L"Button_Hand_Click", L"Texture\\UI\\Button_Hand_Click.bmp");
+	LoadTexture(L"Button_Info_Default", L"Texture\\UI\\Button_Info_Default.bmp");
+	LoadTexture(L"Button_Info_Select", L"Texture\\UI\\Button_Info_Select.bmp");
+	LoadTexture(L"Button_Info_Click", L"Texture\\UI\\Button_Info_Click.bmp");
+	LoadTexture(L"Button_Start_Default", L"Texture\\UI\\Button_Start_Default.bmp");
+	LoadTexture(L"Button_Start_Select", L"Texture\\UI\\Button_Start_Select.bmp");
+	LoadTexture(L"Button_Start_Click", L"Texture\\UI\\Button_Start_Click.bmp");
+	LoadTexture(L"Button_Cancel_Default", L"Texture\\UI\\Button_Cancel_Default.bmp");
+	LoadTexture(L"Button_Cancel_Select", L"Texture\\UI\\Button_Cancel_Select.bmp");
+	LoadTexture(L"Button_Cancel_Click", L"Texture\\UI\\Button_Cancel_Click.bmp");
 
 	LoadTexture(L"Mark_Fire", L"Texture\\UI\\Mark_Fire_Element.bmp");
 	LoadTexture(L"Mark_Water", L"Texture\\UI\\Mark_Water_Element.bmp");
