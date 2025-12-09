@@ -7,6 +7,7 @@
 #include "CombatManager.h"
 #include "Stage.h"
 #include "UnitObject.h"
+#include "LifeUI.h"
 #include "UnitManager.h"
 
 StageSelectScene::~StageSelectScene()
@@ -24,6 +25,9 @@ void StageSelectScene::Init()
 
 	GenerateStage();
 
+	LifeUI* lifeUI = new LifeUI;
+	lifeUI->Init();
+	AddObject(lifeUI, Layer::UI);
 	GET_SINGLE(ResourceManager)->Play(L"BGM");
 }
 

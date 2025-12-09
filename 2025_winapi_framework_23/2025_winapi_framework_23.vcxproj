@@ -181,6 +181,7 @@
     <ClInclude Include="ExchangeScene.h" />
     <ClInclude Include="HealthBar.h" />
     <ClInclude Include="Image.h" />
+    <ClInclude Include="LifeUI.h" />
     <ClInclude Include="Random.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="StageSelectScene.h" />
@@ -231,6 +232,7 @@
     <ClCompile Include="ExchangeScene.cpp" />
     <ClCompile Include="HealthBar.cpp" />
     <ClCompile Include="Image.cpp" />
+    <ClCompile Include="LifeUI.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="StageSelectScene.cpp" />
     <ClCompile Include="GDISelector.cpp" />
