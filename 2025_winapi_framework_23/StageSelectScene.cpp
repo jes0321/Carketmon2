@@ -137,6 +137,12 @@ void StageSelectScene::Update()
 	}
 }
 
+void StageSelectScene::Release()
+{
+	Scene::Release();
+	GET_SINGLE(ResourceManager)->Stop(SOUND_CHANNEL::BGM);
+}
+
 void StageSelectScene::GenerateStage()
 {
 	int stageNumber = 1;

@@ -11,6 +11,7 @@ public:
 	// Scene을(를) 통해 상속됨
 	void Init() override;
 	void Update() override;
+	void Release() override;
 public:
 	Stage* GetCurrentStage() const { return m_currentStage; }
 private:

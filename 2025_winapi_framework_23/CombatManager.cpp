@@ -9,6 +9,8 @@
 #include "BattleDescription.h"
 #include "StageManager.h"
 #include "UnitListSys.h"
+
+
 void CombatManager::Init()
 {
 	m_currentTurn = UnitType::PLAYER1;

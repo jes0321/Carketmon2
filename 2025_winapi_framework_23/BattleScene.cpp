@@ -11,10 +11,12 @@
 #include "UnitInfoObj.h"
 #include "UnitObject.h"
 #include "DeckUIObj.h"
+#include "ResourceManager.h"
 #undef max;
 
 void BattleScene::Init()
 {
+	GET_SINGLE(ResourceManager)->Play(L"BATTLEBGM");
 
 	int cardWidth = 48 * 4;
 	int cardHeight = 64 * 4;
@@ -173,6 +175,7 @@ void BattleScene::Render(HDC _hdc)
 void BattleScene::Release()
 {
 	Scene::Release();
+	GET_SINGLE(ResourceManager)->Stop(SOUND_CHANNEL::BGM);
 	m_cardObjs.clear();
 	m_descriptionText = nullptr;
 }
