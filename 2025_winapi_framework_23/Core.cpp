@@ -50,7 +50,10 @@ void Core::CleanUp()
     GET_SINGLE(ResourceManager)->Release();
 }
 
-
+void Core::ExitGame()
+{
+    PostQuitMessage(0);
+}
 void Core::MainUpdate()
 {
     // == Manager == 

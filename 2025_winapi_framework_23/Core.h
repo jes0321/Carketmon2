@@ -8,6 +8,7 @@ public:
 	void GameLoop();
 	void CleanUp();
 public:
+	void ExitGame();
 	const HDC& GetMainDC() const { return m_hDC; }
 	const HWND& GetHwnd() const { return m_hWnd; }
 private:

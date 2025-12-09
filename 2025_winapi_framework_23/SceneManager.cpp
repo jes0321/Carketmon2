@@ -7,22 +7,8 @@
 #include "TreatmentCenterScene.h"
 #include "BattleScene.h"
 #include "TitleScene.h"
+#include "BattleEndScene.h"
 #include "StartScene.h"
-void SceneManager::PhysicsSyncColliders()
-{
-	for (UINT i = 0; i < (UINT)Layer::END; ++i)
-	{
-		const auto& objects = m_curScene->GetLayerObjects((Layer)i);
-		for (Object* obj : objects)
-		{
-			if (!obj)
-				continue;
-
-			if (auto* col = obj->GetComponent<Collider>())
-				col->LateUpdate(); // sync  
-		}
-	}
-}
 void SceneManager::Init()
 {
 	m_curScene = nullptr;
@@ -30,6 +16,7 @@ void SceneManager::Init()
 	RegisterScene(L"TreatmentCenterScene", std::make_shared<TreatmentCenterScene>());
 	RegisterScene(L"ExchangeScene", std::make_shared<ExchangeScene>());
 	RegisterScene(L"BattleScene", std::make_shared<BattleScene>());
+	RegisterScene(L"BattleEndScene", std::make_shared<BattleEndScene>());
 	RegisterScene(L"TitleScene", std::make_shared<TitleScene>());
 	RegisterScene(L"StartScene", std::make_shared<StartScene>());
 	LoadScene(L"TitleScene");
@@ -48,7 +35,6 @@ void SceneManager::FixedUpdate(float _fixedDT)
 	if (m_curScene == nullptr)
 		return;
 	m_curScene->FixedUpdate(_fixedDT);
-	PhysicsSyncColliders();
 }
 
 void SceneManager::Render(HDC _hdc)

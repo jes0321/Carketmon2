@@ -17,6 +17,7 @@
 void BattleScene::Init()
 {
 	GET_SINGLE(ResourceManager)->Play(L"BATTLEBGM");
+	GET_SINGLE(CombatManager)->SetPosition(true);
 
 	int cardWidth = 48 * 4;
 	int cardHeight = 64 * 4;

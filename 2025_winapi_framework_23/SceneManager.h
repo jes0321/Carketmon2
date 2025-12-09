@@ -9,7 +9,6 @@ public:
 	void Init();
 	void Update(); // LateUpdate;
 	void FixedUpdate(float _fixedDT);
-	void PhysicsSyncColliders();
 	void Render(HDC _hdc);	
 public:
 	void RequestDestroy(Object* obj)

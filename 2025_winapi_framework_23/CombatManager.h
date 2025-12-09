@@ -22,7 +22,9 @@ public:
     void AddAction(UnitType _target, int index);
     void CancelAction(UnitType _ownerType);
 	void HealUnit(UnitType _type);
+	void SetPosition(bool isBattle);
 
+	bool IsWin() const { return m_isWin; }
     UnitObject* GetUnit(UnitType type);
     vector<CardData*> GetHandCard();
 	int GetLifeCount() const { return m_lifeCount; }
@@ -38,6 +40,15 @@ private:
 	void BuffTarget(ActionData* action);
 	void SetFocus(bool _isFocus, ActionData* action = nullptr);
 private:
+	float m_spacing = 300.f;
+
+	Vec2 m_enemyBattlePos = { (WINDOW_WIDTH - 250.f),((WINDOW_HEIGHT / 2.f) - 250.f) };
+	Vec2 m_enemyBattleEndPos;
+
+	Vec2 m_unitBattlePos = { (200.f),((WINDOW_HEIGHT / 2.f) - 50.f) };
+	Vec2 m_unitBattleEndPos;
+
+	bool m_isWin = false;
 	int m_lifeCount = 3;
 	bool m_isFocus = false;
 	UnitObject* m_focusUnit;

@@ -19,21 +19,7 @@ void CombatManager::Init()
 	{
 		m_units[i] = new UnitObject();
 	}
-
-	Vec2 size = { 32 * 2,32 * 2 };
-	for (int i = 0; i < 2; ++i) {
-		m_units[i]->SetSize(size * 2.f);
-		m_units[i]->SetPos({ 200.f + i * 300.f, (WINDOW_HEIGHT / 2.f) - 50.f });
-	}
-	m_units[2]->SetSize(size * 4.2f);
-	m_units[2]->SetPos({ WINDOW_WIDTH - 250.f, (WINDOW_HEIGHT / 2.f) - 250.f });// Enemy
-	m_units[0]->SetSelect(true);
-
-
-	for (int i = 0; i < 2; ++i)
-	{
-		m_units[i]->SetUnitData(GET_SINGLE(UnitManager)->GetUnitRandom());
-	}
+	SetPosition(true);
 }
 void CombatManager::Update() {
 	for (int i = 0; i < m_units.size(); ++i)
@@ -103,6 +89,7 @@ void CombatManager::Render(HDC _hdc)
 void CombatManager::SetUnitData(UnitType _type, UnitData* _data)
 {
 	GetUnit(_type)->SetUnitData(_data);
+	m_units[2]->SetUnitData(_data);
 }
 
 void CombatManager::SetEnemy(UnitData* _data)
@@ -167,6 +154,28 @@ void CombatManager::CancelAction(UnitType _ownerType)
 void CombatManager::HealUnit(UnitType _type)
 {
 	GetUnit(_type)->Heal(9999, false);
+}
+
+void CombatManager::SetPosition(bool isBattle)
+{
+	Vec2 enemyPos, unitPos;
+	if (isBattle) {
+		enemyPos = m_enemyBattlePos;
+		unitPos = m_unitBattlePos;
+	}
+	else {
+		enemyPos = m_enemyBattleEndPos;
+		unitPos = m_unitBattleEndPos;
+	}
+
+	Vec2 size = { 32 * 2,32 * 2 };
+	for (int i = 0; i < 2; ++i) {
+		m_units[i]->SetSize(size * 2.f);
+		m_units[i]->SetPos({ unitPos.x + i * m_spacing, unitPos.y });
+	}
+	m_units[2]->SetSize(size * 4.2f);
+	m_units[2]->SetPos({enemyPos});// Enemy
+	m_units[0]->SetSelect(true);
 }
 
 
@@ -241,13 +250,15 @@ void CombatManager::DamageUnit(ActionData* action)
 	if (isDead) {
 		bool targetIsEnemy = targetUnit == GetUnit(UnitType::ENEMY);
 		if (targetIsEnemy) {
-			//스테이지 성공 처리 해야함
+			m_isWin = true;
+			GET_SINGLE(SceneManager)->LoadScene(L"BattleEndScene");
 			CatchEnemy();
 		}
 		else {
 			--m_lifeCount;
 			if (m_lifeCount <= 0) {
-				//여기 게임 오버 처리 해야함
+				m_isWin = false;
+				GET_SINGLE(SceneManager)->LoadScene(L"BattleEndScene");
 			}
 			else {
 				m_deadUnits.push_back(targetUnit);

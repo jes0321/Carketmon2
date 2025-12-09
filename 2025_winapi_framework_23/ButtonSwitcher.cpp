@@ -38,19 +38,9 @@ void ButtonSwitcher::Update()
 		m_currentButton->m_buttonState = ButtonState::Clicked;
 	}
 	else if (GET_KEYUP(KEY_TYPE::E)) {
-		// Click may modify buttons; handle carefully
-		m_currentButton->Click();
-
-		// Re-check validity/state after click
-		if (m_buttons.empty()) { m_currentButton = nullptr; return; }
-		if (m_currentStageIndex < 0) m_currentStageIndex = 0;
-		if (m_currentStageIndex >= (int)m_buttons.size()) m_currentStageIndex = (int)m_buttons.size() - 1;
-		m_currentButton = m_buttons[m_currentStageIndex];
-		if (!m_currentButton) return;
-
-		m_currentButton->m_buttonState = ButtonState::Selected;
-
 		GET_SINGLE(ResourceManager)->Play(L"Btn");
+		m_currentButton->m_buttonState = ButtonState::Selected;
+		m_currentButton->Click();
 		return;
 	}
 

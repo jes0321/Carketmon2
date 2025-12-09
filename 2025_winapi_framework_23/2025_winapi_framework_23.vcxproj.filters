@@ -186,6 +186,7 @@
     </ClInclude>
     <ClInclude Include="Text.h" />
     <ClInclude Include="LifeUI.h" />
+    <ClInclude Include="BattleEndScene.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2025_winapi_framework_23.rc">
@@ -314,5 +315,6 @@
     </ClCompile>
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="LifeUI.cpp" />
+    <ClCompile Include="BattleEndScene.cpp" />
   </ItemGroup>
 </Project>
