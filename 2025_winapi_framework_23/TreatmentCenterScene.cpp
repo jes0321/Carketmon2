@@ -3,10 +3,12 @@
     #include "TreatmentCenterScene.h"
     #include "UnitData.h"
     #include "UnitObject.h"
+    #include "ResourceManager.h"
     #include "CombatManager.h"
     #include "InputManager.h"
     #include "UnitManager.h"
     #include "Button.h"
+    #include "Image.h"
     #include "ButtonSwitcher.h"
 
 TreatmentCenterScene::~TreatmentCenterScene()
@@ -28,20 +30,30 @@ void TreatmentCenterScene::Init()
     vector<Button*> buttonsSelect;
     vector<Button*> buttonsChange;
 
+    Texture* texDefault = GET_SINGLE(ResourceManager)->ResourceManager::GetTexture(L"Button_Square_Default");
+    Texture* texSelect = GET_SINGLE(ResourceManager)->ResourceManager::GetTexture(L"Button_Square_Select");
+    Texture* texClick = GET_SINGLE(ResourceManager)->ResourceManager::GetTexture(L"Button_Square_Click");
+
 #pragma region 바꿀 카켓몬 선택 ButtonSwitcher Setting
     for (int i = 0; i < 3; i++)
     {
         Button* obj = new Button;
         obj->SetPos({ WINDOW_WIDTH / 2 + 170, (170 * i) + 160 });
         obj->SetSize({ 150,150 });
+        obj->SetStateTexture(texDefault, texClick, texSelect);
         AddObject(obj, Layer::UI);
+
+        Image* image = new Image();
+        image->SetPos({ WINDOW_WIDTH / 2 + 170, (170 * i) + 160 });
+        image->SetSize({ 130,130 });
+        AddObject(image, Layer::UI);
 
         switch (i)
         {
         case 0:
         {
             UnitObject* unitObj = GET_SINGLE(CombatManager)->GetUnit(UnitType::PLAYER1);
-            obj->SetCurrentexture(unitObj->GetUnitData()->GetTexture());
+            image->SetTexture(unitObj->GetUnitData()->GetTexture());
 
             obj->SetOnClick([this]() {
                 m_buttonSwitcherToSelect->SetAvailable(true);
@@ -53,7 +65,7 @@ void TreatmentCenterScene::Init()
         case 1:
         {
             UnitObject* unitObj = GET_SINGLE(CombatManager)->GetUnit(UnitType::PLAYER2);
-            obj->SetCurrentexture(unitObj->GetUnitData()->GetTexture());
+            image->SetTexture(unitObj->GetUnitData()->GetTexture());
 
             obj->SetOnClick([this]() {
                 m_buttonSwitcherToSelect->SetAvailable(true);
@@ -85,13 +97,19 @@ void TreatmentCenterScene::Init()
         Button* obj = new Button;
         obj->SetPos({ WINDOW_WIDTH / 2 - 170, (170 * i) + 160 });
         obj->SetSize({ 150,150 });
+        obj->SetStateTexture(texDefault, texClick, texSelect);
         AddObject(obj, Layer::UI);
+
+        Image* image = new Image();
+        image->SetPos({ WINDOW_WIDTH / 2 - 170, (170 * i) + 160 });
+        image->SetSize({ 130,130 });
+        AddObject(image, Layer::UI);
 
         switch (i)
         {
         case 0:
         {
-            obj->SetCurrentexture(m_unit1->GetTexture());
+            image->SetTexture(m_unit1->GetTexture());
 
             obj->SetOnClick([this]() {
                 m_isCompelet = true;
@@ -101,7 +119,7 @@ void TreatmentCenterScene::Init()
         break;
         case 1:
         {
-            obj->SetCurrentexture(m_unit2->GetTexture());
+            image->SetTexture(m_unit2->GetTexture());
 
             obj->SetOnClick([this]() {
                 m_isCompelet = true;

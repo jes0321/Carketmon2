@@ -94,6 +94,9 @@ void ResourceManager::RegisterTexture()
 	LoadTexture(L"Button_Cancel_Default", L"Texture\\UI\\Button_Cancel_Default.bmp");
 	LoadTexture(L"Button_Cancel_Select", L"Texture\\UI\\Button_Cancel_Select.bmp");
 	LoadTexture(L"Button_Cancel_Click", L"Texture\\UI\\Button_Cancel_Click.bmp");
+	LoadTexture(L"Button_Square_Default", L"Texture\\UI\\Button_Square_Default.bmp");
+	LoadTexture(L"Button_Square_Select", L"Texture\\UI\\Button_Square_Select.bmp");
+	LoadTexture(L"Button_Square_Click", L"Texture\\UI\\Button_Square_Click.bmp");
 
 	LoadTexture(L"Mark_Fire", L"Texture\\UI\\Mark_Fire_Element.bmp");
 	LoadTexture(L"Mark_Water", L"Texture\\UI\\Mark_Water_Element.bmp");

@@ -6,7 +6,7 @@ class Image :
     public Object
 {
 public:
-	Image(Texture* _texture);
+	Image();
 	~Image();
 public:
 	void Render(HDC _hdc);
