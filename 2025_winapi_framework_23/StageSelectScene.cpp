@@ -62,6 +62,8 @@ void StageSelectScene::Update()
 		MoveStage();
 		GET_SINGLE(CombatManager)->SetEnemy(m_currentStage->GetUnitData());
 
+		GET_SINGLE(ResourceManager)->Stop(SOUND_CHANNEL::BGM);
+
 		switch (stageType)
 		{
 		case StageType::TreatmentCenter:
@@ -71,7 +73,8 @@ void StageSelectScene::Update()
 			GET_SINGLE(SceneManager)->LoadScene(L"ExchangeScene");
 			return;
 		case StageType::Normal:
-			GET_SINGLE(SceneManager)->LoadScene(L"BattleScene");
+			//GET_SINGLE(SceneManager)->LoadScene(L"BattleScene");
+			return;
 		case StageType::Boss:
 			GET_SINGLE(SceneManager)->LoadScene(L"BattleScene");
 			return;

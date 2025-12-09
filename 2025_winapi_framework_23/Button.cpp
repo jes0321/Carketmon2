@@ -36,7 +36,7 @@ void Button::Render(HDC _hdc)
 		RECT_RENDER(_hdc, pos.x, pos.y, size.x, size.y);
 	}
 
-	if (m_uiType == UIType::NONE || m_currnetTexture == nullptr) return;
+	if (m_currnetTexture == nullptr) return;
 
 	LONG width = m_currnetTexture->GetWidth();
 	LONG height = m_currnetTexture->GetHeight();

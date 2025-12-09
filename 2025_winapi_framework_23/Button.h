@@ -73,6 +73,12 @@ public:
 	void SetDefaultTexture(Texture* _texture) { m_defaultTexture = _texture; }
 	void SetClickedTexture(Texture* _texture) { m_clickedTexture = _texture; }
 	void SetSelectedTexture(Texture* _texture) { m_selectedTexture = _texture; }
+	void SetStateTexture(Texture* _default, Texture* _clicked, Texture* _selected)
+	{ 
+		m_defaultTexture = _default;
+		m_clickedTexture = _clicked;
+		m_selectedTexture = _selected;
+	}
 	void SetCurrentexture(Texture* _texture) { m_currnetTexture = _texture; }
 	void SetViewRect(bool _isViewRect) { m_isViewRect = _isViewRect; }
 
