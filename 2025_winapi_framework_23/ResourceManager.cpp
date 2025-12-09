@@ -269,4 +269,5 @@ void ResourceManager::RegisterSound()
 	LoadSound(L"BGM",L"Sound\\Retro_bgm.wav",true);
 	LoadSound(L"BATTLEBGM",L"Sound\\RedBGM.wav",true);
 	LoadSound(L"Btn",L"Sound\\btn_sound.wav",false);
+	LoadSound(L"Critical",L"Sound\\Critical.wav",false);
 }
