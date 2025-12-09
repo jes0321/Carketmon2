@@ -267,5 +267,6 @@ Texture* ResourceManager::GetTexture(const wstring& _key)
 void ResourceManager::RegisterSound()
 {
 	LoadSound(L"BGM",L"Sound\\Retro_bgm.wav",true);
+	LoadSound(L"BATTLEBGM",L"Sound\\RedBGM.wav",true);
 	LoadSound(L"Shoot",L"Sound\\laserShoot.wav",false);
 }

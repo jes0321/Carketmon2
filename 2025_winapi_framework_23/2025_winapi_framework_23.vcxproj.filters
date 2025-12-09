@@ -184,6 +184,8 @@
     <ClInclude Include="TreatmentCenterScene.h">
       <Filter>Engine\04. Scene</Filter>
     </ClInclude>
+    <ClInclude Include="Text.h" />
+    <ClInclude Include="LifeUI.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2025_winapi_framework_23.rc">
@@ -310,5 +312,7 @@
     <ClCompile Include="TreatmentCenterScene.cpp">
       <Filter>Engine\04. Scene</Filter>
     </ClCompile>
+    <ClCompile Include="Text.cpp" />
+    <ClCompile Include="LifeUI.cpp" />
   </ItemGroup>
 </Project>

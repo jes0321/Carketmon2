@@ -195,9 +195,10 @@ void CombatManager::EnemyTurn()
 		idx = rand() % 4;
 		card = enemy->GetCardInHand(idx);
 		CardEffectType effectType = card->GetCardEffect();
-
-		if (enemy->NeedHeal() == false && effectType == CardEffectType::Heal)
+		if (enemy->NeedHeal() == false && effectType == CardEffectType::Heal) {
+			enemy->UseCard(idx);
 			continue;
+		}
 
 		while (true) {
 			if (effectType == CardEffectType::AoE) {
@@ -216,6 +217,7 @@ void CombatManager::EnemyTurn()
 				break;
 			}
 		}
+		break;
 	}
 }
 
