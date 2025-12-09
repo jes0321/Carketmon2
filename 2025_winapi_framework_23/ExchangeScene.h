@@ -10,6 +10,6 @@ public:
 private:
 	Text* m_textObj = nullptr;
 	float m_currentTime = 0.f;
-	float m_delayTime = 3.f;
+	float m_delayTime = 4.f;
 };
 

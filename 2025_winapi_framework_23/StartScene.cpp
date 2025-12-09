@@ -40,6 +40,7 @@ void StartScene::Init()
         {
         case 0:
         {
+            obj->SetButtonType(UIType::CANCEL);
             obj->SetOnClick([this]() {
                 CancelSelectAll();
                 }, "취소");
@@ -47,6 +48,7 @@ void StartScene::Init()
         break;
         case 1:
         {
+            obj->SetButtonType(UIType::START);
             obj->SetOnClick([this]() {
                 // 선택 2개 검증
                 if (m_selectVec.size() < 2 || !m_selectVec[0] || !m_selectVec[1]) {

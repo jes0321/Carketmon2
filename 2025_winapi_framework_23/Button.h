@@ -1,6 +1,7 @@
 #pragma once
 #include "Object.h"
 #include "Texture.h"
+#include "ResourceManager.h"
 
 enum ButtonState
 {
@@ -19,7 +20,62 @@ public:
 	void Render(HDC _hdc);
 	void Update() override;
 public:
-	void SetTexture(Texture* _texture) { m_texture = _texture; }
+	void SetButtonType(UIType _uiType) 
+	{ 
+		m_uiType = _uiType; 
+
+		if (_uiType == UIType::NONE) return;
+
+		switch (_uiType)
+		{
+			case UIType::HAND:
+				m_defaultTexture = GET_SINGLE(ResourceManager)
+					->GetTexture(L"Button_Hand_Default");
+				m_selectedTexture = GET_SINGLE(ResourceManager)
+					->GetTexture(L"Button_Hand_Select");
+				m_clickedTexture = GET_SINGLE(ResourceManager)
+					->GetTexture(L"Button_Hand_Click");
+				break;
+			case UIType::INFO:
+				m_defaultTexture = GET_SINGLE(ResourceManager)
+					->GetTexture(L"Button_Info_Default");
+				m_selectedTexture = GET_SINGLE(ResourceManager)
+					->GetTexture(L"Button_Info_Select");
+				m_clickedTexture = GET_SINGLE(ResourceManager)
+					->GetTexture(L"Button_Info_Click");
+				break;
+			case UIType::DECK:
+				m_defaultTexture = GET_SINGLE(ResourceManager)
+					->GetTexture(L"Button_Deck_Default");
+				m_selectedTexture = GET_SINGLE(ResourceManager)
+					->GetTexture(L"Button_Deck_Select");
+				m_clickedTexture = GET_SINGLE(ResourceManager)
+					->GetTexture(L"Button_Deck_Click");
+				break;
+			case UIType::CANCEL:
+				m_defaultTexture = GET_SINGLE(ResourceManager)
+					->GetTexture(L"Button_Cancel_Default");
+				m_selectedTexture = GET_SINGLE(ResourceManager)
+					->GetTexture(L"Button_Cancel_Select");
+				m_clickedTexture = GET_SINGLE(ResourceManager)
+					->GetTexture(L"Button_Cancel_Click");
+				break;
+			case UIType::START:
+				m_defaultTexture = GET_SINGLE(ResourceManager)
+					->GetTexture(L"Button_Start_Default");
+				m_selectedTexture = GET_SINGLE(ResourceManager)
+					->GetTexture(L"Button_Start_Select");
+				m_clickedTexture = GET_SINGLE(ResourceManager)
+					->GetTexture(L"Button_Start_Click");
+				break;
+		}
+	}
+	void SetDefaultTexture(Texture* _texture) { m_defaultTexture = _texture; }
+	void SetClickedTexture(Texture* _texture) { m_clickedTexture = _texture; }
+	void SetSelectedTexture(Texture* _texture) { m_selectedTexture = _texture; }
+	void SetCurrentexture(Texture* _texture) { m_currnetTexture = _texture; }
+	void SetViewRect(bool _isViewRect) { m_isViewRect = _isViewRect; }
+
 	void SetOnClick(std::function<void()> func, std::string message = "")
 	{
 		m_buttonText = message;
@@ -36,8 +92,14 @@ public:
 	}
 public:
 	ButtonState m_buttonState = ButtonState::Default;
-	Texture* m_texture = nullptr;
+	Texture* m_defaultTexture = nullptr;
+	Texture* m_clickedTexture = nullptr;
+	Texture* m_selectedTexture = nullptr;
+	Texture* m_currnetTexture = nullptr;
+	UIType m_uiType = UIType::NONE;
+
 	std::function<void()> m_onClick;
 	std::string m_buttonText = "Button Å¬¸¯";
+	bool m_isViewRect = false;
 };
 

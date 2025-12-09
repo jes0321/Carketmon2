@@ -41,7 +41,7 @@ void TreatmentCenterScene::Init()
         case 0:
         {
             UnitObject* unitObj = GET_SINGLE(CombatManager)->GetUnit(UnitType::PLAYER1);
-            obj->SetTexture(unitObj->GetUnitData()->GetTexture());
+            obj->SetCurrentexture(unitObj->GetUnitData()->GetTexture());
 
             obj->SetOnClick([this]() {
                 m_buttonSwitcherToSelect->SetAvailable(true);
@@ -53,7 +53,7 @@ void TreatmentCenterScene::Init()
         case 1:
         {
             UnitObject* unitObj = GET_SINGLE(CombatManager)->GetUnit(UnitType::PLAYER2);
-            obj->SetTexture(unitObj->GetUnitData()->GetTexture());
+            obj->SetCurrentexture(unitObj->GetUnitData()->GetTexture());
 
             obj->SetOnClick([this]() {
                 m_buttonSwitcherToSelect->SetAvailable(true);
@@ -91,7 +91,7 @@ void TreatmentCenterScene::Init()
         {
         case 0:
         {
-            obj->SetTexture(m_unit1->GetTexture());
+            obj->SetCurrentexture(m_unit1->GetTexture());
 
             obj->SetOnClick([this]() {
                 m_isCompelet = true;
@@ -101,7 +101,7 @@ void TreatmentCenterScene::Init()
         break;
         case 1:
         {
-            obj->SetTexture(m_unit2->GetTexture());
+            obj->SetCurrentexture(m_unit2->GetTexture());
 
             obj->SetOnClick([this]() {
                 m_isCompelet = true;
