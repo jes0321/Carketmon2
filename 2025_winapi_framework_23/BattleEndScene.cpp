@@ -32,7 +32,7 @@ void BattleEndScene::Init()
 			{
 				obj->SetButtonType(UIType::CANCEL);
 				obj->SetOnClick([this]() {
-					GET_SINGLE(SceneManager)->LoadScene(L"StageSelectScene");
+					GET_SINGLE(SceneManager)->LoadScene(L"TitleScene");
 					}, "√Îº“");
 			}
 			break;
@@ -71,8 +71,8 @@ void BattleEndScene::Render(HDC _hdc)
 		RECT textRect;
 		textRect.left = 0;
 		textRect.right = WINDOW_WIDTH;
-		textRect.top = 50;
-		textRect.bottom = 150;
+		textRect.top = 0;
+		textRect.bottom = 100;
 
 		DrawTextW(_hdc, m_resultText.c_str(), -1, &textRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE | DT_NOPREFIX);
 	}

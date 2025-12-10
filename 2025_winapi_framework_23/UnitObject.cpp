@@ -32,6 +32,8 @@ void UnitObject::InitHealthBar(const Vec2& pos, const Vec2& size)
 	// 유닛보다 조금 더 아래로 내리기 (기존 +6 에서 +12로)
 	float barY = pos.y + size.y * 0.5f + 12.f;
 
+	if (m_healthBar)
+		SAFE_DELETE(m_healthBar);
 	m_healthBar = new HealthBar(barW, barH);
 	m_healthBar->SetPos({ pos.x, barY });
 	m_healthBar->SetSize({ barW, barH });
@@ -40,6 +42,8 @@ void UnitObject::InitHealthBar(const Vec2& pos, const Vec2& size)
 
 void UnitObject::InitStats()
 {
+	if(m_statData)
+		SAFE_DELETE(m_statData);
 	m_statData = new UnitStatData(
 		m_unitData->GetAtk(),
 		m_unitData->GetDef(),
@@ -69,7 +73,7 @@ bool UnitObject::Damage(int dmg, ElementType _type, bool _isPowerup)
 	int Dmg = dmg - (m_statData->GetStat(StatType::Defense) * 0.4f);
 	if (IsStrongAgainst(_type)) {
 		GET_SINGLE(ResourceManager)->Play(L"Critical");
-		Dmg *= 2; 
+		Dmg *= 2;
 	}
 	else if (IsWeakAgainst(_type)) { Dmg *= 0.5f; }
 	if (_isPowerup) { Dmg *= 1.5f; }
@@ -209,6 +213,17 @@ void UnitObject::Update()
 	UpdateRevive(dt);
 }
 
+UnitObject::~UnitObject()
+{
+	if (m_statData) {
+		SAFE_DELETE(m_statData);
+	}
+	if (m_healthBar) {
+		SAFE_DELETE(m_healthBar);
+	}
+}
+
+
 void UnitObject::RenderSelection(HDC _hdc, const Vec2& pos, const Vec2& size)
 {
 	if (!m_isSelect) return;
@@ -313,4 +328,11 @@ void UnitObject::Render(HDC _hdc)
 		float barY = pos.y + size.y * 0.5f + 12.f - liftY;
 		RenderNameLeftOfBar(_hdc, m_unitData->GetName(), barW, barH, barY, pos.x);
 	}
+}
+void UnitObject::ResetBlink()
+{
+	m_isBlinking = false;
+	m_isBlinkVisible = true;
+	m_blinkRemain = 0.f;
+	m_blinkAccum = 0.f;
 }

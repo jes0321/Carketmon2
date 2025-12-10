@@ -47,6 +47,8 @@ void Core::CleanUp()
     ::DeleteObject(m_hBackBit);
     ::ReleaseDC(m_hWnd, m_hDC);
 	GET_SINGLE(CardManager)->Release();
+	GET_SINGLE(UnitManager)->Release();
+	GET_SINGLE(CombatManager)->Release();
     GET_SINGLE(ResourceManager)->Release();
 }
 

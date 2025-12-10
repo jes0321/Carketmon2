@@ -9,6 +9,7 @@ class UnitObject : public Object
 public:
 	void Render(HDC _hdc) override;
 	void Update() override;
+	~UnitObject() override;
 	void SetUnitData(UnitData* _data);
 	void SetBuffStat(StatType _type, int _value);
 	void UseCard(int index);
@@ -42,6 +43,7 @@ public:
 
 	// 리바이브 연출
 	void StartRevive();
+	void ResetBlink();
 
 private:
 	// 내부 헬퍼로 묶어서 정리
