@@ -76,58 +76,18 @@ void Core::MainUpdate()
     GET_SINGLE(InputManager)->Update();
     GET_SINGLE(ResourceManager)->FmodUpdate();
     GET_SINGLE(SceneManager)->Update();
-    //GET_SINGLE(CollisionManager)->Update();
-
-    //Vec2 pos = m_obj.GetPos();
-    ////if (GetAsyncKeyState(VK_LEFT) & 0x8000)
-    ////if(GET_SINGLE(InputManager)->IsPress(KEY_TYPE::LEFT))
-    //  if(GET_KEY(KEY_TYPE::LEFT))
-    //    pos.x -= 300.f * fDT;
-    ////if (GetAsyncKeyState(VK_RIGHT) & 0x8000)
-    ////if (GET_SINGLE(InputManager)->IsUp(KEY_TYPE::RIGHT))
-    //  if(GET_KEYUP(KEY_TYPE::RIGHT))
-    //      pos.x += 300.f *fDT;
-    //  if(GET_KEYWIDTH(KEY_TYPE::CTRL, KEY_TYPE::SPACE))
-    //      pos.y += 300.f *fDT;
-    // 
-    //m_obj.SetPos(pos);
 }
 void Core::MainRender()
 {
-    //::Rectangle(m_hBackDC, -1, -1, WINDOW_WIDTH +1, WINDOW_HEIGHT + 1);
-    
-    // clear
     ::PatBlt(m_hBackDC, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, WHITENESS);
     
-    // render or draw
     GET_SINGLE(SceneManager)->Render(m_hBackDC);
-    //Vec2 pos = m_obj.GetPos();
-    //Vec2 size = m_obj.GetSize();
-    //RECT_RENDER(m_hBackDC, pos.x, pos.y
-    //                 , size.x, size.y);
-    
-    // display
+
     ::BitBlt(m_hDC, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, m_hBackDC, 0, 0, SRCCOPY);
 }
 
 void Core::GameLoop()
 {
-    //time(NULL);
-    //FrameSync();
-    //// ms
-    //clock();
-
-    //static int cnt = 0;
-    //++cnt;
-    //static int prev = GetTickCount64();
-    //int cur = GetTickCount64();
-    //if (cur - prev >= 1000)
-    //{
-    //    prev = cur;
-    //    cnt = 0;
-    //}
-
-
     MainUpdate();
     MainRender();
     GET_SINGLE(SceneManager)->GetCurScene()->FlushEvent();
