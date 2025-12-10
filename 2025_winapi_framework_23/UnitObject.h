@@ -7,9 +7,10 @@ class UnitStatData;
 class UnitObject : public Object
 {
 public:
+	UnitObject();
+	~UnitObject() override;
 	void Render(HDC _hdc) override;
 	void Update() override;
-	~UnitObject() override;
 	void SetUnitData(UnitData* _data);
 	void SetBuffStat(StatType _type, int _value);
 	void UseCard(int index);
@@ -57,6 +58,7 @@ private:
 	void RenderNameLeftOfBar(HDC _hdc, const wstring& name, float barW, float barH, float barY, float posX);
 
 private:
+	Texture* m_arrowTex = nullptr;
 	bool m_isSheilded = false;
 	bool m_isPowerup = false;
 	bool m_isSelect = false;

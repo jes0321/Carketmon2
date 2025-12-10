@@ -3,6 +3,7 @@
 #include "CardData.h"
 #include "Texture.h"
 #include "BattleScene.h"
+#include "ResourceManager.h"
 #include "InputManager.h"
 #include "SceneManager.h"
 
@@ -59,6 +60,11 @@ void DeckUIObj::Update()
     scene->SetCardDes(m_cards[m_selected]);
 }
 
+DeckUIObj::DeckUIObj()
+{
+    m_selectBox = GET_SINGLE(ResourceManager)->GetTexture(L"CradSelectMark");
+}
+
 void DeckUIObj::Render(HDC _hdc)
 {
     if (!IsActive()) return;
@@ -99,9 +105,15 @@ void DeckUIObj::Render(HDC _hdc)
 
         // ¼±ÅÃ À±°û¼±
         if (i == m_selected) {
-            GDISelector penSel(_hdc, PenType::GREEN);
-            GDISelector brushSel(_hdc, BrushType::HOLLOW);
-            RECT_RENDER(_hdc, pos.x, pos.y, cardW, cardH);
+            ::TransparentBlt(
+                _hdc,
+                (int)(pos.x - cardW * 0.5f),
+                (int)(pos.y - cardH * 0.5f),
+                (int)cardW,
+                (int)cardH,
+                m_selectBox->GetTextureDC(),
+                0, 0, srcW, srcH,
+                RGB(255, 0, 255));
         }
     }
 }

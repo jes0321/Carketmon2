@@ -6,6 +6,7 @@ enum class UnitCategory {
 	DEALER,
 	SUPPORT,
 	MULTI,
+	TANK
 };
 class UnitData
 {

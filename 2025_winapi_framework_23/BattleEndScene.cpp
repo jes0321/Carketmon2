@@ -30,15 +30,15 @@ void BattleEndScene::Init()
 			{
 			case 1:
 			{
-				obj->SetButtonType(UIType::CANCEL);
+				obj->SetButtonType(UIType::SKIP);
 				obj->SetOnClick([this]() {
-					GET_SINGLE(SceneManager)->LoadScene(L"TitleScene");
+					GET_SINGLE(SceneManager)->LoadScene(L"StageSelectScene");
 					}, "Ãë¼Ò");
 			}
 			break;
 			case 0:
 			{
-				obj->SetButtonType(UIType::START);
+				obj->SetButtonType(UIType::EXCHANGE);
 				obj->SetOnClick([this]() {
 					bool isPlayer1 = AskTargetUnit();
 					UnitType type = isPlayer1 ? UnitType::PLAYER1 : UnitType::PLAYER2;

@@ -209,6 +209,11 @@ void UnitObject::Update()
 	UpdateRevive(dt);
 }
 
+UnitObject::UnitObject()
+{
+	//m_arrowTex = GET_SINGLE(ResourceManager)->GetTexture(L"Arrow");
+}
+
 UnitObject::~UnitObject()
 {
 	if (m_statData) {

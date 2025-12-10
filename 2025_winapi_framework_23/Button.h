@@ -75,6 +75,21 @@ public:
 					->GetTexture(L"Button_Exit_Select");
 				m_clickedTexture = GET_SINGLE(ResourceManager)
 					->GetTexture(L"Button_Exit_Click");
+			case UIType::EXCHANGE:
+				m_defaultTexture = GET_SINGLE(ResourceManager)
+					->GetTexture(L"Button_Exchange_Default");
+				m_selectedTexture = GET_SINGLE(ResourceManager)
+					->GetTexture(L"Button_Exchange_Select");
+				m_clickedTexture = GET_SINGLE(ResourceManager)
+					->GetTexture(L"Button_Exchange_Click");
+				break;
+			case UIType::SKIP:
+				m_defaultTexture = GET_SINGLE(ResourceManager)
+					->GetTexture(L"Button_Skip_Default");
+				m_selectedTexture = GET_SINGLE(ResourceManager)
+					->GetTexture(L"Button_Skip_Select");
+				m_clickedTexture = GET_SINGLE(ResourceManager)
+					->GetTexture(L"Button_Skip_Click");
 				break;
 		}
 	}
