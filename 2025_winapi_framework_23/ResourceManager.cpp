@@ -58,9 +58,25 @@ void ResourceManager::RegisterTexture()
 #pragma region Cacketmons
 	LoadTexture(L"Fire_Rat", L"Texture\\Cacketmons\\Fire_Rat_32x32.bmp");
 	LoadTexture(L"Fire_Turtle", L"Texture\\Cacketmons\\Fire_Turtle_32x32.bmp");
+	LoadTexture(L"Fire_FightingDragon", L"Texture\\Cacketmons\\Fire_FightingDragon.bmp");
+	LoadTexture(L"Fire_Fursealpng", L"Texture\\Cacketmons\\Fire_Fursealpng.bmp");
+
 	LoadTexture(L"Water_FishFox", L"Texture\\Cacketmons\\Water_FishFox_32x32.bmp");
 	LoadTexture(L"Water_FishKing", L"Texture\\Cacketmons\\Water_FishKing_32x32.bmp");
 	LoadTexture(L"Water_SquidGirl", L"Texture\\Cacketmons\\Water_SquidGirl_32x32.bmp");
+	LoadTexture(L"Water_KingJellyfish", L"Texture\\Cacketmons\\Water_KingJellyfish.bmp");
+
+	LoadTexture(L"Ice_Penguin", L"Texture\\Cacketmons\\Ice_Penguin.bmp");
+	LoadTexture(L"Ice_Star", L"Texture\\Cacketmons\\Ice_Star.bmp");
+	LoadTexture(L"Ice_Egg", L"Texture\\Cacketmons\\Ice_Egg.bmp");
+	LoadTexture(L"Ico_Polygon", L"Texture\\Cacketmons\\Ico_Polygon.bmp");
+
+	LoadTexture(L"Leaf_Flower", L"Texture\\Cacketmons\\Leaf_Flower.bmp");
+	LoadTexture(L"Leaf_FlowerMan", L"Texture\\Cacketmons\\Leaf_FlowerMan.bmp");
+	LoadTexture(L"Leaf_Man", L"Texture\\Cacketmons\\Leaf_Man.bmp");
+	LoadTexture(L"Leaf_Vine", L"Texture\\Cacketmons\\Leaf_Vine.bmp");
+
+
 #pragma endregion
 
 #pragma region Card
@@ -97,6 +113,18 @@ void ResourceManager::RegisterTexture()
 	LoadTexture(L"Button_Square_Default", L"Texture\\UI\\Button_Square_Default.bmp");
 	LoadTexture(L"Button_Square_Select", L"Texture\\UI\\Button_Square_Select.bmp");
 	LoadTexture(L"Button_Square_Click", L"Texture\\UI\\Button_Square_Click.bmp");
+	LoadTexture(L"Button_Skip_Default", L"Texture\\UI\\Button_Skip_Default.bmp");
+	LoadTexture(L"Button_Skip_Select", L"Texture\\UI\\Button_Skip_Select.bmp");
+	LoadTexture(L"Button_Skip_Click", L"Texture\\UI\\Button_Skip_Click.bmp");
+	LoadTexture(L"Button_Exchange_Default", L"Texture\\UI\\Button_Exchange_Default.bmp");
+	LoadTexture(L"Button_Exchange_Select", L"Texture\\UI\\Button_Exchange_Select.bmp");
+	LoadTexture(L"Button_Exchange_Click", L"Texture\\UI\\Button_Exchange_Click.bmp");
+
+	LoadTexture(L"CarketmonSelectMark", L"Texture\\UI\\CarketmonSelectMark.bmp");
+	LoadTexture(L"CradSelectMark", L"Texture\\UI\\CradSelectMark.bmp");
+
+	LoadTexture(L"Title", L"Texture\\UI\\Title.bmp");
+	LoadTexture(L"TitleBackGround", L"Texture\\UI\\TitleBackGround.bmp");
 
 	LoadTexture(L"Mark_Fire", L"Texture\\UI\\Mark_Fire_Element.bmp");
 	LoadTexture(L"Mark_Water", L"Texture\\UI\\Mark_Water_Element.bmp");
