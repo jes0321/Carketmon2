@@ -141,8 +141,8 @@ bool UnitObject::IsStrongAgainst(ElementType attacker) const
 	ElementType defender = m_unitData->GetElementType();
 	if ((attacker == ElementType::Fire && defender == ElementType::Ice) ||
 		(attacker == ElementType::Water && defender == ElementType::Fire) ||
-		(attacker == ElementType::Ice && defender == ElementType::Grace) ||
-		(attacker == ElementType::Grace && defender == ElementType::Water))
+		(attacker == ElementType::Ice && defender == ElementType::Grass) ||
+		(attacker == ElementType::Grass && defender == ElementType::Water))
 	{
 		return true;
 	}
@@ -154,8 +154,8 @@ bool UnitObject::IsWeakAgainst(ElementType attacker) const
 	ElementType defender = m_unitData->GetElementType();
 	if ((defender == ElementType::Fire && attacker == ElementType::Ice) ||
 		(defender == ElementType::Water && attacker == ElementType::Fire) ||
-		(defender == ElementType::Ice && attacker == ElementType::Grace) ||
-		(defender == ElementType::Grace && attacker == ElementType::Water))
+		(defender == ElementType::Ice && attacker == ElementType::Grass) ||
+		(defender == ElementType::Grass && attacker == ElementType::Water))
 	{
 		return true;
 	}

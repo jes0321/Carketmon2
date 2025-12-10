@@ -89,7 +89,7 @@ void Stage::Render(HDC _hdc)
 	case ElementType::Ice:
 		_texName = L"Mark_Ice";
 		break;
-	case ElementType::Grace:
+	case ElementType::Grass:
 		_texName = L"Mark_Leaf";
 		break;
 	}
