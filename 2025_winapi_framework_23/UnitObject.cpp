@@ -42,7 +42,7 @@ void UnitObject::InitHealthBar(const Vec2& pos, const Vec2& size)
 
 void UnitObject::InitStats()
 {
-	if(m_statData)
+	if (m_statData)
 		SAFE_DELETE(m_statData);
 	m_statData = new UnitStatData(
 		m_unitData->GetAtk(),
@@ -95,14 +95,12 @@ bool UnitObject::Damage(int dmg, ElementType _type, bool _isPowerup)
 	}
 
 	// 데미지 플로팅 생성
-	if (auto scene = GET_SINGLE(SceneManager)->GetCurScene())
-	{
-		Vec2 pos = GetPos();
-		auto* df = new DamageFloat(std::format(L"-{}", Dmg), RGB(255, 60, 60), 2.f);
-		df->SetPos({ pos.x,pos.y - 40 });
-		df->SetSize({ 120.f, 40.f }); // 텍스트 박스 크기
-		scene->AddObject(df, Layer::CARD);
-	}
+	Scene* scene = GET_SINGLE(SceneManager)->GetCurScene();
+	Vec2 pos = GetPos();
+	auto* df = new DamageFloat(std::format(L"-{}", Dmg), RGB(255, 60, 60), 2.f);
+	df->SetPos({ pos.x,pos.y - 40 });
+	df->SetSize({ 120.f, 40.f }); // 텍스트 박스 크기
+	scene->AddObject(df, Layer::CARD);
 
 	return m_currentHp <= 0;
 }
@@ -118,14 +116,12 @@ void UnitObject::Heal(int heal, bool _floating)
 
 	// 힐 플로팅 생성
 	if (_floating) {
-		if (auto scene = GET_SINGLE(SceneManager)->GetCurScene())
-		{
-			Vec2 pos = GetPos();
-			auto* df = new DamageFloat(std::format(L"+{}", heal), RGB(60, 255, 60), 2.f);
-			df->SetPos({ pos.x,pos.y - 40 });
-			df->SetSize({ 120.f, 40.f }); // 텍스트 박스 크기
-			scene->AddObject(df, Layer::CARD);
-		}
+		Scene* scene = GET_SINGLE(SceneManager)->GetCurScene();
+		Vec2 pos = GetPos();
+		auto* df = new DamageFloat(std::format(L"+{}", heal), RGB(60, 255, 60), 2.f);
+		df->SetPos({ pos.x,pos.y - 40 });
+		df->SetSize({ 120.f, 40.f }); // 텍스트 박스 크기
+		scene->AddObject(df, Layer::CARD);
 	}
 }
 

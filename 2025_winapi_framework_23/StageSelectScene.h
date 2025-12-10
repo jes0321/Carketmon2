@@ -17,7 +17,6 @@ public:
 	Stage* GetCurrentStage() const { return m_currentStage; }
 private:
 	void StageDebugLog();
-	void GenerateStage();
 private:
 	StageType RandomStageType()
 	{
@@ -41,7 +40,6 @@ private:
 		m_currentStage = _stages;
 		m_currentStage->IsSeleted = true;
 
-		GET_SINGLE(StageManager)->SetCurrentStage(m_currentStage);
 	}
 	bool ChangeStage(int _stageIndex)
 	{

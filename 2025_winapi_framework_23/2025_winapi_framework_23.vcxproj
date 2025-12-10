@@ -185,6 +185,7 @@
     <ClInclude Include="LifeUI.h" />
     <ClInclude Include="Random.h" />
     <ClInclude Include="Stage.h" />
+    <ClInclude Include="StageManager.h" />
     <ClInclude Include="StageSelectScene.h" />
     <ClInclude Include="Enums.h" />
     <ClInclude Include="framework.h" />
@@ -236,6 +237,7 @@
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="LifeUI.cpp" />
     <ClCompile Include="Stage.cpp" />
+    <ClCompile Include="StageManager.cpp" />
     <ClCompile Include="StageSelectScene.cpp" />
     <ClCompile Include="GDISelector.cpp" />
     <ClCompile Include="InputManager.cpp" />

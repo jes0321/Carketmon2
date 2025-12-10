@@ -12,13 +12,13 @@
 void SceneManager::Init()
 {
 	m_curScene = nullptr;
-	RegisterScene(L"StageSelectScene", std::make_shared<StageSelectScene>());
-	RegisterScene(L"TreatmentCenterScene", std::make_shared<TreatmentCenterScene>());
-	RegisterScene(L"ExchangeScene", std::make_shared<ExchangeScene>());
-	RegisterScene(L"BattleScene", std::make_shared<BattleScene>());
-	RegisterScene(L"BattleEndScene", std::make_shared<BattleEndScene>());
-	RegisterScene(L"TitleScene", std::make_shared<TitleScene>());
-	RegisterScene(L"StartScene", std::make_shared<StartScene>());
+	RegisterScene(L"StageSelectScene", new StageSelectScene);
+	RegisterScene(L"TreatmentCenterScene",new TreatmentCenterScene);
+	RegisterScene(L"ExchangeScene", new ExchangeScene);
+	RegisterScene(L"BattleScene", new BattleScene);
+	RegisterScene(L"BattleEndScene", new BattleEndScene);
+	RegisterScene(L"TitleScene", new TitleScene);
+	RegisterScene(L"StartScene", new StartScene);
 	LoadScene(L"TitleScene");
 	// MenuScene 등록
 }
@@ -29,7 +29,18 @@ void SceneManager::Update()
 	m_curScene->Update();
 	m_curScene->LateUpdate();
 }
-
+void SceneManager::Release()
+{
+	for (auto& pair : m_mapScenes)
+	{
+		if (pair.second)
+		{
+			SAFE_DELETE(pair.second);
+		}
+	}
+	m_mapScenes.clear();
+	m_curScene = nullptr;
+}
 void SceneManager::FixedUpdate(float _fixedDT)
 {
 	if (m_curScene == nullptr)
@@ -48,10 +59,10 @@ BattleScene* SceneManager::GetBattleScene()
 {
 	if (m_curScene == nullptr)
 		return nullptr;
-	return dynamic_cast<BattleScene*>(m_curScene.get());
+	return dynamic_cast<BattleScene*>(m_curScene);
 }
 
-void SceneManager::RegisterScene(const wstring& _name, std::shared_ptr<Scene> _scene)
+void SceneManager::RegisterScene(const wstring& _name, Scene* _scene)
 {
 	if (_name.empty() || _scene == nullptr)
 		return;

@@ -6,6 +6,7 @@
 #include "ResourceManager.h"
 #include "Button.h"
 #include "ButtonSwitcher.h"
+#include "StageManager.h"
 #include "Core.h"
 void TitleScene::Init()
 {
@@ -56,6 +57,8 @@ void TitleScene::Init()
 	}
 
 	btnSwitcher->SetButtons(buttons);
+
+	GET_SINGLE(StageManager)->SetReset();
 }
 
 void TitleScene::Update()

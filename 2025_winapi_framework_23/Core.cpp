@@ -6,6 +6,7 @@
 #include "ResourceManager.h"
 #include "CardManager.h"
 #include "UnitManager.h"
+#include "StageManager.h"
 #include "CombatManager.h"
 bool Core::Init(HWND _hWnd)
 {
@@ -47,8 +48,10 @@ void Core::CleanUp()
     ::DeleteObject(m_hBackBit);
     ::ReleaseDC(m_hWnd, m_hDC);
 	GET_SINGLE(CardManager)->Release();
+	GET_SINGLE(SceneManager)->Release();
 	GET_SINGLE(UnitManager)->Release();
 	GET_SINGLE(CombatManager)->Release();
+	GET_SINGLE(StageManager)->Release();
     GET_SINGLE(ResourceManager)->Release();
 }
 

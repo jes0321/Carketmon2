@@ -299,6 +299,7 @@ void StartScene::Render(HDC _hdc)
     }
 }
 
+
 void StartScene::Release()
 {
     Scene::Release();

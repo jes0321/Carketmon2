@@ -205,6 +205,9 @@
     <ClInclude Include="UnitListSys.h">
       <Filter>Engine\08. Module</Filter>
     </ClInclude>
+    <ClInclude Include="StageManager.h">
+      <Filter>Engine\02. Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2025_winapi_framework_23.rc">
@@ -351,6 +354,9 @@
     </ClCompile>
     <ClCompile Include="ActionData.cpp">
       <Filter>Engine\09.Data</Filter>
+    </ClCompile>
+    <ClCompile Include="StageManager.cpp">
+      <Filter>Engine\02. Manager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
