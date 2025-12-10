@@ -44,7 +44,7 @@ void ButtonSwitcher::Update()
 		return;
 	}
 
-	if (GET_KEYUP(KEY_TYPE::DOWN) || GET_KEYUP(KEY_TYPE::S)) {
+	if (GET_KEYUP(KEY_TYPE::DOWN) || GET_KEYUP(KEY_TYPE::S)||(m_isWidth&& (GET_KEYUP(KEY_TYPE::A)|| GET_KEYUP(KEY_TYPE::LEFT)))) {
 		if (m_currentStageIndex + 1 >= (int)m_buttons.size())
 		{
 			m_buttons[m_currentStageIndex]->m_buttonState = ButtonState::Default;
@@ -61,7 +61,7 @@ void ButtonSwitcher::Update()
 
 		GET_SINGLE(ResourceManager)->Play(L"Btn");
 	}
-	if (GET_KEYUP(KEY_TYPE::UP) || GET_KEYUP(KEY_TYPE::W)) {
+	if (GET_KEYUP(KEY_TYPE::UP) || GET_KEYUP(KEY_TYPE::W) || (m_isWidth && (GET_KEYUP(KEY_TYPE::D) || GET_KEYUP(KEY_TYPE::RIGHT)))) {
 		if (m_currentStageIndex - 1 < 0)
 		{
 			m_buttons[m_currentStageIndex]->m_buttonState = ButtonState::Default;

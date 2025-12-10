@@ -57,8 +57,7 @@ void StartScene::Init()
                 }
                 GET_SINGLE(CombatManager)->SetUnitData(UnitType::PLAYER1, m_selectVec[0]);
                 GET_SINGLE(CombatManager)->SetUnitData(UnitType::PLAYER2, m_selectVec[1]);
-                //GET_SINGLE(SceneManager)->LoadScene(L"StageSelectScene");
-                GET_SINGLE(SceneManager)->LoadScene(L"BattleEndScene");
+                GET_SINGLE(SceneManager)->LoadScene(L"StageSelectScene");
                 }, "½ÃÀÛ");
         }
         break;
@@ -66,7 +65,7 @@ void StartScene::Init()
 
         buttons.push_back(obj);
     }
-
+    SetSelectionEnabled(true);
     m_btnManager->SetButtons(buttons);
 }
 

@@ -27,7 +27,7 @@ private:
 	void OnOffHand(bool _isOn);
 	void OnOffDeck(bool _isOn);
     void SelectHand();
-    UnitType AskTargetUnit(); // 윈도우 기본 대화상자(메시지박스)로 선택
+    UnitType AskTargetUnit();
 
 private:
 	BattleDescription* m_battleDescription = nullptr;

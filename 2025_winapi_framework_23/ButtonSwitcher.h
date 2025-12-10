@@ -11,6 +11,7 @@ public:
 	void Render(HDC _hdc);
 	void Update() override;
 public:
+	void SetWidth() { m_isWidth = true; }
 	void SetAvailable(bool _isAvailable) 
 	{
 		if (_isAvailable)
@@ -40,6 +41,7 @@ public:
 		}
 	}
 private:
+	bool m_isWidth = false;
 	vector<Button*> m_buttons;
 	Button* m_currentButton = nullptr;
 	int m_currentStageIndex = 0;

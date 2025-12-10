@@ -92,6 +92,11 @@ void CombatManager::SetUnitData(UnitType _type, UnitData* _data)
 	m_units[2]->SetUnitData(_data);
 }
 
+void CombatManager::SetUnitData(UnitType _type)
+{
+	GetUnit(_type)->SetUnitData(GetUnit(UnitType::ENEMY)->GetUnitData());
+}
+
 void CombatManager::SetEnemy(UnitData* _data)
 {
 	GetUnit(UnitType::ENEMY)->SetUnitData(_data);
@@ -255,8 +260,9 @@ void CombatManager::DamageUnit(ActionData* action)
 		bool targetIsEnemy = targetUnit == GetUnit(UnitType::ENEMY);
 		if (targetIsEnemy) {
 			m_isWin = true;
-			GET_SINGLE(SceneManager)->LoadScene(L"BattleEndScene");
+			HealUnit(UnitType::ENEMY);
 			CatchEnemy();
+			GET_SINGLE(SceneManager)->LoadScene(L"BattleEndScene");
 		}
 		else {
 			--m_lifeCount;

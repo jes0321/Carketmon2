@@ -65,7 +65,8 @@ void TitleScene::Update()
 	m_timer += fDT;
 	if (m_timer >= m_delayTime)
 	{
-		GET_SINGLE(SceneManager)->LoadScene(L"StartScene");
+		m_isWait = false;
 		m_timer = 0;
+		GET_SINGLE(SceneManager)->LoadScene(L"StartScene");
 	}
 }

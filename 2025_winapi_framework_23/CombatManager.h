@@ -17,6 +17,7 @@ public:
 
 public:
 	void SetUnitData(UnitType _type, UnitData* _data);
+	void SetUnitData(UnitType _type);
     void SetEnemy(UnitData* _data);
     void EndTurn();
     void AddAction(UnitType _target, int index);
@@ -48,7 +49,7 @@ private:
 	Vec2 m_unitBattlePos = { (200.f),((WINDOW_HEIGHT / 2.f) - 50.f) };
 	Vec2 m_unitBattleEndPos = { (WINDOW_WIDTH / 2.f) -150.f,(WINDOW_HEIGHT / 2.f) + 200.f };
 
-	bool m_isWin = false;
+	bool m_isWin = true;
 	int m_lifeCount = 3;
 	bool m_isFocus = false;
 	UnitObject* m_focusUnit;
