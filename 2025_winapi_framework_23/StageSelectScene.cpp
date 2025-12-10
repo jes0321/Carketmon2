@@ -47,6 +47,7 @@ void StageSelectScene::Update()
 	if (GET_KEYDOWN(KEY_TYPE::ENTER) && m_currentStage->IsAvailable == true)
 	{
 		StageType stageType = m_currentStage->GetStageType();
+		GET_SINGLE(CombatManager)->SetEnemy(m_currentStage->GetUnitData());
 		m_currentStage->IsCompelet = true;
 		m_currentStageLength = m_currentSelectStageLength;
 		MoveStage();
@@ -70,7 +71,6 @@ void StageSelectScene::Update()
 		}
 
 		MoveStage();
-		GET_SINGLE(CombatManager)->SetEnemy(m_currentStage->GetUnitData());
 
 		GET_SINGLE(ResourceManager)->Stop(SOUND_CHANNEL::BGM);
 
@@ -83,7 +83,7 @@ void StageSelectScene::Update()
 			GET_SINGLE(SceneManager)->LoadScene(L"ExchangeScene");
 			return;
 		case StageType::Normal:
-			//GET_SINGLE(SceneManager)->LoadScene(L"BattleScene");
+			GET_SINGLE(SceneManager)->LoadScene(L"BattleScene");
 			return;
 		case StageType::Boss:
 			GET_SINGLE(SceneManager)->LoadScene(L"BattleScene");

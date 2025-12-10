@@ -36,22 +36,22 @@ void ButtonSwitcher::Update()
 
 	if (GET_KEYDOWN(KEY_TYPE::E)) {
 		m_currentButton->m_buttonState = ButtonState::Clicked;
+		GET_SINGLE(ResourceManager)->Play(L"Btn");
 	}
 	else if (GET_KEYUP(KEY_TYPE::E)) {
-		GET_SINGLE(ResourceManager)->Play(L"Btn");
 		m_currentButton->m_buttonState = ButtonState::Selected;
 		m_currentButton->Click();
 		return;
 	}
 
 	if (GET_KEYUP(KEY_TYPE::DOWN) || GET_KEYUP(KEY_TYPE::S)||(m_isWidth&& (GET_KEYUP(KEY_TYPE::A)|| GET_KEYUP(KEY_TYPE::LEFT)))) {
+		GET_SINGLE(ResourceManager)->Play(L"Btn");
 		if (m_currentStageIndex + 1 >= (int)m_buttons.size())
 		{
 			m_buttons[m_currentStageIndex]->m_buttonState = ButtonState::Default;
 			m_currentStageIndex = 0;
 			m_currentButton = m_buttons[m_currentStageIndex];
 			if (m_currentButton) m_currentButton->m_buttonState = ButtonState::Selected;
-			GET_SINGLE(ResourceManager)->Play(L"Btn");
 			return;
 		}
 		if (m_buttons[m_currentStageIndex]) m_buttons[m_currentStageIndex]->m_buttonState = ButtonState::Default;
@@ -59,23 +59,21 @@ void ButtonSwitcher::Update()
 		m_currentButton = m_buttons[m_currentStageIndex];
 		if (m_currentButton) m_currentButton->m_buttonState = ButtonState::Selected;
 
-		GET_SINGLE(ResourceManager)->Play(L"Btn");
 	}
 	if (GET_KEYUP(KEY_TYPE::UP) || GET_KEYUP(KEY_TYPE::W) || (m_isWidth && (GET_KEYUP(KEY_TYPE::D) || GET_KEYUP(KEY_TYPE::RIGHT)))) {
+		GET_SINGLE(ResourceManager)->Play(L"Btn");
 		if (m_currentStageIndex - 1 < 0)
 		{
 			m_buttons[m_currentStageIndex]->m_buttonState = ButtonState::Default;
 			m_currentStageIndex = m_buttons.size() - 1;
 			m_currentButton = m_buttons[m_currentStageIndex];
 			if (m_currentButton) m_currentButton->m_buttonState = ButtonState::Selected;
-			GET_SINGLE(ResourceManager)->Play(L"Btn");
 			return;
 		}
 		if (m_buttons[m_currentStageIndex]) m_buttons[m_currentStageIndex]->m_buttonState = ButtonState::Default;
 		--m_currentStageIndex;
 		m_currentButton = m_buttons[m_currentStageIndex];
 		if (m_currentButton) m_currentButton->m_buttonState = ButtonState::Selected;
-		GET_SINGLE(ResourceManager)->Play(L"Btn");
 
 	}
 }

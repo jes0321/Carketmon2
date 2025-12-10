@@ -36,7 +36,7 @@ wstring CardData::ToEffectDesc()
 	{
 	case CardEffectType::Damage:   return L"대상을 공격합니다.";
 	case CardEffectType::Heal:     return L"대상의 체력을 회복시킵니다.";
-	case CardEffectType::StatBuff:     return std::format(L"대상의 {}을(를) {}칸 증가시킵니다.", ToStatName(m_statType), m_integerValue);
+	case CardEffectType::StatBuff:     return std::format(L"{}을(를) {}칸 증가시킵니다.", ToStatName(m_statType), m_integerValue);
 	case CardEffectType::StatDebuff:   return std::format(L"대상의 {}을(를) {}칸 감소시킵니다.", ToStatName(m_statType), m_integerValue);
 	case CardEffectType::Buff:     return L"대상의 이번 턴 데미지를 증가시킵니다.";
 	case CardEffectType::AoE:      return L"두명의 적을 공격합니다.";

@@ -172,21 +172,39 @@
     <ClInclude Include="BattleDescription.h">
       <Filter>Engine\03. Object</Filter>
     </ClInclude>
-    <ClInclude Include="UnitInfoObj.h" />
-    <ClInclude Include="DeckUIObj.h" />
-    <ClInclude Include="StartScene.h" />
-    <ClInclude Include="TitleScene.h" />
-    <ClInclude Include="ExchangeScene.h" />
-    <ClInclude Include="UnitListSys.h" />
     <ClInclude Include="Image.h">
       <Filter>Engine\07. UI</Filter>
     </ClInclude>
     <ClInclude Include="TreatmentCenterScene.h">
       <Filter>Engine\04. Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Text.h" />
-    <ClInclude Include="LifeUI.h" />
-    <ClInclude Include="BattleEndScene.h" />
+    <ClInclude Include="StartScene.h">
+      <Filter>Engine\04. Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleScene.h">
+      <Filter>Engine\04. Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="BattleEndScene.h">
+      <Filter>Engine\04. Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="DeckUIObj.h">
+      <Filter>Engine\03. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="LifeUI.h">
+      <Filter>Engine\03. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Text.h">
+      <Filter>Engine\03. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="UnitInfoObj.h">
+      <Filter>Engine\03. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="ExchangeScene.h">
+      <Filter>Engine\04. Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="UnitListSys.h">
+      <Filter>Engine\08. Module</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2025_winapi_framework_23.rc">
@@ -253,9 +271,6 @@
     <ClCompile Include="Stage.cpp">
       <Filter>Engine\03. Object</Filter>
     </ClCompile>
-    <ClCompile Include="ActionData.cpp">
-      <Filter>Engine\09.Data</Filter>
-    </ClCompile>
     <ClCompile Include="CardManager.cpp">
       <Filter>Engine\02. Manager</Filter>
     </ClCompile>
@@ -301,20 +316,41 @@
     <ClCompile Include="BattleDescription.cpp">
       <Filter>Engine\03. Object</Filter>
     </ClCompile>
-    <ClCompile Include="UnitInfoObj.cpp" />
-    <ClCompile Include="DeckUIObj.cpp" />
-    <ClCompile Include="StartScene.cpp" />
-    <ClCompile Include="TitleScene.cpp" />
-    <ClCompile Include="ExchangeScene.cpp" />
-    <ClCompile Include="UnitListSys.cpp" />
     <ClCompile Include="Image.cpp">
       <Filter>Engine\07. UI</Filter>
     </ClCompile>
     <ClCompile Include="TreatmentCenterScene.cpp">
       <Filter>Engine\04. Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Text.cpp" />
-    <ClCompile Include="LifeUI.cpp" />
-    <ClCompile Include="BattleEndScene.cpp" />
+    <ClCompile Include="StartScene.cpp">
+      <Filter>Engine\04. Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleScene.cpp">
+      <Filter>Engine\04. Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="BattleEndScene.cpp">
+      <Filter>Engine\04. Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="DeckUIObj.cpp">
+      <Filter>Engine\03. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="LifeUI.cpp">
+      <Filter>Engine\03. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Text.cpp">
+      <Filter>Engine\03. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="UnitInfoObj.cpp">
+      <Filter>Engine\03. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="ExchangeScene.cpp">
+      <Filter>Engine\04. Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="UnitListSys.cpp">
+      <Filter>Engine\08. Module</Filter>
+    </ClCompile>
+    <ClCompile Include="ActionData.cpp">
+      <Filter>Engine\09.Data</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

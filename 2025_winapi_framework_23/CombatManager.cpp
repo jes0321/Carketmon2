@@ -89,7 +89,6 @@ void CombatManager::Render(HDC _hdc)
 void CombatManager::SetUnitData(UnitType _type, UnitData* _data)
 {
 	GetUnit(_type)->SetUnitData(_data);
-	m_units[2]->SetUnitData(_data);
 }
 
 void CombatManager::SetUnitData(UnitType _type)
