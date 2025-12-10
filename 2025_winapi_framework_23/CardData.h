@@ -21,10 +21,11 @@ public:
 	{
 		switch (t)
 		{
-		case ElementType::Fire:  return L"Fire";
-		case ElementType::Water: return L"Water";
-		case ElementType::Ice:   return L"Ice";
-		case ElementType::Grace: return L"Grace";
+		case ElementType::Fire:  return L"불";
+		case ElementType::Water: return L"물";
+		case ElementType::Ice:   return L"얼음";
+		case ElementType::Grass: return L"풀";
+		case ElementType::Normal:  return L"노말";
 		default:                 return L"Unknown";
 		}
 	}
@@ -39,6 +40,6 @@ private:
 	CardEffectType	m_cardEffect;		// 카드 효과
 	StatType 	m_statType;			// 효과 대상 능력치 (버프/디버프인 경우)
 	int			m_integerValue;		// 효과 수치 (데미지량, 힐량 등)
-	int m_priority = 0;
+	int m_priority = 0; //우선순위
 };
 

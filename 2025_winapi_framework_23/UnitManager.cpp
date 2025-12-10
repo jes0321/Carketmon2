@@ -10,87 +10,29 @@
 void UnitManager::Init()
 {
 	CardManager* cardManager = GET_SINGLE(CardManager);
-	UnitData* data;
-	 data = RegisterUnit(L"불꽃부기", L"Fire_Turtle", 60,22,6,12, ElementType::Fire,UnitCategory::DEALER);
 
-	data->SetCard(cardManager->GetCard(L"파이어볼"),4);
-	data->SetCard(cardManager->GetCard(L"화염방사"),4);
-	data->SetCard(cardManager->GetCard(L"서핑"), 4);
-	data->SetCard(cardManager->GetCard(L"물수리검"), 4);
+	UnitData* data; 
 
-	data = RegisterUnit(L"파이츄", L"Fire_Rat", 50,18,5,16,ElementType::Fire,UnitCategory::SUPPORT);
+	data = RegisterUnit(L"화격룡", L"Fire_Dragon", 75, 26, 10, 18, ElementType::Fire, UnitCategory::DEALER);
+	data = RegisterUnit(L"불범", L"Fire_Bear", 85, 17, 16, 14, ElementType::Fire, UnitCategory::MULTI);
+	data = RegisterUnit(L"파이츄", L"Fire_Rat", 60, 22, 8, 26, ElementType::Fire, UnitCategory::DEALER);
+	data = RegisterUnit(L"불꽃부기", L"Fire_Turtle", 110, 12, 22, 8, ElementType::Fire, UnitCategory::TANK);
+	
+	data = RegisterUnit(L"빙란", L"Ice_Flower", 80, 16, 15, 13, ElementType::Ice, UnitCategory::SUPPORT);
+	data = RegisterUnit(L"펭글레이즈", L"Ice_Penguin", 90, 18, 15, 14, ElementType::Ice, UnitCategory::MULTI);
+	data = RegisterUnit(L"빙스타", L"Ice_Star", 70, 25, 10, 17, ElementType::Ice, UnitCategory::DEALER);
+	data = RegisterUnit(L"폴리가온", L"Ice_Golem", 115, 11, 22, 9, ElementType::Ice, UnitCategory::TANK);
+	 
+	data = RegisterUnit(L"수르기", L"Water_Bird", 85, 18, 15, 14, ElementType::Water, UnitCategory::MULTI);
+	data = RegisterUnit(L"피시키오스", L"Water_FishKing", 120, 10, 22, 8, ElementType::Water, UnitCategory::TANK);
+	data = RegisterUnit(L"젤리킹", L"Water_JellyKing", 95, 17, 15, 12, ElementType::Water, UnitCategory::SUPPORT);
+	data = RegisterUnit(L"문어소녀", L"Water_SquidGirl", 70, 26, 10, 20, ElementType::Water, UnitCategory::DEALER);
+	 
+	data = RegisterUnit(L"플로리나", L"Grass_Flower", 85, 17, 16, 13, ElementType::Grass, UnitCategory::SUPPORT);
+	data = RegisterUnit(L"블룸맨", L"Grass_Bloom", 90, 18, 15, 15, ElementType::Grass, UnitCategory::MULTI);
+	data = RegisterUnit(L"리프로스", L"Grass_LeafTank", 115, 11, 22, 9, ElementType::Grass, UnitCategory::TANK);
+	data = RegisterUnit(L"바인서펀트", L"Grass_Serpent", 65, 23, 9, 26, ElementType::Grass, UnitCategory::DEALER);
 
-	data->SetCard(cardManager->GetCard(L"파이어볼"), 4);
-	data->SetCard(cardManager->GetCard(L"화염방사"), 4);
-	data->SetCard(cardManager->GetCard(L"서핑"), 4);
-	data->SetCard(cardManager->GetCard(L"물수리검"), 4);
-
-	data = RegisterUnit(L"물꼬부기", L"Water_FishFox", 80,12,16,7,ElementType::Water, UnitCategory::DEALER);
-	data->SetCard(cardManager->GetCard(L"파이어볼"), 4);
-	data->SetCard(cardManager->GetCard(L"화염방사"), 4);
-	data->SetCard(cardManager->GetCard(L"서핑"), 4);
-	data->SetCard(cardManager->GetCard(L"물수리검"), 4);
-
-	data = RegisterUnit(L"잉어킹", L"Water_FishKing", 45,10,4,8,ElementType::Water, UnitCategory::DEALER);
-	data->SetCard(cardManager->GetCard(L"파이어볼"), 4);
-	data->SetCard(cardManager->GetCard(L"화염방사"), 4);
-	data->SetCard(cardManager->GetCard(L"서핑"), 4);
-	data->SetCard(cardManager->GetCard(L"물수리검"), 4);
-
-	data = RegisterUnit(L"문어소녀", L"Water_SquidGirl", 55,12,10,10, ElementType::Water, UnitCategory::DEALER);
-	data->SetCard(cardManager->GetCard(L"파이어볼"), 4);
-	data->SetCard(cardManager->GetCard(L"화염방사"), 4);
-	data->SetCard(cardManager->GetCard(L"서핑"), 4);
-	data->SetCard(cardManager->GetCard(L"물수리검"), 4);
-
-	UnitData* data;
-
-	// -------------------------
-	// FIRE (불 속성)
-	// -------------------------
-	data = RegisterUnit(L"화격룡", L"Fire_FightingDragon", 60, 24, 8, 13, ElementType::Fire, UnitCategory::DEALER);
-
-	data = RegisterUnit(L"불범", L"Fire_Furseal", 65, 18, 12, 10, ElementType::Fire, UnitCategory::MULTI);
-
-	data = RegisterUnit(L"파이츄", L"Fire_Rat", 50, 20, 6, 17, ElementType::Fire, UnitCategory::DEALER);
-
-	data = RegisterUnit(L"불꽃부기", L"Fire_Turtle", 80, 14, 18, 7, ElementType::Fire, UnitCategory::TANK);
-
-
-	// -------------------------
-	// ICE (얼음 속성)
-	// -------------------------
-	data = RegisterUnit(L"빙란", L"Ice_Egg", 55, 10, 14, 9, ElementType::Ice, UnitCategory::SUPPORT);
-
-	data = RegisterUnit(L"펭글레이즈", L"Ice_Penguin", 65, 17, 12, 11, ElementType::Ice, UnitCategory::MULTI);
-
-	data = RegisterUnit(L"빙스타", L"Ice_Star", 50, 22, 8, 14, ElementType::Ice, UnitCategory::DEALER);
-
-	data = RegisterUnit(L"폴리가온", L"Ico_Polygon", 75, 12, 20, 6, ElementType::Ice, UnitCategory::TANK);
-
-
-	// -------------------------
-	// WATER (물 속성)
-	// -------------------------
-	data = RegisterUnit(L"수르기", L"Water_FishFox", 70, 16, 14, 10, ElementType::Water, UnitCategory::MULTI);
-
-	data = RegisterUnit(L"피시키오스", L"Water_FishKing", 85, 14, 18, 7, ElementType::Water, UnitCategory::TANK);
-
-	data = RegisterUnit(L"젤리킹", L"Water_KingJellyfish", 60, 12, 12, 11, ElementType::Water, UnitCategory::SUPPORT);
-
-	data = RegisterUnit(L"문어소녀", L"Water_SquidGirl", 55, 20, 10, 13, ElementType::Water, UnitCategory::DEALER);
-
-
-	// -------------------------
-	// LEAF (풀 속성)
-	// -------------------------
-	data = RegisterUnit(L"플로리나", L"Leaf_Flower", 60, 12, 14, 11, ElementType::Grace, UnitCategory::SUPPORT);
-
-	data = RegisterUnit(L"블룸맨", L"Leaf_FlowerMan", 68, 16, 13, 10, ElementType::Grace, UnitCategory::MULTI);
-
-	data = RegisterUnit(L"리프로스", L"Leaf_Man", 85, 13, 19, 7, ElementType::Grace, UnitCategory::TANK);
-
-	data = RegisterUnit(L"바인서펀트", L"Leaf_Vine", 52, 23, 8, 15, ElementType::Grace, UnitCategory::DEALER);
 
 }
 void UnitManager::Release()
