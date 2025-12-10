@@ -80,18 +80,48 @@ void ResourceManager::RegisterTexture()
 #pragma endregion
 
 #pragma region Card
-	LoadTexture(L"Fireball", L"Texture\\Cards\\Fireball_48x64.bmp");
-	LoadTexture(L"Flamethrower", L"Texture\\Cards\\Flamethrower_48x64.bmp");
-	LoadTexture(L"WaterSurfing", L"Texture\\Cards\\Surfing_48x64.bmp");
-	LoadTexture(L"WaterCannon", L"Texture\\Cards\\WaterCannon_48x64.bmp");
-	LoadTexture(L"WaterShuriken", L"Texture\\Cards\\WaterShuriken_48x64.bmp");
+	//약한 공격
+	LoadTexture(L"Fireball", L"Texture\\Cards\\Fireball_48x64.bmp"); //불
+	LoadTexture(L"WaterShuriken", L"Texture\\Cards\\WaterShuriken_48x64.bmp"); //물
+	LoadTexture(L"CuttingGrass", L"Texture\\Cards\\CuttingGrass.bmp"); //풀
+	LoadTexture(L"Ice_Piece", L"Texture\\Cards\\Ice_Piece.bmp"); //얼음
+	//광역 공격
+	LoadTexture(L"Flamethrower", L"Texture\\Cards\\Flamethrower_48x64.bmp");//불
+	LoadTexture(L"WaterSurfing", L"Texture\\Cards\\Surfing_48x64.bmp"); //물
+	LoadTexture(L"ThornVine", L"Texture\\Cards\\ThornVine.bmp"); //풀
+	LoadTexture(L"Icicle", L"Texture\\Cards\\Icicle.bmp"); //얼음
+	//강한 공격
+	LoadTexture(L"FireArrow", L"Texture\\Cards\\FireArrow.bmp");//불
+	LoadTexture(L"WaterCannon", L"Texture\\Cards\\WaterCannon_48x64.bmp"); //물
+	LoadTexture(L"PoisonThorn", L"Texture\\Cards\\PoisonThorn.bmp"); //풀
+	LoadTexture(L"Ice_Shuriken", L"Texture\\Cards\\Ice_Shuriken.bmp"); //얼음
 
-	LoadTexture(L"CuttingGrass", L"Texture\\Cards\\CuttingGrass.bmp");
+	//방어
+	LoadTexture(L"Defense", L"Texture\\Cards\\Defense.bmp");
+	
+	//약한 힐
+	LoadTexture(L"Heel", L"Texture\\Cards\\Heel.bmp");
+	//강한 힐
+	LoadTexture(L"Heel_Strong", L"Texture\\Cards\\Heel_Strong.bmp");
+
+	//날따름
+	LoadTexture(L"FollowMe", L"Texture\\Cards\\FollowMe.bmp");
+	//도우미
+	LoadTexture(L"Buff", L"Texture\\Cards\\Buff.bmp");
+
+	//버프
+	LoadTexture(L"Buff_Speed", L"Texture\\Cards\\Buff_Speed.bmp");
+	LoadTexture(L"Buff_Attack", L"Texture\\Cards\\Buff_Attack.bmp");
+	LoadTexture(L"Buff_Defense", L"Texture\\Cards\\Buff_Defense.bmp");
+	//디버프
+	LoadTexture(L"Debuff_Speed", L"Texture\\Cards\\Debuff_Speed.bmp");
+	LoadTexture(L"Debuff_Attack", L"Texture\\Cards\\Debuff_Attack.bmp");
+	LoadTexture(L"Debuff_Defense", L"Texture\\Cards\\Debuff_Defense.bmp");
+
+	//사용안하는 카드(여분 카드)
+	LoadTexture(L"Ice_Crystals", L"Texture\\Cards\\Ice_Crystals.bmp");
+	LoadTexture(L"WaterDrop", L"Texture\\Cards\\WaterDrop.bmp");
 	LoadTexture(L"GrassLeafFalls", L"Texture\\Cards\\GrassLeafFalls.bmp");
-	LoadTexture(L"Ice_Shuriken", L"Texture\\Cards\\Ice_Shuriken.bmp");
-	LoadTexture(L"Icicle", L"Texture\\Cards\\Icicle.bmp");
-	LoadTexture(L"PoisonThorn", L"Texture\\Cards\\PoisonThorn.bmp");
-	LoadTexture(L"ThornVine", L"Texture\\Cards\\ThornVine.bmp");
 #pragma endregion
 
 #pragma region UI
@@ -142,6 +172,8 @@ void ResourceManager::RegisterTexture()
 	LoadTexture(L"Mark_Water", L"Texture\\UI\\Mark_Water_Element.bmp");
 	LoadTexture(L"Mark_Leaf", L"Texture\\UI\\Mark_Leaf_Element.bmp");
 	LoadTexture(L"Mark_Ice", L"Texture\\UI\\Mark_Ice_Element.bmp");
+	
+	LoadTexture(L"DownArrow", L"Texture\\UI\\DownArrow.bmp");
 #pragma endregion
 
 }
