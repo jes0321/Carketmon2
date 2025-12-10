@@ -19,18 +19,15 @@ void StageSelectScene::Init()
 {
 	srand((unsigned int)time(NULL));
 
-	if (m_LifeCount != GET_SINGLE(CombatManager)->GetLifeCount())
-	{
-		m_LifeCount = GET_SINGLE(CombatManager)->GetLifeCount();
+	m_LifeCount = GET_SINGLE(CombatManager)->GetLifeCount();
 
-		m_stages.clear();
-		m_currentStage = nullptr;
-		m_currentStageIndex = 0;
-		m_currentStageLength = 0;
-		m_currentSelectStageLength = 0;
-		GenerateStage();
-	}
-	
+	m_stages.clear();
+	m_currentStage = nullptr;
+	m_currentStageIndex = 0;
+	m_currentStageLength = 0;
+	m_currentSelectStageLength = 0;
+	GenerateStage();
+
 	LifeUI* lifeUI = new LifeUI;
 	lifeUI->Init();
 	AddObject(lifeUI, Layer::UI);
@@ -44,7 +41,7 @@ void StageSelectScene::Update()
 	//StageDebugLog();
 	//cout << (int)(m_currentStage->GetUnitData()->GetElementType());
 
-	if (GET_KEYDOWN(KEY_TYPE::ENTER) && m_currentStage->IsAvailable == true)
+	if (GET_KEYDOWN(KEY_TYPE::SPACE) && m_currentStage->IsAvailable == true)
 	{
 		StageType stageType = m_currentStage->GetStageType();
 		GET_SINGLE(CombatManager)->SetEnemy(m_currentStage->GetUnitData());
@@ -107,7 +104,7 @@ void StageSelectScene::Update()
 	}
 	else if (GET_KEYUP(KEY_TYPE::DOWN) || GET_KEYUP(KEY_TYPE::S))
 	{
-		if(ChangeStage(--m_currentStageLength) == false) return;
+		if (ChangeStage(--m_currentStageLength) == false) return;
 
 		MoveStage();
 	}
@@ -129,7 +126,7 @@ void StageSelectScene::Update()
 	{
 		if (0 > m_currentStageIndex - 1
 			|| m_currentStage->IsAvailable == false
-			|| m_currentStage->GetBeforeStage() == nullptr) 
+			|| m_currentStage->GetBeforeStage() == nullptr)
 			return;
 
 		if (m_currentStage->GetBeforeStage()->GetNextStages().size() <= m_currentStageIndex)
@@ -161,6 +158,10 @@ void StageSelectScene::Render(HDC _hdc)
 void StageSelectScene::Release()
 {
 	Scene::Release();
+	for (auto stageRow : m_stages)
+		for (auto stage : stageRow)
+			SAFE_DELETE(stage);
+	m_stages.clear();
 	GET_SINGLE(ResourceManager)->Stop(SOUND_CHANNEL::BGM);
 }
 

@@ -36,14 +36,16 @@ void CombatManager::Update() {
 			}
 			m_timer = 0;
 			ActionData* action = m_actionList.front();
-			battleScene->SetDes(action);
-			if (action->GetOwnerUnit()->IsDead()) {
+			if (action->GetOwnerUnit()->IsDead()|| action->GetTargetUnit()->IsDead()) {
+				SAFE_DELETE(action);
 				m_actionList.erase(m_actionList.begin());
 				return;
 			}
+			battleScene->SetDes(action);
+			action->UseCard();
 			switch (action->GetCardObject()->GetCardEffect())
 			{
-			case CardEffectType::Damage: DamageUnit(action); break;
+			case CardEffectType::Damage:DamageUnit(action); break;
 			case CardEffectType::Heal: HealUnit(action); break;
 			case CardEffectType::StatBuff: StatControl(action); break;
 			case CardEffectType::StatDebuff: StatControl(action); break;
@@ -54,7 +56,7 @@ void CombatManager::Update() {
 			case CardEffectType::Focus: SetFocus(true, action); break;
 			case CardEffectType::AoE: DamageUnit(action); break;
 			}
-			action->UseCard();
+			SAFE_DELETE(action);
 			m_actionList.erase(m_actionList.begin());
 		}
 	}
@@ -76,6 +78,12 @@ void CombatManager::EndActions(BattleScene* battleScene)
 		unit->StartRevive();      // 리바이브 연출 시작
 	}
 	m_deadUnits.clear();
+
+	if (m_endBattle) {
+		m_endBattle = false;
+		HealUnit(UnitType::ENEMY);
+		GET_SINGLE(SceneManager)->LoadScene(L"BattleEndScene");
+	}
 }
 
 void CombatManager::Render(HDC _hdc)
@@ -86,6 +94,24 @@ void CombatManager::Render(HDC _hdc)
 	}
 }
 
+void CombatManager::Release()
+{
+	for (auto unit : m_units)
+	{
+		SAFE_DELETE(unit);
+	}
+	m_units.clear();
+	for (auto action : m_actionList)
+	{
+		SAFE_DELETE(action);
+	}
+	m_actionList.clear();
+	for (auto unit : m_deadUnits)
+	{
+		SAFE_DELETE(unit);
+	}
+	m_deadUnits.clear();
+}
 void CombatManager::SetUnitData(UnitType _type, UnitData* _data)
 {
 	GetUnit(_type)->SetUnitData(_data);
@@ -164,8 +190,19 @@ void CombatManager::SetPosition(bool isBattle)
 {
 	Vec2 enemyPos, unitPos;
 
-	for (int i = 0; i < 3; ++i)
+	m_timer = 0;
+	m_isWait = false;
+
+	for (auto action : m_actionList)
+	{
+		SAFE_DELETE(action);
+	}
+	m_actionList.clear();
+
+	for (int i = 0; i < 3; ++i) {
+		m_units[i]->ResetBlink();
 		m_units[i]->SetSelect(false);
+	}
 	if (isBattle) {
 		enemyPos = m_enemyBattlePos;
 		unitPos = m_unitBattlePos;
@@ -259,21 +296,19 @@ void CombatManager::DamageUnit(ActionData* action)
 		bool targetIsEnemy = targetUnit == GetUnit(UnitType::ENEMY);
 		if (targetIsEnemy) {
 			m_isWin = true;
-			HealUnit(UnitType::ENEMY);
 			CatchEnemy();
-			GET_SINGLE(SceneManager)->LoadScene(L"BattleEndScene");
+			m_endBattle = true;
 		}
 		else {
 			--m_lifeCount;
 			if (m_lifeCount <= 0) {
 				m_isWin = false;
-				GET_SINGLE(SceneManager)->LoadScene(L"BattleEndScene");
+				m_endBattle = true;
 			}
 			else {
 				m_deadUnits.push_back(targetUnit);
 			}
 		}
-
 	}
 }
 

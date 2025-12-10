@@ -123,7 +123,7 @@ void StartScene::Update()
     }
 
     // 엔터로 선택/해제 + 완료 시 버튼 입력 켜기
-    if (GET_KEYUP(KEY_TYPE::ENTER)) {
+    if (GET_KEYUP(KEY_TYPE::SPACE)) {
         UnitData* pick = m_candidates[m_cursor];
         auto it = std::find(m_selectVec.begin(), m_selectVec.end(), pick);
         if (it == m_selectVec.end()) {
