@@ -159,9 +159,14 @@ void CombatManager::HealUnit(UnitType _type)
 void CombatManager::SetPosition(bool isBattle)
 {
 	Vec2 enemyPos, unitPos;
+
+	for (int i = 0; i < 3; ++i)
+		m_units[i]->SetSelect(false);
 	if (isBattle) {
 		enemyPos = m_enemyBattlePos;
 		unitPos = m_unitBattlePos;
+		m_units[0]->SetSelect(true);
+		m_currentTurn = UnitType::PLAYER1;
 	}
 	else {
 		enemyPos = m_enemyBattleEndPos;
@@ -174,8 +179,7 @@ void CombatManager::SetPosition(bool isBattle)
 		m_units[i]->SetPos({ unitPos.x + i * m_spacing, unitPos.y });
 	}
 	m_units[2]->SetSize(size * 4.2f);
-	m_units[2]->SetPos({enemyPos});// Enemy
-	m_units[0]->SetSelect(true);
+	m_units[2]->SetPos({ enemyPos });// Enemy
 }
 
 

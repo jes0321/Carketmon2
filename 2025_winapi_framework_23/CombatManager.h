@@ -43,10 +43,10 @@ private:
 	float m_spacing = 300.f;
 
 	Vec2 m_enemyBattlePos = { (WINDOW_WIDTH - 250.f),((WINDOW_HEIGHT / 2.f) - 250.f) };
-	Vec2 m_enemyBattleEndPos;
+	Vec2 m_enemyBattleEndPos = {(WINDOW_WIDTH/2.f),(WINDOW_HEIGHT/2.f)-200.f};
 
 	Vec2 m_unitBattlePos = { (200.f),((WINDOW_HEIGHT / 2.f) - 50.f) };
-	Vec2 m_unitBattleEndPos;
+	Vec2 m_unitBattleEndPos = { (WINDOW_WIDTH / 2.f) -150.f,(WINDOW_HEIGHT / 2.f) + 200.f };
 
 	bool m_isWin = false;
 	int m_lifeCount = 3;
