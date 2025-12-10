@@ -68,6 +68,14 @@ public:
 				m_clickedTexture = GET_SINGLE(ResourceManager)
 					->GetTexture(L"Button_Start_Click");
 				break;
+			case UIType::EXIT:
+				m_defaultTexture = GET_SINGLE(ResourceManager)
+					->GetTexture(L"Button_Exit_Default");
+				m_selectedTexture = GET_SINGLE(ResourceManager)
+					->GetTexture(L"Button_Exit_Select");
+				m_clickedTexture = GET_SINGLE(ResourceManager)
+					->GetTexture(L"Button_Exit_Click");
+				break;
 		}
 	}
 	void SetDefaultTexture(Texture* _texture) { m_defaultTexture = _texture; }

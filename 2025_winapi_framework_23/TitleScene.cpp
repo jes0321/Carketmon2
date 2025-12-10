@@ -17,9 +17,14 @@ void TitleScene::Init()
 		Image* titleImage = new Image;
 		titleImage->SetPos({ xHarf, yHarf - 200 });
 		titleImage->SetSize({ 760.f, 196.f });
-		titleImage->SetTexture(GET_SINGLE(ResourceManager)->GetTexture(L"Fireball"));
+		titleImage->SetTexture(GET_SINGLE(ResourceManager)->GetTexture(L"Title"));
 		AddObject(titleImage, Layer::UI);
 	}
+	Image* background = new Image;
+	background->SetPos({ xHarf, yHarf });
+	background->SetSize({ (float)WINDOW_WIDTH, (float)WINDOW_HEIGHT });
+	background->SetTexture(GET_SINGLE(ResourceManager)->GetTexture(L"TitleBackGround"));
+	AddObject(background, Layer::BACKGROUND);
 
 	ButtonSwitcher*  btnSwitcher = new ButtonSwitcher;
 	AddObject(btnSwitcher, Layer::UI);
@@ -45,7 +50,7 @@ void TitleScene::Init()
 		break;
 		case 1:
 		{
-			obj->SetButtonType(UIType::CANCEL);
+			obj->SetButtonType(UIType::EXIT);
 			obj->SetOnClick([this]() {
 				GET_SINGLE(Core)->ExitGame();
 				}, "√Îº“");

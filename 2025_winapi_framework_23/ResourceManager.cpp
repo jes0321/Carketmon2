@@ -98,27 +98,39 @@ void ResourceManager::RegisterTexture()
 	LoadTexture(L"Button_Deck_Default", L"Texture\\UI\\Button_Deck_Default.bmp");
 	LoadTexture(L"Button_Deck_Select", L"Texture\\UI\\Button_Deck_Select.bmp");
 	LoadTexture(L"Button_Deck_Click", L"Texture\\UI\\Button_Deck_Click.bmp");
+
 	LoadTexture(L"Button_Hand_Default", L"Texture\\UI\\Button_Hand_Default.bmp");
 	LoadTexture(L"Button_Hand_Select", L"Texture\\UI\\Button_Hand_Select.bmp");
 	LoadTexture(L"Button_Hand_Click", L"Texture\\UI\\Button_Hand_Click.bmp");
+
 	LoadTexture(L"Button_Info_Default", L"Texture\\UI\\Button_Info_Default.bmp");
 	LoadTexture(L"Button_Info_Select", L"Texture\\UI\\Button_Info_Select.bmp");
 	LoadTexture(L"Button_Info_Click", L"Texture\\UI\\Button_Info_Click.bmp");
+
 	LoadTexture(L"Button_Start_Default", L"Texture\\UI\\Button_Start_Default.bmp");
 	LoadTexture(L"Button_Start_Select", L"Texture\\UI\\Button_Start_Select.bmp");
 	LoadTexture(L"Button_Start_Click", L"Texture\\UI\\Button_Start_Click.bmp");
+
 	LoadTexture(L"Button_Cancel_Default", L"Texture\\UI\\Button_Cancel_Default.bmp");
 	LoadTexture(L"Button_Cancel_Select", L"Texture\\UI\\Button_Cancel_Select.bmp");
 	LoadTexture(L"Button_Cancel_Click", L"Texture\\UI\\Button_Cancel_Click.bmp");
+
 	LoadTexture(L"Button_Square_Default", L"Texture\\UI\\Button_Square_Default.bmp");
 	LoadTexture(L"Button_Square_Select", L"Texture\\UI\\Button_Square_Select.bmp");
 	LoadTexture(L"Button_Square_Click", L"Texture\\UI\\Button_Square_Click.bmp");
+
 	LoadTexture(L"Button_Skip_Default", L"Texture\\UI\\Button_Skip_Default.bmp");
 	LoadTexture(L"Button_Skip_Select", L"Texture\\UI\\Button_Skip_Select.bmp");
 	LoadTexture(L"Button_Skip_Click", L"Texture\\UI\\Button_Skip_Click.bmp");
+
 	LoadTexture(L"Button_Exchange_Default", L"Texture\\UI\\Button_Exchange_Default.bmp");
 	LoadTexture(L"Button_Exchange_Select", L"Texture\\UI\\Button_Exchange_Select.bmp");
 	LoadTexture(L"Button_Exchange_Click", L"Texture\\UI\\Button_Exchange_Click.bmp");
+
+
+	LoadTexture(L"Button_Exit_Default", L"Texture\\UI\\Button_Exit_Default.bmp");
+	LoadTexture(L"Button_Exit_Select", L"Texture\\UI\\Button_Exit_Select.bmp");
+	LoadTexture(L"Button_Exit_Click", L"Texture\\UI\\Button_Exit_Click.bmp");
 
 	LoadTexture(L"CarketmonSelectMark", L"Texture\\UI\\CarketmonSelectMark.bmp");
 	LoadTexture(L"CradSelectMark", L"Texture\\UI\\CradSelectMark.bmp");

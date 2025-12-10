@@ -52,6 +52,7 @@ enum class UIType {
 	DECK,
 	CANCEL,
 	START,
+	EXIT
 };
 enum class StatType {
 	Attack,
