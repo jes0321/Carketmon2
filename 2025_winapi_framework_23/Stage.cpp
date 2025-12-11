@@ -95,7 +95,6 @@ void Stage::Render(HDC _hdc)
 	}
 
 	Texture* tex =  GET_SINGLE(ResourceManager)->GetTexture(_texName);
-	tex = m_unitData->GetTexture();
 	LONG width = tex->GetWidth();
 	LONG height = tex->GetHeight();
 

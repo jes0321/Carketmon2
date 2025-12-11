@@ -19,7 +19,7 @@ public:
 public:
 	void SetUnitData(UnitType _type, UnitData* _data);
 	void SetUnitData(UnitType _type);
-    void SetEnemy(UnitData* _data);
+    void SetEnemy(UnitData* _data,int stage);
     void EndTurn();
     void AddAction(UnitType _target, int index);
     void CancelAction(UnitType _ownerType);
@@ -44,7 +44,7 @@ private:
 private:
 	float m_spacing = 300.f;
 
-	Vec2 m_enemyBattlePos = { (WINDOW_WIDTH - 250.f),((WINDOW_HEIGHT / 2.f) - 250.f) };
+	Vec2 m_enemyBattlePos = { (WINDOW_WIDTH - 250.f),((WINDOW_HEIGHT / 2.f) - 150.f) };
 	Vec2 m_enemyBattleEndPos = {(WINDOW_WIDTH/2.f),(WINDOW_HEIGHT/2.f)-200.f};
 
 	Vec2 m_unitBattlePos = { (200.f),((WINDOW_HEIGHT / 2.f) - 50.f) };

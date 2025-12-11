@@ -185,6 +185,8 @@ void BattleScene::OnOffInfo(bool _isOn)
 	if (m_waitTurn) return;
 	if (_isOn == true) {
 		UnitType targetUnit = AskTargetUnit();
+		if(targetUnit==UnitType::SELF)
+			targetUnit = UnitType::PLAYER1;
 		m_unitInfoObj->SetInfo(GET_SINGLE(CombatManager)->GetUnit(targetUnit)->GetStatData());
 	}
 
@@ -206,6 +208,8 @@ void BattleScene::OnOffDeck(bool _isOn)
 	if (m_waitTurn) return;
 	if (_isOn == true) {
 		UnitType targetUnit = AskTargetUnit();
+		if (targetUnit == UnitType::SELF)
+			targetUnit = UnitType::PLAYER1;
 		m_deckUIObj->SetCards(GET_SINGLE(CombatManager)->GetUnit(targetUnit)->GetDeck());
 		m_descriptionText->SetActive(true);
 	}
@@ -240,10 +244,14 @@ void BattleScene::SelectHand()
 	if (GET_KEYUP(KEY_TYPE::C))
 	{
 		if (m_waitTurn) return;
+		m_battleDescription->ClearText();
 		UnitType target = UnitType::SELF;
 		CardEffectType effectType = m_cardObjs[m_handIndex]->GetCardData()->GetCardEffect();
-		if (effectType != CardEffectType::StatBuff && effectType != CardEffectType::Shield) {
-			target = AskTargetUnit();
+		if (effectType != CardEffectType::StatBuff && effectType != CardEffectType::Shield&&effectType!=CardEffectType::Focus) {
+			UnitType t = AskTargetUnit();
+			if(t== UnitType::SELF)
+				return;
+			target = t;
 		}
 		GET_SINGLE(CombatManager)->AddAction(target, m_handIndex);
 		SetCardData();
@@ -255,20 +263,32 @@ void BattleScene::SelectHand()
 UnitType BattleScene::AskTargetUnit()
 {
 	HWND hwndOwner = GetActiveWindow();
-	int ret = ::MessageBoxW(
+
+	// 1단계: Player1 vs Player2 선택
+	int ret1 = ::MessageBoxW(
 		hwndOwner,
-		L"대상 유닛을 선택하세요:\n\nYes : Player1\nNo : Player2\nCancel : Enemy",
-		L"유닛 선택",
-		MB_YESNOCANCEL | MB_ICONQUESTION | MB_DEFBUTTON1
+		L"아군을 선택하시겠습니까?\n\nYes : Player 선택\nNo : Enemy 선택",
+		L"대상 선택",
+		MB_YESNOCANCEL | MB_ICONQUESTION
 	);
 
-	switch (ret)
-	{
-	case IDYES:    return UnitType::PLAYER1;
-	case IDNO:     return UnitType::PLAYER2;
-	case IDCANCEL: return UnitType::ENEMY;
-	default:       return UnitType::ENEMY;
-	}
+	if (ret1 == IDCANCEL) // X 버튼 또는 Cancel
+		return UnitType::SELF;
+
+	if (ret1 == IDNO)
+		return UnitType::ENEMY;
+
+	// 2단계: Player1 vs Player2
+	int ret2 = ::MessageBoxW(
+		hwndOwner,
+		L"Player를 선택하세요:\n\nYes : Player1\nNo : Player2",
+		L"Player 선택",
+		MB_YESNOCANCEL | MB_ICONQUESTION
+	);
+
+	if (ret2 == IDCANCEL) // X 버튼 또는 Cancel
+		return UnitType::SELF;
+	return (ret2 == IDYES) ? UnitType::PLAYER1 : UnitType::PLAYER2;
 }
 
 void BattleScene::SetCardDes(CardData* _data)

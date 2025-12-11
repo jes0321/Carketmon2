@@ -5,8 +5,8 @@ class Texture;
 class CardData
 {
 public:
-	CardData(wstring _name,Texture* _pTexture,
-		ElementType _cardType, CardEffectType _cardEffect, int _integerValue,int _priority=0,StatType _statType = StatType::Attack);
+	CardData(wstring _name, Texture* _pTexture,
+		ElementType _cardType, CardEffectType _cardEffect, int _integerValue, int _priority = 0, StatType _statType = StatType::Attack);
 public:
 	// Getter
 	const wstring& GetName() const { return m_name; }
@@ -17,16 +17,22 @@ public:
 	StatType GetStatType() const { return m_statType; }
 	int GetEffectValue() const { return m_integerValue; }
 	int GetPriority() const { return m_priority; }
-	static const wchar_t* ToElementName(ElementType t)
+	static wstring ToElementName(ElementType t)
 	{
 		switch (t)
 		{
-		case ElementType::Fire:  return L"불";
-		case ElementType::Water: return L"물";
-		case ElementType::Ice:   return L"얼음";
-		case ElementType::Grass: return L"풀";
-		case ElementType::Normal:  return L"노말";
-		default:                 return L"Unknown";
+		case ElementType::Fire:
+			return L"Fire";
+		case ElementType::Water:
+			return L"Water";
+		case ElementType::Ice:
+			return L"Ice";
+		case ElementType::Grass:
+			return L"Leaf";
+		case ElementType::Normal:
+			return L"Normal";
+		default:
+			return L"Unknown";
 		}
 	}
 private:

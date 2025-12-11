@@ -21,7 +21,7 @@ public:
 	int GetAtk() const { return m_atk; }
 	int GetDef() const { return m_def; }
 	int GetSpeed() const { return m_speed; }
-	void SetCard(CardData* card, int cnt);
+	void SetCard(CardData* card, int cnt=1);
 	void UseCard(int index);
 
 	vector<CardData*> GetDeck() const { return m_deck; }
