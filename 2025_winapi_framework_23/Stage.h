@@ -5,8 +5,8 @@
 enum StageType
 {
 	Normal,
-	Exchange = 40, //치료센터
-	TreatmentCenter = 20, //교환소
+	Exchange = 30, //치료센터
+	TreatmentCenter = 15, //교환소
 	Boss,
 };
 

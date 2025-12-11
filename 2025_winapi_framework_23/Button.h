@@ -130,6 +130,7 @@ public:
 
 	std::function<void()> m_onClick;
 	std::string m_buttonText = "Button Å¬¸¯";
+
 	bool m_isViewRect = false;
 };
 

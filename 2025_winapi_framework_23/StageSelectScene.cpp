@@ -45,7 +45,6 @@ void StageSelectScene::Update()
 	Scene::Update();
 
 	//StageDebugLog();
-	//cout << (int)(m_currentStage->GetUnitData()->GetElementType());
 
 	if (GET_KEYDOWN(KEY_TYPE::SPACE) && m_currentStage->IsAvailable == true)
 	{

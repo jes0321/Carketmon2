@@ -16,19 +16,22 @@ public:
 	{
 		if (_isAvailable)
 		{
+			m_currentTime = 0;
+			m_isNowAvailable = true;
 			m_currentButton = m_buttons[0];
 			m_currentButton->m_buttonState = ButtonState::Selected;
 		}
 		else
 		{
-			m_currentStageIndex = 0;
+			m_currentButtonIndex = 0;
 		}
-
+		
 		m_isAvailable = _isAvailable;
 	}
-	bool GetAvailable() { return m_isAvailable; }
-	Button* GetCurrentButton() { return m_currentButton; }
-	vector<Button*> GetCurrentButtons() { return m_buttons; }
+	bool GetAvailable() const { return m_isAvailable; }
+	int GetButtonIndex() const { return m_currentButtonIndex; }
+	Button* GetCurrentButton() const { return m_currentButton; }
+	vector<Button*> GetCurrentButtons() const { return m_buttons; }
 
 	void SetButtons(const vector<Button*>& _buttons)
 	{
@@ -41,11 +44,17 @@ public:
 		}
 	}
 private:
-	bool m_isWidth = false;
 	vector<Button*> m_buttons;
 	Button* m_currentButton = nullptr;
-	int m_currentStageIndex = 0;
+
+	float m_clickDelay = 0.1f;
+	float m_currentTime = 0.1f;
+
+	int m_currentButtonIndex = 0;
+
 	bool m_isAvailable = true;
+	bool m_isNowAvailable = false;
+	bool m_isWidth = false;
 	bool m_isOn = true;
 };
 
