@@ -38,7 +38,6 @@ void StageSelectScene::Update()
 	Scene::Update();
 
 	//StageDebugLog();
-	//cout << (int)(m_currentStage->GetUnitData()->GetElementType());
 
 	if (GET_KEYDOWN(KEY_TYPE::SPACE) && m_currentStage->IsAvailable == true)
 	{
@@ -79,7 +78,7 @@ void StageSelectScene::Update()
 			GET_SINGLE(SceneManager)->LoadScene(L"ExchangeScene");
 			return;
 		case StageType::Normal:
-			GET_SINGLE(SceneManager)->LoadScene(L"BattleScene");
+			//GET_SINGLE(SceneManager)->LoadScene(L"BattleScene");
 			return;
 		case StageType::Boss:
 			GET_SINGLE(SceneManager)->LoadScene(L"BattleScene");

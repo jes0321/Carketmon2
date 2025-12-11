@@ -162,6 +162,14 @@ void ResourceManager::RegisterTexture()
 	LoadTexture(L"Button_Exit_Select", L"Texture\\UI\\Button_Exit_Select.bmp");
 	LoadTexture(L"Button_Exit_Click", L"Texture\\UI\\Button_Exit_Click.bmp");
 
+	LoadTexture(L"Button_SquareCancel_Click", L"Texture\\UI\\Button_SquareCancel_Click.bmp");
+	LoadTexture(L"Button_SquareCancel_Default", L"Texture\\UI\\Button_SquareCancel_Default.bmp");
+	LoadTexture(L"Button_SquareCancel_Select", L"Texture\\UI\\Button_SquareCancel_Select.bmp");
+
+	LoadTexture(L"Button_SquareExit_Click", L"Texture\\UI\\Button_SquareExit_Click.bmp");
+	LoadTexture(L"Button_SquareExit_Default", L"Texture\\UI\\Button_SquareExit_Default.bmp");
+	LoadTexture(L"Button_SquareExit_Select", L"Texture\\UI\\Button_SquareExit_Select.bmp");
+
 	LoadTexture(L"CarketmonSelectMark", L"Texture\\UI\\CarketmonSelectMark.bmp");
 	LoadTexture(L"CradSelectMark", L"Texture\\UI\\CradSelectMark.bmp");
 
