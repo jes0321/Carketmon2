@@ -3,6 +3,7 @@
 #include "Stage.h"
 #include "StageManager.h"
 
+class Image;
 class StageSelectScene : public Scene
 {
 public:
@@ -26,12 +27,7 @@ private:
 		else if (random < (int)StageType::Exchange) return StageType::Exchange;
 		else return StageType::Normal;
 	}
-	void MoveStage()
-	{
-		for (int i = 0; i < StageLength; i++)
-			for (auto stage : m_stages[i])
-				stage->SetPos({ (int)stage->GetPos().x, (-120 * i) + 300 + (m_currentStageLength * 120) });
-	}
+	void MoveStage();
 	void SetCurrentStage(Stage* _stages)
 	{
 		if (m_currentStage != nullptr)
@@ -61,6 +57,8 @@ private:
 	const int MaxStageCount = 4;
 	const int MinStageCount = 2;
 private:
+	Image* m_bgImage = nullptr;
+	Vec2 m_prevBgPos = {WINDOW_WIDTH / 2, 0};  // 이전 배경 위치 추가
 	vector<vector<Stage*>> m_stages;
 	Stage* m_currentStage = nullptr;
 	int m_currentStageLength = 0;
