@@ -12,6 +12,7 @@
 #include "UnitObject.h"
 #include "DeckUIObj.h"
 #include "ResourceManager.h"
+#include "Image.h"
 #undef max;
 
 void BattleScene::Init()
@@ -19,6 +20,11 @@ void BattleScene::Init()
 	GET_SINGLE(ResourceManager)->Play(L"BATTLEBGM");
 	GET_SINGLE(CombatManager)->SetPosition(true);
 
+	Image* bgImage = new Image;
+	bgImage->SetTexture(GET_SINGLE(ResourceManager)->GetTexture(L"BattleScene_Top_BackGround"));
+	bgImage->SetSize({ (float)WINDOW_WIDTH, (float)WINDOW_HEIGHT });
+	bgImage->SetPos({ WINDOW_WIDTH * 0.5f, WINDOW_HEIGHT * 0.5f });
+	AddObject(bgImage, Layer::BACKGROUND);
 	int cardWidth = 48 * 4;
 	int cardHeight = 64 * 4;
 	int margin = 15;
@@ -169,8 +175,8 @@ void BattleScene::Update()
 
 void BattleScene::Render(HDC _hdc)
 {
-	GET_SINGLE(CombatManager)->Render(_hdc);
 	Scene::Render(_hdc);
+	GET_SINGLE(CombatManager)->Render(_hdc);
 }
 
 void BattleScene::Release()

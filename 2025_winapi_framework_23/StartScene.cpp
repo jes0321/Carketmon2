@@ -9,13 +9,64 @@
 #include "InputManager.h"
 #include "CombatManager.h"
 #include "UnitListSys.h"
+#include "Image.h"
+
+void StartScene::CalculateLayout()
+{
+    const float buttonLeftX = m_buttonCenterX - m_buttonHalfW;
+    const float leftAreaRightX = buttonLeftX;
+    const float leftAreaWidth = leftAreaRightX - m_leftAreaLeftX;
+
+    m_gridWidth = m_cols * m_tileW + (m_cols - 1) * m_spacingX;
+    m_gridHeight = m_rows * m_tileH + (m_rows - 1) * m_spacingY;
+
+    const float bgW = (leftAreaWidth - m_bgOuterPadX);
+    const float bgH = (m_gridHeight + m_innerPadY * 2.f);
+    const float bgCenterX = m_leftAreaLeftX + bgW * 0.5f;
+    const float bgCenterY = WINDOW_HEIGHT - m_bottomMargin - bgH * 0.5f;
+
+    m_startX = (bgCenterX - bgW * 0.5f) + m_innerPadX;
+    m_startY = (bgCenterY - bgH * 0.5f) + m_innerPadY;
+
+    const float padX = 20.f;
+    const float padY = 20.f;
+    m_bW = m_gridWidth + padX * 2.f;
+    m_bH = m_gridHeight + padY * 2.f;
+    m_bCX = m_startX + m_gridWidth * 0.5f;
+    m_bCY = m_startY + m_gridHeight * 0.5f;
+
+    const float selectionBoxRight = m_bCX + m_bW * 0.5f;
+    m_descBoxLeft = selectionBoxRight + 30.f;
+    m_descBoxTop = m_bCY - m_bH * 0.5f + 60.f;
+    m_descBoxHeight = m_bH - 60.f;
+    m_descBoxCenterX = m_descBoxLeft + m_descBoxWidth * 0.5f;
+    m_descBoxCenterY = m_descBoxTop + m_descBoxHeight * 0.5f;
+}
 
 void StartScene::Init()
 {
+    // 레이아웃 계산 (한 번만 수행)
+    CalculateLayout();
+
+    // 그리드 배경 이미지
+    Image* gridBgImage = new Image;
+    gridBgImage->SetTexture(GET_SINGLE(ResourceManager)->GetTexture(L"CarketmonSelectWindow"));
+    gridBgImage->SetSize({ m_bW, m_bH });
+    gridBgImage->SetPos({ m_bCX, m_bCY });
+    AddObject(gridBgImage, Layer::BACKGROUND);
+
+    // 설명 박스 배경 이미지
+    Image* descBgImage = new Image;
+    descBgImage->SetTexture(GET_SINGLE(ResourceManager)->GetTexture(L"CarketmonStatWindow"));
+    descBgImage->SetSize({ m_descBoxWidth, m_descBoxHeight });
+    descBgImage->SetPos({ m_descBoxCenterX, m_descBoxCenterY });
+    AddObject(descBgImage, Layer::BACKGROUND);
+
     m_selectVec.clear();
     m_candidates.clear();
-	m_selectBoxTex = GET_SINGLE(ResourceManager)->GetTexture(L"CarketmonSelectMark");
-    // 기존 LoadUnitsFromTxt 대신 공용 유틸 사용
+    m_selectBoxTex = GET_SINGLE(ResourceManager)->GetTexture(L"CarketmonSelectMark");
+
+    // 유닛 로드
     {
         auto names = UnitListSys::ReadNames();
         for (const auto& name : names) {
@@ -33,7 +84,7 @@ void StartScene::Init()
     {
         Button* obj = new Button;
         obj->SetPos({ WINDOW_WIDTH - 80, (45 * i) + 560 });
-        obj->SetSize({ 150,40 });
+        obj->SetSize({ 150, 40 });
         AddObject(obj, Layer::DEFAULT);
 
         switch (i)
@@ -50,7 +101,6 @@ void StartScene::Init()
         {
             obj->SetButtonType(UIType::START);
             obj->SetOnClick([this]() {
-                // 선택 2개 검증
                 if (m_selectVec.size() < 2 || !m_selectVec[0] || !m_selectVec[1]) {
                     SetSelectionEnabled(true);
                     return;
@@ -69,7 +119,6 @@ void StartScene::Init()
     m_btnManager->SetButtons(buttons);
 }
 
-
 void StartScene::CancelSelectAll()
 {
     SetSelectionEnabled(true);
@@ -80,8 +129,8 @@ void StartScene::Update()
 {
     Scene::Update();
 
-    if(m_isSelectionEnabled == false)
-		return;
+    if (m_isSelectionEnabled == false)
+        return;
     if (m_candidates.empty()) return;
 
     const int maxIndex = std::min<int>((int)m_candidates.size(), m_cols * m_rows) - 1;
@@ -122,7 +171,7 @@ void StartScene::Update()
         m_cursor = next;
     }
 
-    // 엔터로 선택/해제 + 완료 시 버튼 입력 켜기
+    // 선택/해제
     if (GET_KEYUP(KEY_TYPE::SPACE)) {
         UnitData* pick = m_candidates[m_cursor];
         auto it = std::find(m_selectVec.begin(), m_selectVec.end(), pick);
@@ -142,41 +191,7 @@ void StartScene::Render(HDC _hdc)
 {
     Scene::Render(_hdc);
 
-    const float buttonLeftX = m_buttonCenterX - m_buttonHalfW;
-    const float leftAreaRightX = buttonLeftX;
-    const float leftAreaWidth = leftAreaRightX - m_leftAreaLeftX;
-
-    const float gridWidth = m_cols * m_tileW + (m_cols - 1) * m_spacingX;
-    const float gridHeight = m_rows * m_tileH + (m_rows - 1) * m_spacingY;
-
-    const float bgW = (leftAreaWidth - m_bgOuterPadX);
-    const float bgH = (gridHeight + m_innerPadY * 2.f);
-    const float bgCenterX = m_leftAreaLeftX + bgW * 0.5f;
-    const float bgCenterY = WINDOW_HEIGHT - m_bottomMargin - bgH * 0.5f;
-
-    const float startX = (bgCenterX - bgW * 0.5f) + m_innerPadX;
-    const float startY = (bgCenterY - bgH * 0.5f) + m_innerPadY;
-
-    // 왼쪽 그리드 박스 (먼저 계산)
-    const float padX = 20.f;
-    const float padY = 20.f;
-    const float bW = gridWidth + padX * 2.f;
-    const float bH = gridHeight + padY * 2.f;
-    const float bCX = startX + gridWidth * 0.5f;
-    const float bCY = startY + gridHeight * 0.5f;
-
-    // 선택 사각형의 오른쪽 모서리
-    const float selectionBoxRight = bCX + bW * 0.5f;
-
-    // 우측 설명 박스 (선택 사각형보다 조금 작게)
-    const float descBoxLeft = selectionBoxRight + 30.f;
-    const float descBoxWidth = 350.f;
-    const float descBoxTop = bCY - bH * 0.5f + 60.f; // 위쪽 여백 60px 확보
-    const float descBoxHeight = bH - 60.f; // 높이를 60px 줄임
-    const float descBoxCenterX = descBoxLeft + descBoxWidth * 0.5f;
-    const float descBoxCenterY = descBoxTop + descBoxHeight * 0.5f;
-
-    // 타이틀 텍스트 (설명 박스 위쪽, 이제 충분한 공간 확보됨)
+    // 타이틀 텍스트
     {
         GDISelector fontSel(_hdc, FontType::PIXEL_BIG);
         SetBkMode(_hdc, TRANSPARENT);
@@ -184,79 +199,59 @@ void StartScene::Render(HDC _hdc)
 
         const wchar_t* title = L"캐릭터 선택";
         RECT titleRect;
-        titleRect.left = static_cast<LONG>(descBoxLeft);
-        titleRect.right = static_cast<LONG>(descBoxLeft + descBoxWidth);
-        titleRect.top = static_cast<LONG>(bCY - bH * 0.5f); // 선택 박스 상단과 동일
-        titleRect.bottom = static_cast<LONG>(descBoxTop - 5.f); // 설명 박스 위쪽까지
+        titleRect.left = static_cast<LONG>(m_descBoxLeft);
+        titleRect.right = static_cast<LONG>(m_descBoxLeft + m_descBoxWidth);
+        titleRect.top = static_cast<LONG>(m_bCY - m_bH * 0.5f);
+        titleRect.bottom = static_cast<LONG>(m_descBoxTop - 5.f);
 
         DrawTextW(_hdc, title, -1, &titleRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE | DT_NOPREFIX);
     }
 
-    // 현재 선택중인 유닛 설명 박스
+    // 설명 박스
     if (!m_candidates.empty() && m_cursor >= 0 && m_cursor < (int)m_candidates.size()) {
         UnitData* currentUnit = m_candidates[m_cursor];
         if (currentUnit) {
-            // 설명 박스 외곽선 렌더링
-            {
-                GDISelector penSel(_hdc, PenType::BOLD_GRAY);
-                GDISelector brushSel(_hdc, BrushType::HOLLOW);
-                RECT_RENDER(_hdc, descBoxCenterX, descBoxCenterY, descBoxWidth, descBoxHeight);
+            GDISelector fontSel(_hdc, FontType::PIXEL_BIG);
+            SetBkMode(_hdc, TRANSPARENT);
+            SetTextColor(_hdc, RGB(220, 220, 220));
+
+            std::wstring description = currentUnit->GetDescription();
+
+            // 줄 분리
+            std::vector<std::wstring> lines;
+            size_t start = 0;
+            while (true) {
+                size_t p = description.find(L'\n', start);
+                if (p == std::wstring::npos) {
+                    lines.push_back(description.substr(start));
+                    break;
+                }
+                lines.push_back(description.substr(start, p - start));
+                start = p + 1;
             }
 
-            // 설명 텍스트 렌더링 (줄 간격 수동 조정)
-            {
-                GDISelector fontSel(_hdc, FontType::PIXEL_BIG);
-                SetBkMode(_hdc, TRANSPARENT);
-                SetTextColor(_hdc, RGB(30, 30, 30));
+            const int padding = 20;
+            const int lineSpacing = 20;
 
-                std::wstring description = currentUnit->GetDescription();
+            RECT tempRect = { 0, 0, static_cast<LONG>(m_descBoxWidth - padding * 2), 0 };
+            LONG curY = static_cast<LONG>(m_descBoxTop + padding);
 
-                // 줄 분리
-                std::vector<std::wstring> lines;
-                size_t start = 0;
-                while (true) {
-                    size_t p = description.find(L'\n', start);
-                    if (p == std::wstring::npos) {
-                        lines.push_back(description.substr(start));
-                        break;
-                    }
-                    lines.push_back(description.substr(start, p - start));
-                    start = p + 1;
-                }
+            for (const auto& line : lines) {
+                RECT calc = tempRect;
+                DrawTextW(_hdc, line.c_str(), -1, &calc, DT_LEFT | DT_TOP | DT_WORDBREAK | DT_NOPREFIX | DT_CALCRECT);
+                LONG lineHeight = calc.bottom - calc.top;
 
-                const int padding = 20;
-                const int lineSpacing = 20; // 줄 간격 추가
+                RECT lineRect;
+                lineRect.left = static_cast<LONG>(m_descBoxLeft + padding);
+                lineRect.right = static_cast<LONG>(m_descBoxLeft + m_descBoxWidth - padding);
+                lineRect.top = curY;
+                lineRect.bottom = curY + lineHeight;
 
-                RECT tempRect = { 0, 0, static_cast<LONG>(descBoxWidth - padding * 2), 0 };
+                DrawTextW(_hdc, line.c_str(), -1, &lineRect, DT_LEFT | DT_TOP | DT_WORDBREAK | DT_NOPREFIX);
 
-                LONG curY = static_cast<LONG>(descBoxTop + padding);
-
-                for (const auto& line : lines) {
-                    // 각 줄의 높이 계산
-                    RECT calc = tempRect;
-                    DrawTextW(_hdc, line.c_str(), -1, &calc, DT_LEFT | DT_TOP | DT_WORDBREAK | DT_NOPREFIX | DT_CALCRECT);
-                    LONG lineHeight = calc.bottom - calc.top;
-
-                    // 실제 렌더링
-                    RECT lineRect;
-                    lineRect.left = static_cast<LONG>(descBoxLeft + padding);
-                    lineRect.right = static_cast<LONG>(descBoxLeft + descBoxWidth - padding);
-                    lineRect.top = curY;
-                    lineRect.bottom = curY + lineHeight;
-
-                    DrawTextW(_hdc, line.c_str(), -1, &lineRect, DT_LEFT | DT_TOP | DT_WORDBREAK | DT_NOPREFIX);
-
-                    curY += lineHeight + lineSpacing; // 줄 간격 추가
-                }
+                curY += lineHeight + lineSpacing;
             }
         }
-    }
-
-    // 왼쪽 그리드 박스
-    {
-        GDISelector penSel(_hdc, PenType::BOLD_GREEN);
-        GDISelector brushSel(_hdc, BrushType::HOLLOW);
-        RECT_RENDER(_hdc, bCX, bCY, bW, bH);
     }
 
     // 유닛 타일 렌더링
@@ -265,8 +260,8 @@ void StartScene::Render(HDC _hdc)
         int col = i % m_cols;
         int row = i / m_cols;
 
-        float x = startX + col * (m_tileW + m_spacingX) + m_tileW * 0.5f;
-        float y = startY + row * (m_tileH + m_spacingY) + m_tileH * 0.5f;
+        float x = m_startX + col * (m_tileW + m_spacingX) + m_tileW * 0.5f;
+        float y = m_startY + row * (m_tileH + m_spacingY) + m_tileH * 0.5f;
 
         UnitData* ud = m_candidates[i];
         if (!ud) continue;
@@ -281,8 +276,8 @@ void StartScene::Render(HDC _hdc)
             GDISelector brushSel(_hdc, BrushType::GREEN);
             RECT_RENDER(_hdc, x, y, m_tileW, m_tileH);
         }
-        if (i == m_cursor) {
 
+        if (i == m_cursor) {
             ::TransparentBlt(
                 _hdc,
                 (int)(x - m_tileW * 0.5f),
@@ -305,7 +300,6 @@ void StartScene::Render(HDC _hdc)
             RGB(255, 0, 255));
     }
 }
-
 
 void StartScene::Release()
 {
