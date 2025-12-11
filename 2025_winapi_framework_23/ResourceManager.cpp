@@ -183,6 +183,7 @@ void ResourceManager::RegisterTexture()
 	//카켓몬 선택 창 및 스탯 창
 	LoadTexture(L"CarketmonSelectWindow", L"Texture\\UI\\CarketmonSelectWindow.bmp");
 	LoadTexture(L"CarketmonStatWindow", L"Texture\\UI\\CarketmonStatWindow.bmp");
+	LoadTexture(L"CarketmonTitleWindow", L"Texture\\UI\\CarketmonTitleWindow.bmp");
 
 	LoadTexture(L"Mark_Fire", L"Texture\\UI\\Mark_Fire_Element.bmp");
 	LoadTexture(L"Mark_Water", L"Texture\\UI\\Mark_Water_Element.bmp");

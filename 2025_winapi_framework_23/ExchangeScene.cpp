@@ -16,6 +16,7 @@ void ExchangeScene::Init()
         ->GetUnit(UnitType::PLAYER1)->GetUnitData()->GetTexture();
     Texture* texPlayer2 = GET_SINGLE(CombatManager)
         ->GetUnit(UnitType::PLAYER2)->GetUnitData()->GetTexture();
+    Texture* texWindow = GET_SINGLE(ResourceManager)->GetTexture(L"CarketmonTitleWindow");
 
     Image* image = new Image;
     image->SetPos({ WINDOW_WIDTH / 2 + 50, WINDOW_HEIGHT / 2 });
@@ -29,8 +30,14 @@ void ExchangeScene::Init()
     image2->SetTexture(texPlayer2);
     AddObject(image2, Layer::UI);
 
+    Image* image3 = new Image;
+    image3->SetPos({ WINDOW_WIDTH / 2, WINDOW_HEIGHT / 4 });
+    image3->SetSize({ 300,100 });
+    image3->SetTexture(texWindow);
+    AddObject(image3, Layer::UI);
+
     Text* text = new Text(L"");
-    text->SetPos({ WINDOW_WIDTH / 2, WINDOW_HEIGHT / 4 });
+    text->SetPos({ WINDOW_WIDTH / 2, WINDOW_HEIGHT / 4 + 20 });
     text->SetSize({ 300,100 });
     AddObject(text, Layer::UI);
     m_textObj = text;

@@ -219,6 +219,8 @@ void TreatmentCenterScene::Init()
     {
 		Scene::Render(_hdc);    
 
+        SetTextColor(_hdc, RGB(0, 0, 0));
+
         if (m_currentUnit != nullptr) {
             UnitData* currentUnit = m_currentUnit;
             if (currentUnit) {
