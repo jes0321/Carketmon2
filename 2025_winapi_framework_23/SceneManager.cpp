@@ -9,6 +9,7 @@
 #include "TitleScene.h"
 #include "BattleEndScene.h"
 #include "StartScene.h"
+#include "EndingScene.h"
 void SceneManager::Init()
 {
 	m_curScene = nullptr;
@@ -17,10 +18,10 @@ void SceneManager::Init()
 	RegisterScene(L"ExchangeScene", new ExchangeScene);
 	RegisterScene(L"BattleScene", new BattleScene);
 	RegisterScene(L"BattleEndScene", new BattleEndScene);
+	RegisterScene(L"EndingScene", new EndingScene);
 	RegisterScene(L"TitleScene", new TitleScene);
 	RegisterScene(L"StartScene", new StartScene);
 	LoadScene(L"TitleScene");
-	// MenuScene 등록
 }
 void SceneManager::Update()
 {

@@ -15,7 +15,7 @@ enum class PenType
 };
 enum class BrushType
 {
-	HOLLOW, RED, GREEN, BLUE,END
+	HOLLOW, RED, GREEN, BLUE,BLACK,END
 };
 
 enum class FontType
