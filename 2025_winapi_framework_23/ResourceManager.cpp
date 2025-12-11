@@ -167,18 +167,21 @@ void ResourceManager::RegisterTexture()
 
 	LoadTexture(L"Title", L"Texture\\UI\\Title.bmp");
 	LoadTexture(L"TitleBackGround", L"Texture\\UI\\TitleBackGround.bmp");
-
+	
+	//배틀씬 배경
 	LoadTexture(L"BattleScene_Bottom_BackGround", L"Texture\\UI\\BattleScene_Bottom_BackGround.bmp");
 	LoadTexture(L"BattleScene_Top_BackGround", L"Texture\\UI\\BattleScene_Top_BackGround.bmp");
+	//스테이지 선택 씬 배경
 	LoadTexture(L"StageSelectScene_BackGround", L"Texture\\UI\\StageSelectScene_BackGround.bmp");
-
+	//카켓몬 선택 창 및 스탯 창
 	LoadTexture(L"CarketmonSelectWindow", L"Texture\\UI\\CarketmonSelectWindow.bmp");
 	LoadTexture(L"CarketmonStatWindow", L"Texture\\UI\\CarketmonStatWindow.bmp");
+
 	LoadTexture(L"Mark_Fire", L"Texture\\UI\\Mark_Fire_Element.bmp");
 	LoadTexture(L"Mark_Water", L"Texture\\UI\\Mark_Water_Element.bmp");
 	LoadTexture(L"Mark_Leaf", L"Texture\\UI\\Mark_Leaf_Element.bmp");
 	LoadTexture(L"Mark_Ice", L"Texture\\UI\\Mark_Ice_Element.bmp");
-
+	//스테이지 마크
 	LoadTexture(L"Mark_TreatmentCenter", L"Texture\\UI\\Mark_TreatmentCenter.bmp");
 	LoadTexture(L"Mark_Exchange", L"Texture\\UI\\Mark_Exchange.bmp");
 	LoadTexture(L"Mark_Battle", L"Texture\\UI\\Mark_Battle.bmp");
