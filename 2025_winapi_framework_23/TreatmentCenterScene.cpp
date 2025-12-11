@@ -175,7 +175,7 @@ void TreatmentCenterScene::Init()
     AddObject(descBgImage, Layer::BACKGROUND);
 
     Text* text = new Text(L"");
-    text->SetPos({ WINDOW_WIDTH / 2 + 300, WINDOW_HEIGHT / 2 + 230 });
+    text->SetPos({ WINDOW_WIDTH / 2 - 270, WINDOW_HEIGHT / 2 + 320 });
     text->SetSize({ 300,100 });
     AddObject(text, Layer::UI);
     m_changeText = text;
@@ -210,7 +210,7 @@ void TreatmentCenterScene::Init()
         }
 
         std::wstring pokemonName = GET_SINGLE(CombatManager)->GetUnit(m_playerType)->GetUnitData()->GetName();
-        std::wstring combinedText = L"현재 바뀌어질 카켓몬 : " + pokemonName;
+        std::wstring combinedText = L"현재 바꿀 카켓몬 : " + pokemonName;
 
         m_changeText->SetText(combinedText);
     }
@@ -265,6 +265,7 @@ void TreatmentCenterScene::Init()
             }
         }
 
+        SetTextColor(_hdc, RGB(0, 0, 0));
     }
 
     void TreatmentCenterScene::LateUpdate()
