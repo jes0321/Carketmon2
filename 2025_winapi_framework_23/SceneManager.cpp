@@ -13,7 +13,7 @@ void SceneManager::Init()
 {
 	m_curScene = nullptr;
 	RegisterScene(L"StageSelectScene", new StageSelectScene);
-	RegisterScene(L"TreatmentCenterScene",new TreatmentCenterScene);
+	RegisterScene(L"TreatmentCenterScene", new TreatmentCenterScene);
 	RegisterScene(L"ExchangeScene", new ExchangeScene);
 	RegisterScene(L"BattleScene", new BattleScene);
 	RegisterScene(L"BattleEndScene", new BattleEndScene);
@@ -24,6 +24,16 @@ void SceneManager::Init()
 }
 void SceneManager::Update()
 {
+	if (m_isTras) {
+		m_timer += fDT;
+		if (m_timer >= m_delayTime)
+		{
+			m_isTras = false;
+			m_timer = 0;
+			ChangeScene();
+		}
+		return;
+	}
 	if (m_curScene == nullptr)
 		return;
 	m_curScene->Update();
@@ -71,13 +81,18 @@ void SceneManager::RegisterScene(const wstring& _name, Scene* _scene)
 
 void SceneManager::LoadScene(const wstring& _name)
 {
-	// 2��° load �Ͻ� change ����
+	m_isTras = true;
+	m_nextSceneName = _name;
+}
+
+void SceneManager::ChangeScene()
+{
 	if (m_curScene != nullptr)
 	{
 		m_curScene->Release();
 		m_curScene = nullptr;
 	}
-	auto iter = m_mapScenes.find(_name);
+	auto iter = m_mapScenes.find(m_nextSceneName);
 	if (iter != m_mapScenes.end())
 	{
 		m_curScene = iter->second;

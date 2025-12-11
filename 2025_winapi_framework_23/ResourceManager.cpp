@@ -169,7 +169,7 @@ void ResourceManager::RegisterTexture()
 	LoadTexture(L"TitleBackGround", L"Texture\\UI\\TitleBackGround.bmp");
 	
 	//배틀씬 배경
-	LoadTexture(L"BattleScene_BackGround", L"Texture\\UI\\BattleScene_Bottom_BackGround.bmp");
+	LoadTexture(L"BattleScene_BackGround", L"Texture\\UI\\BattleScene_BackGround.bmp");
 	//스테이지 선택 씬 배경
 	LoadTexture(L"StageSelectScene_BackGround", L"Texture\\UI\\StageSelectScene_BackGround.bmp");
 	//카켓몬 선택 창 및 스탯 창

@@ -21,7 +21,7 @@ void BattleScene::Init()
 	GET_SINGLE(CombatManager)->SetPosition(true);
 
 	Image* bgImage = new Image;
-	bgImage->SetTexture(GET_SINGLE(ResourceManager)->GetTexture(L"BattleScene_Top_BackGround"));
+	bgImage->SetTexture(GET_SINGLE(ResourceManager)->GetTexture(L"BattleScene_BackGround"));
 	bgImage->SetSize({ (float)WINDOW_WIDTH, (float)WINDOW_HEIGHT });
 	bgImage->SetPos({ WINDOW_WIDTH * 0.5f, WINDOW_HEIGHT * 0.5f });
 	AddObject(bgImage, Layer::BACKGROUND);
@@ -57,7 +57,7 @@ void BattleScene::Init()
 		Button* obj = new Button;
 		obj->SetPos({ WINDOW_WIDTH - 80, (45 * i) + 560 });
 		obj->SetSize({ 150,40 });
-		AddObject(obj, Layer::DEFAULT);
+		AddObject(obj, Layer::UI);
 
 		switch (i)
 		{

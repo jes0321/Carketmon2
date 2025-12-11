@@ -44,7 +44,7 @@ void TitleScene::Init()
 
 			obj->SetButtonType(UIType::START);
 			obj->SetOnClick([this]() {
-				m_isWait = true;
+				GET_SINGLE(SceneManager)->LoadScene(L"StartScene");
 				}, "½ÃÀÛ");
 		}
 		break;
@@ -64,17 +64,4 @@ void TitleScene::Init()
 	btnSwitcher->SetButtons(buttons);
 
 	GET_SINGLE(StageManager)->SetReset();
-}
-
-void TitleScene::Update()
-{
-	Scene::Update();
-	if (m_isWait == false) return;
-	m_timer += fDT;
-	if (m_timer >= m_delayTime)
-	{
-		m_isWait = false;
-		m_timer = 0;
-		GET_SINGLE(SceneManager)->LoadScene(L"StartScene");
-	}
 }

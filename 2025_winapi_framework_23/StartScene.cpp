@@ -48,6 +48,12 @@ void StartScene::Init()
     // 레이아웃 계산 (한 번만 수행)
     CalculateLayout();
 
+	Image* bgImage = new Image;
+	bgImage->SetTexture(GET_SINGLE(ResourceManager)->GetTexture(L"TitleBackGround"));
+	bgImage->SetSize({ (float)WINDOW_WIDTH, (float)WINDOW_HEIGHT });
+	bgImage->SetPos({ WINDOW_WIDTH * 0.5f, WINDOW_HEIGHT * 0.5f });
+	AddObject(bgImage, Layer::BACKGROUND);
+
     // 그리드 배경 이미지
     Image* gridBgImage = new Image;
     gridBgImage->SetTexture(GET_SINGLE(ResourceManager)->GetTexture(L"CarketmonSelectWindow"));
@@ -85,7 +91,7 @@ void StartScene::Init()
         Button* obj = new Button;
         obj->SetPos({ WINDOW_WIDTH - 80, (45 * i) + 560 });
         obj->SetSize({ 150, 40 });
-        AddObject(obj, Layer::DEFAULT);
+        AddObject(obj, Layer::UI);
 
         switch (i)
         {
@@ -195,7 +201,7 @@ void StartScene::Render(HDC _hdc)
     {
         GDISelector fontSel(_hdc, FontType::PIXEL_BIG);
         SetBkMode(_hdc, TRANSPARENT);
-        SetTextColor(_hdc, RGB(50, 50, 50));
+        SetTextColor(_hdc, RGB(255, 255, 255));
 
         const wchar_t* title = L"캐릭터 선택";
         RECT titleRect;
