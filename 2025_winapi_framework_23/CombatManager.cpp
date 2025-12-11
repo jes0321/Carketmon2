@@ -81,6 +81,9 @@ void CombatManager::EndActions(BattleScene* battleScene)
 	m_units[0]->SetSelect(true);
 	if (m_endBattle) {
 		m_endBattle = false;
+		for (auto unit : m_units) {
+			unit->ResetStat();
+		}
 		HealUnit(UnitType::ENEMY);
 		if (m_isBoss) {
 			GET_SINGLE(SceneManager)->LoadScene(L"EndingScene");

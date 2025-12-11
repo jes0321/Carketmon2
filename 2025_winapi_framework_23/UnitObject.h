@@ -41,7 +41,7 @@ public:
 	int GetStat(StatType _type) const;
 	bool IsStrongAgainst(ElementType attacker) const;
 	bool IsWeakAgainst(ElementType attacker) const;
-
+	void ResetStat();
 	// 리바이브 연출
 	void StartRevive();
 	void ResetBlink();

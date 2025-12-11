@@ -182,6 +182,12 @@ bool UnitObject::IsWeakAgainst(ElementType attacker) const
 	return false;
 }
 
+void UnitObject::ResetStat()
+{
+	InitStats(0);
+}
+
+
 void UnitObject::StartRevive()
 {
 	m_isReviving = true;
