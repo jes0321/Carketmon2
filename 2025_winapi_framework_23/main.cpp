@@ -5,6 +5,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_ LPWSTR    lpCmdLine,
                      _In_ int       nCmdShow)
 {
+    //::ShowWindow(::GetConsoleWindow(), SW_HIDE);
+
     BaseWindow game;
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
     game.Run(hInstance, nCmdShow);

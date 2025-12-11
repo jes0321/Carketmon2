@@ -82,7 +82,12 @@ void CombatManager::EndActions(BattleScene* battleScene)
 	if (m_endBattle) {
 		m_endBattle = false;
 		HealUnit(UnitType::ENEMY);
-		GET_SINGLE(SceneManager)->LoadScene(L"BattleEndScene");
+		if (m_isBoss) {
+			GET_SINGLE(SceneManager)->LoadScene(L"EndingScene");
+		}
+		else {
+			GET_SINGLE(SceneManager)->LoadScene(L"BattleEndScene");
+		}
 	}
 }
 
@@ -124,6 +129,9 @@ void CombatManager::SetUnitData(UnitType _type)
 
 void CombatManager::SetEnemy(UnitData* _data, int stage)
 {
+	if (stage == 10) {
+		m_isBoss = true;
+	}
 	GetUnit(UnitType::ENEMY)->SetUnitData(_data, stage);
 }
 

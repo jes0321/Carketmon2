@@ -49,6 +49,8 @@ private:
 
 	Vec2 m_unitBattlePos = { (200.f),((WINDOW_HEIGHT / 2.f) - 50.f) };
 	Vec2 m_unitBattleEndPos = { (WINDOW_WIDTH / 2.f) -150.f,(WINDOW_HEIGHT / 2.f) + 200.f };
+	
+	bool m_isBoss = false;
 
 	bool m_endBattle = false;
 	bool m_isWin = true;

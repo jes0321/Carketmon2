@@ -9,6 +9,7 @@
 #include "UnitObject.h"
 #include "LifeUI.h"
 #include "UnitManager.h"
+#include "Image.h"
 #include "StageManager.h"
 
 StageSelectScene::~StageSelectScene()
@@ -31,6 +32,12 @@ void StageSelectScene::Init()
 	lifeUI->Init();
 	AddObject(lifeUI, Layer::UI);
 	GET_SINGLE(ResourceManager)->Play(L"BGM");
+
+	m_bgImage = new Image;
+	m_bgImage->SetTexture(GET_SINGLE(ResourceManager)->GetTexture(L"StageSelectScene_BackGround"));
+	m_bgImage->SetSize({ 1280,2160 });
+	m_bgImage->SetPos({ WINDOW_WIDTH / 2,0 });
+	AddObject(m_bgImage, Layer::BACKGROUND);
 }
 
 void StageSelectScene::Update()
@@ -147,10 +154,10 @@ void StageSelectScene::Update()
 
 void StageSelectScene::Render(HDC _hdc)
 {
+	Scene::Render(_hdc);
 	for (auto stageRow : m_stages)
 		for (auto stage : stageRow)
 			stage->Render(_hdc);
-
 }
 
 void StageSelectScene::Release()
@@ -181,6 +188,26 @@ void StageSelectScene::StageDebugLog()
 	}
 	else
 		cout << " | Next Stages: NULL" << endl;
+}
+
+void StageSelectScene::MoveStage()
+{
+	// 기존 스테이지 이동
+	for (int i = 0; i < StageLength; i++)
+		for (auto stage : m_stages[i])
+			stage->SetPos({ (int)stage->GetPos().x, 
+			               (-120 * i) + 300 + (m_currentStageLength * 120) });
+	
+	// 배경 이미지 이동
+	if (m_bgImage != nullptr)
+	{
+		// 스테이지 이동량에 비례하여 배경 이동
+		float bgOffsetY = m_currentStageLength * 120.0f;
+		
+		// 배경 이미지 중심이 (WINDOW_WIDTH/2, 0)에서 시작
+		// 아래로 갈수록 음수 방향으로 이동
+		m_bgImage->SetPos({ (float)(WINDOW_WIDTH / 2), bgOffsetY });
+	}
 }
 
 

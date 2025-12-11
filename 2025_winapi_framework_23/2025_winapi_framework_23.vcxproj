@@ -179,6 +179,7 @@
     <ClInclude Include="DeckUIObj.h" />
     <ClInclude Include="Defines.h" />
     <ClInclude Include="DescriptionText.h" />
+    <ClInclude Include="EndingScene.h" />
     <ClInclude Include="ExchangeScene.h" />
     <ClInclude Include="HealthBar.h" />
     <ClInclude Include="Image.h" />
@@ -232,6 +233,7 @@
     <ClCompile Include="DamageFloat.cpp" />
     <ClCompile Include="DeckUIObj.cpp" />
     <ClCompile Include="DescriptionText.cpp" />
+    <ClCompile Include="EndingScene.cpp" />
     <ClCompile Include="ExchangeScene.cpp" />
     <ClCompile Include="HealthBar.cpp" />
     <ClCompile Include="Image.cpp" />
@@ -265,7 +267,9 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="2025_winapi_framework_23.ico" />
+    <Image Include="icon1.ico" />
     <Image Include="small.ico" />
+    <Image Include="Water_SquidGirl.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
