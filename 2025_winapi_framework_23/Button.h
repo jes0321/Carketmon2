@@ -75,6 +75,7 @@ public:
 					->GetTexture(L"Button_Exit_Select");
 				m_clickedTexture = GET_SINGLE(ResourceManager)
 					->GetTexture(L"Button_Exit_Click");
+				break;
 			case UIType::EXCHANGE:
 				m_defaultTexture = GET_SINGLE(ResourceManager)
 					->GetTexture(L"Button_Exchange_Default");

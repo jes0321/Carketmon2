@@ -45,10 +45,10 @@ void CardManager::Init()
 
 
 	RegisterCard(L"응급치료", L"Heel",
-		ElementType::Normal, CardEffectType::Heal, 13,1);
+		ElementType::Normal, CardEffectType::Heal, 30,1);
 
 	RegisterCard(L"대치유", L"Heel_Strong",
-		ElementType::Normal, CardEffectType::Heal, 25, 1);
+		ElementType::Normal, CardEffectType::Heal, 55, 1);
 
 
 	RegisterCard(L"속력증폭", L"Buff_Speed",
