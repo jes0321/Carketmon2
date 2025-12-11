@@ -267,7 +267,9 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="2025_winapi_framework_23.ico" />
+    <Image Include="icon1.ico" />
     <Image Include="small.ico" />
+    <Image Include="Water_SquidGirl.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
