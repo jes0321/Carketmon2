@@ -30,7 +30,7 @@ public:
 	}
 private:
 	float m_timer = 0;
-	float m_delayTime = 0.1f;
+	float m_delayTime = 0.05f;
 	bool m_isTras = false;
 	wstring m_nextSceneName;
 	Scene* m_curScene;

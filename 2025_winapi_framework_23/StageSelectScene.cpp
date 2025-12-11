@@ -9,6 +9,7 @@
 #include "UnitObject.h"
 #include "LifeUI.h"
 #include "UnitManager.h"
+#include "Image.h"
 #include "StageManager.h"
 
 StageSelectScene::~StageSelectScene()
@@ -31,6 +32,12 @@ void StageSelectScene::Init()
 	lifeUI->Init();
 	AddObject(lifeUI, Layer::UI);
 	GET_SINGLE(ResourceManager)->Play(L"BGM");
+
+	Image* bg = new Image;
+	bg->SetTexture(GET_SINGLE(ResourceManager)->GetTexture(L"StageSelectScene_BackGround"));
+	bg->SetSize({ 1280,2160 });
+	bg->SetPos({ WINDOW_WIDTH / 2,0 });
+	AddObject(bg, Layer::BACKGROUND);
 }
 
 void StageSelectScene::Update()
@@ -148,10 +155,10 @@ void StageSelectScene::Update()
 
 void StageSelectScene::Render(HDC _hdc)
 {
+	Scene::Render(_hdc);
 	for (auto stageRow : m_stages)
 		for (auto stage : stageRow)
 			stage->Render(_hdc);
-
 }
 
 void StageSelectScene::Release()
