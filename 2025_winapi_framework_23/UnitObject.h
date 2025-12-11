@@ -7,10 +7,11 @@ class UnitStatData;
 class UnitObject : public Object
 {
 public:
+	UnitObject();
+	~UnitObject() override;
 	void Render(HDC _hdc) override;
 	void Update() override;
-	~UnitObject() override;
-	void SetUnitData(UnitData* _data);
+	void SetUnitData(UnitData* _data,int stage=0);
 	void SetBuffStat(StatType _type, int _value);
 	void UseCard(int index);
 	bool Damage(int dmg, ElementType _type, bool _isPowerup);
@@ -48,7 +49,7 @@ public:
 private:
 	// ³»ºÎ ÇïÆÛ·Î ¹­¾î¼­ Á¤¸®
 	void InitHealthBar(const Vec2& pos, const Vec2& size);
-	void InitStats();
+	void InitStats(int stage);
 	void UpdateBlink(float dt);
 	void UpdateRevive(float dt);
 	void RenderSelection(HDC _hdc, const Vec2& pos, const Vec2& size);
@@ -57,10 +58,12 @@ private:
 	void RenderNameLeftOfBar(HDC _hdc, const wstring& name, float barW, float barH, float barY, float posX);
 
 private:
+	Texture* m_arrowTex = nullptr;
 	bool m_isSheilded = false;
 	bool m_isPowerup = false;
 	bool m_isSelect = false;
 	vector<CardData*> m_handCards;
+	int m_maxHp = 0;
 	int m_currentHp = 0;
 	UnitData* m_unitData = nullptr;
 	UnitStatData* m_statData = nullptr;

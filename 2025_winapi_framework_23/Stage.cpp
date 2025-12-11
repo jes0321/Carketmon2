@@ -89,13 +89,12 @@ void Stage::Render(HDC _hdc)
 	case ElementType::Ice:
 		_texName = L"Mark_Ice";
 		break;
-	case ElementType::Grace:
+	case ElementType::Grass:
 		_texName = L"Mark_Leaf";
 		break;
 	}
 
 	Texture* tex =  GET_SINGLE(ResourceManager)->GetTexture(_texName);
-	tex = m_unitData->GetTexture();
 	LONG width = tex->GetWidth();
 	LONG height = tex->GetHeight();
 

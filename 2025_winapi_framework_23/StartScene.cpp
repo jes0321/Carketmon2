@@ -14,7 +14,7 @@ void StartScene::Init()
 {
     m_selectVec.clear();
     m_candidates.clear();
-
+	m_selectBoxTex = GET_SINGLE(ResourceManager)->GetTexture(L"CarketmonSelectMark");
     // 기존 LoadUnitsFromTxt 대신 공용 유틸 사용
     {
         auto names = UnitListSys::ReadNames();
@@ -282,9 +282,16 @@ void StartScene::Render(HDC _hdc)
             RECT_RENDER(_hdc, x, y, m_tileW, m_tileH);
         }
         if (i == m_cursor) {
-            GDISelector penSel(_hdc, PenType::RED);
-            GDISelector brushSel(_hdc, BrushType::HOLLOW);
-            RECT_RENDER(_hdc, x, y, m_tileW, m_tileH);
+
+            ::TransparentBlt(
+                _hdc,
+                (int)(x - m_tileW * 0.5f),
+                (int)(y - m_tileH * 0.5f),
+                (int)m_tileW,
+                (int)m_tileH,
+                m_selectBoxTex->GetTextureDC(),
+                0, 0, srcW, srcH,
+                RGB(255, 0, 255));
         }
 
         ::TransparentBlt(

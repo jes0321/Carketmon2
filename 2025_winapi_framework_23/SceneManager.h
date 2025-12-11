@@ -27,7 +27,6 @@ public:
 		return m_curScene;
 	}
 private:
-	// Scene* m_scene;
 	Scene* m_curScene;
 	std::unordered_map<wstring, Scene*> m_mapScenes;
 };

@@ -36,7 +36,7 @@ void CombatManager::Update() {
 			}
 			m_timer = 0;
 			ActionData* action = m_actionList.front();
-			if (action->GetOwnerUnit()->IsDead()|| action->GetTargetUnit()->IsDead()) {
+			if (action->GetOwnerUnit()->IsDead() || action->GetTargetUnit()->IsDead()) {
 				SAFE_DELETE(action);
 				m_actionList.erase(m_actionList.begin());
 				return;
@@ -78,7 +78,7 @@ void CombatManager::EndActions(BattleScene* battleScene)
 		unit->StartRevive();      // 리바이브 연출 시작
 	}
 	m_deadUnits.clear();
-
+	m_units[0]->SetSelect(true);
 	if (m_endBattle) {
 		m_endBattle = false;
 		HealUnit(UnitType::ENEMY);
@@ -122,9 +122,9 @@ void CombatManager::SetUnitData(UnitType _type)
 	GetUnit(_type)->SetUnitData(GetUnit(UnitType::ENEMY)->GetUnitData());
 }
 
-void CombatManager::SetEnemy(UnitData* _data)
+void CombatManager::SetEnemy(UnitData* _data, int stage)
 {
-	GetUnit(UnitType::ENEMY)->SetUnitData(_data);
+	GetUnit(UnitType::ENEMY)->SetUnitData(_data, stage);
 }
 
 void CombatManager::EndTurn()
@@ -155,18 +155,20 @@ void CombatManager::AddAction(UnitType _target, int index)
 	m_actionList.push_back(newAction);
 
 	m_currentTurn = UnitType(((UINT)(m_currentTurn)) + 1);
-
+	for (auto unit : m_units)
+	{
+		unit->SetSelect(false);
+	}
 	if (m_currentTurn == UnitType::ENEMY)
 	{
 		EndTurn();
 		m_currentTurn = UnitType::PLAYER1;
 	}
-
-	for (auto unit : m_units)
-	{
-		unit->SetSelect(false);
+	else {
+		GetUnit(m_currentTurn)->SetSelect(true);
 	}
-	GetUnit(m_currentTurn)->SetSelect(true);
+
+
 }
 
 void CombatManager::CancelAction(UnitType _ownerType)
@@ -244,37 +246,46 @@ void CombatManager::CatchEnemy()
 void CombatManager::EnemyTurn()
 {
 	UnitObject* enemy = GetUnit(UnitType::ENEMY);
-	CardData* card;
-	int idx;
+	CardData* card = nullptr;
+	int idx = -1;
+	int attempts = 0;  // 시도 횟수 제한
+	const int MAX_ATTEMPTS = 20;  // 최대 20번 시도
 
-	while (true) {
+	while (attempts < MAX_ATTEMPTS) {
+		++attempts;
 		idx = rand() % 4;
 		card = enemy->GetCardInHand(idx);
 		CardEffectType effectType = card->GetCardEffect();
+
+		// 불필요한 힐 카드는 건너뛰기
 		if (enemy->NeedHeal() == false && effectType == CardEffectType::Heal) {
-			enemy->UseCard(idx);
-			continue;
+			continue;  // UseCard 하지 않고 다른 카드 선택 시도
 		}
 
-		while (true) {
-			if (effectType == CardEffectType::AoE) {
-				for (int i = 0; i < 2; ++i) {
-					m_actionList.push_back(new ActionData(enemy, m_units[i], card, idx));
-				}
-				break;
-			}
-			else if (effectType == CardEffectType::Heal || effectType == CardEffectType::StatBuff || effectType == CardEffectType::Shield) {
-				m_actionList.push_back(new ActionData(enemy, enemy, card, idx));
-				break;
-			}
-			else if (effectType == CardEffectType::Damage || effectType == CardEffectType::StatDebuff) {
-				UnitObject* target = m_units[rand() % 2];
-				m_actionList.push_back(new ActionData(enemy, target, card, idx));
-				break;
+		// 유효한 카드 찾음
+		effectType = card->GetCardEffect();
+		if (effectType == CardEffectType::AoE) {
+			for (int i = 0; i < 2; ++i) {
+				m_actionList.push_back(new ActionData(enemy, m_units[i], card, idx));
 			}
 		}
-		break;
+		else if (effectType == CardEffectType::Heal ||
+			effectType == CardEffectType::StatBuff ||
+			effectType == CardEffectType::Shield) {
+			m_actionList.push_back(new ActionData(enemy, enemy, card, idx));
+		}
+		else if (effectType == CardEffectType::Damage ||
+			effectType == CardEffectType::StatDebuff) {
+			UnitObject* target = m_units[rand() % 2];
+			m_actionList.push_back(new ActionData(enemy, target, card, idx));
+		}
+		return;  // 성공적으로 액션 추가 완료
 	}
+
+	// 최대 시도 횟수 초과 시 강제로 첫 번째 카드 사용
+	idx = 0;
+	card = enemy->GetCardInHand(idx);
+	m_actionList.push_back(new ActionData(enemy, enemy, card, idx));
 }
 
 void CombatManager::DamageUnit(ActionData* action)

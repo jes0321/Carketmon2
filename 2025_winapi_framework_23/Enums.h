@@ -25,7 +25,7 @@ enum class FontType
 	END
 };
 enum class ElementType {
-	Fire,Water,Ice,Grace
+	Fire,Water,Ice,Grass,Normal
 };
 enum class CardEffectType {
 	Damage,
@@ -52,7 +52,9 @@ enum class UIType {
 	DECK,
 	CANCEL,
 	START,
-	EXIT
+	EXIT,
+	EXCHANGE,
+	SKIP
 };
 enum class StatType {
 	Attack,

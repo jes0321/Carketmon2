@@ -12,7 +12,7 @@ void BattleDescription::SetText(ActionData* _actionData)
 	wstring ownerName = _actionData->GetOwnerUnit()->GetUnitData()->GetName();
 	wstring targetName = _actionData->GetTargetUnit()->GetUnitData()->GetName();
 	wstring cardName = _actionData->GetCardObject()->GetName();
-	m_text = ownerName + L"가 " + targetName + L"에게 " + cardName + L"을(를) 사용합니다!";
+	m_text = ownerName + L"(이)가 " + targetName + L"에게 " + cardName + L"을(를) 사용합니다!";
 }
 
 void BattleDescription::Render(HDC _hdc)

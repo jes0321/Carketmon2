@@ -8,10 +8,11 @@
 #include "ResourceManager.h"
 #include "HealthBar.h"
 
-void UnitObject::SetUnitData(UnitData* _data)
+void UnitObject::SetUnitData(UnitData* _data, int stage)
 {
 	m_unitData = _data;
-	m_currentHp = m_unitData->GetMaxHp();
+	m_maxHp = m_unitData->GetMaxHp();
+	m_currentHp = m_maxHp;
 	for (int i = 0; i < 4; ++i) {
 		CardData* card = m_unitData->GetCardRandom();
 		m_handCards.push_back(card);
@@ -20,8 +21,8 @@ void UnitObject::SetUnitData(UnitData* _data)
 	Vec2 pos = GetPos();
 	Vec2 size = GetSize();
 	// 헬스바 사이즈 전반적으로 확대 (폭 100%, 높이 18)
+	InitStats(stage);
 	InitHealthBar(pos, size);
-	InitStats();
 }
 
 void UnitObject::InitHealthBar(const Vec2& pos, const Vec2& size)
@@ -37,17 +38,37 @@ void UnitObject::InitHealthBar(const Vec2& pos, const Vec2& size)
 	m_healthBar = new HealthBar(barW, barH);
 	m_healthBar->SetPos({ pos.x, barY });
 	m_healthBar->SetSize({ barW, barH });
-	m_healthBar->SetValue(m_currentHp, m_unitData->GetMaxHp());
+	m_healthBar->SetValue(m_currentHp, m_maxHp);
 }
 
-void UnitObject::InitStats()
+void UnitObject::InitStats(int stage)
 {
 	if (m_statData)
 		SAFE_DELETE(m_statData);
+
+	int def = m_unitData->GetDef();
+	int atk = m_unitData->GetAtk();
+	int spd = m_unitData->GetSpeed();
+
+	// 적 유닛인 경우 (stage >= 0) 스탯 강화
+	if (stage > 0) {
+		// HP 기본 1.8배 + 스테이지당 추가 증가 (최대 12스테이지 기준 약 0.36배 추가)
+		// 1스테이지: 1.8배, 12스테이지: 약 2.16배
+		float hpMultiplier = 1.8f + (stage * 0.03f); // 스테이지당 3% 추가 증가
+		m_maxHp = (int)(m_maxHp * hpMultiplier);
+		
+		m_currentHp = m_maxHp;
+
+
+		atk = (int)(atk * (1.1f + stage * 0.01f)); // 스테이지당 1% 증가
+		def = (int)(def * (1.25f + stage * 0.01f)); // 스테이지당 1% 증가
+		spd = (int)(spd * (1.05f + stage * 0.01f)); // 스테이지당 1% 증가
+	}
+
 	m_statData = new UnitStatData(
-		m_unitData->GetAtk(),
-		m_unitData->GetDef(),
-		m_unitData->GetSpeed()
+		atk,
+		def,
+		spd
 	);
 }
 
@@ -61,11 +82,10 @@ void UnitObject::UseCard(int index)
 	if (index < 0 || index >= (int)m_handCards.size())
 		return;
 
-	m_unitData->UseCard(index);
-	m_handCards.erase(m_handCards.begin() + index);
-
 	CardData* next = m_unitData->GetCardRandom();
 	if (next) m_handCards.push_back(next);
+	m_unitData->UseCard(index);
+	m_handCards.erase(m_handCards.begin() + index);
 }
 
 bool UnitObject::Damage(int dmg, ElementType _type, bool _isPowerup)
@@ -91,14 +111,14 @@ bool UnitObject::Damage(int dmg, ElementType _type, bool _isPowerup)
 
 	// 체력바 값 갱신 (UnitObject가 보관한 포인터에 직접 세팅)
 	if (m_healthBar && m_unitData) {
-		m_healthBar->SetValue(m_currentHp, m_unitData->GetMaxHp());
+		m_healthBar->SetValue(m_currentHp, m_maxHp);
 	}
 
 	// 데미지 플로팅 생성
 	Scene* scene = GET_SINGLE(SceneManager)->GetCurScene();
 	Vec2 pos = GetPos();
 	auto* df = new DamageFloat(std::format(L"-{}", Dmg), RGB(255, 60, 60), 2.f);
-	df->SetPos({ pos.x,pos.y - 40 });
+	df->SetPos({ pos.x,pos.y - 100 });
 	df->SetSize({ 120.f, 40.f }); // 텍스트 박스 크기
 	scene->AddObject(df, Layer::CARD);
 
@@ -108,18 +128,18 @@ bool UnitObject::Damage(int dmg, ElementType _type, bool _isPowerup)
 void UnitObject::Heal(int heal, bool _floating)
 {
 	m_currentHp += heal;
-	if (m_currentHp > m_unitData->GetMaxHp())
-		m_currentHp = m_unitData->GetMaxHp();
+	if (m_currentHp > m_maxHp)
+		m_currentHp = m_maxHp;
 	// 체력바 값 갱신 (UnitObject가 보관한 포인터에 직접 세팅)
 	if (m_healthBar)
-		m_healthBar->SetValue(m_currentHp, m_unitData ? m_unitData->GetMaxHp() : 0);
+		m_healthBar->SetValue(m_currentHp, m_unitData ? m_maxHp : 0);
 
 	// 힐 플로팅 생성
 	if (_floating) {
 		Scene* scene = GET_SINGLE(SceneManager)->GetCurScene();
 		Vec2 pos = GetPos();
 		auto* df = new DamageFloat(std::format(L"+{}", heal), RGB(60, 255, 60), 2.f);
-		df->SetPos({ pos.x,pos.y - 40 });
+		df->SetPos({ pos.x,pos.y - 100 });
 		df->SetSize({ 120.f, 40.f }); // 텍스트 박스 크기
 		scene->AddObject(df, Layer::CARD);
 	}
@@ -128,7 +148,7 @@ void UnitObject::Heal(int heal, bool _floating)
 bool UnitObject::NeedHeal()
 {
 	float hpRatio = 0.6f;//현재 hp가 0.6 이하일 때 힐 필요
-	return m_currentHp <= (m_unitData->GetMaxHp() * hpRatio);
+	return m_currentHp <= (m_maxHp * hpRatio);
 }
 
 int UnitObject::GetStat(StatType _type) const
@@ -141,8 +161,8 @@ bool UnitObject::IsStrongAgainst(ElementType attacker) const
 	ElementType defender = m_unitData->GetElementType();
 	if ((attacker == ElementType::Fire && defender == ElementType::Ice) ||
 		(attacker == ElementType::Water && defender == ElementType::Fire) ||
-		(attacker == ElementType::Ice && defender == ElementType::Grace) ||
-		(attacker == ElementType::Grace && defender == ElementType::Water))
+		(attacker == ElementType::Ice && defender == ElementType::Grass) ||
+		(attacker == ElementType::Grass && defender == ElementType::Water))
 	{
 		return true;
 	}
@@ -154,8 +174,8 @@ bool UnitObject::IsWeakAgainst(ElementType attacker) const
 	ElementType defender = m_unitData->GetElementType();
 	if ((defender == ElementType::Fire && attacker == ElementType::Ice) ||
 		(defender == ElementType::Water && attacker == ElementType::Fire) ||
-		(defender == ElementType::Ice && attacker == ElementType::Grace) ||
-		(defender == ElementType::Grace && attacker == ElementType::Water))
+		(defender == ElementType::Ice && attacker == ElementType::Grass) ||
+		(defender == ElementType::Grass && attacker == ElementType::Water))
 	{
 		return true;
 	}
@@ -209,6 +229,11 @@ void UnitObject::Update()
 	UpdateRevive(dt);
 }
 
+UnitObject::UnitObject()
+{
+	m_arrowTex = GET_SINGLE(ResourceManager)->GetTexture(L"DownArrow");
+}
+
 UnitObject::~UnitObject()
 {
 	if (m_statData) {
@@ -223,9 +248,23 @@ UnitObject::~UnitObject()
 void UnitObject::RenderSelection(HDC _hdc, const Vec2& pos, const Vec2& size)
 {
 	if (!m_isSelect) return;
-	GDISelector penSel(_hdc, PenType::GREEN);
-	GDISelector brushSel(_hdc, BrushType::HOLLOW);
-	RECT_RENDER(_hdc, pos.x, pos.y, size.x * 1.05f, size.y * 1.05f);
+
+	LONG width = m_arrowTex->GetWidth();
+	LONG height = m_arrowTex->GetHeight();
+
+	// 화살표를 유닛 위쪽 중앙에 원본 크기 그대로 그리기
+	int arrowX = (int)(pos.x - width / 2);                    // 중앙 정렬
+	int arrowY = (int)(pos.y - size.y / 2 - height - 10);     // 유닛 위 + 간격 10px
+
+	::TransparentBlt(_hdc
+		, arrowX              // 목적지 X 좌표 (화살표 중앙이 유닛 중앙에 오도록)
+		, arrowY              // 목적지 Y 좌표 (유닛 위쪽)
+		, (int)width          // 목적지 폭 (원본 크기 그대로)
+		, (int)height         // 목적지 높이 (원본 크기 그대로)
+		, m_arrowTex->GetTextureDC()
+		, 0, 0                // 원본 시작 위치
+		, width, height       // 원본 크기
+		, RGB(255, 0, 255));
 }
 
 void UnitObject::RenderTexture(HDC _hdc, const Vec2& pos, const Vec2& size, Texture* tex)

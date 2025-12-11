@@ -43,7 +43,7 @@ void StageSelectScene::Update()
 	if (GET_KEYDOWN(KEY_TYPE::SPACE) && m_currentStage->IsAvailable == true)
 	{
 		StageType stageType = m_currentStage->GetStageType();
-		GET_SINGLE(CombatManager)->SetEnemy(m_currentStage->GetUnitData());
+		GET_SINGLE(CombatManager)->SetEnemy(m_currentStage->GetUnitData(),m_currentStageLength+1);
 		m_currentStage->IsCompelet = true;
 		m_currentStageLength = m_currentSelectStageLength;
 		MoveStage();

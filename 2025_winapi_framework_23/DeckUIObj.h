@@ -7,6 +7,7 @@ class Texture;
 class DeckUIObj : public Object
 {
 public:
+    DeckUIObj();
     void Render(HDC _hdc) override;
     void Update() override;
     void SetCards(const vector<CardData*>& cards) { m_cards = cards; }
@@ -19,6 +20,7 @@ private:
     Vec2 CalcCardPos(const Vec2& areaCenter, const Vec2& areaSize, float cardW, float cardH, int col, int row) const;
 
 private:
+	Texture* m_selectBox = nullptr;
     vector<CardData*> m_cards;
 
     int   m_cols     = 8;

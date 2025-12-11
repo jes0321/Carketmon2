@@ -2,7 +2,7 @@
 #include "Scene.h"
 class ButtonSwitcher;
 class UnitData;
-
+class Texture;
 class StartScene : public Scene
 {
 public:
@@ -14,6 +14,7 @@ public:
     void SetSelectionEnabled(bool enabled);
     void CancelSelectAll();
 private:
+	Texture* m_selectBoxTex = nullptr;
     // UI
     ButtonSwitcher* m_btnManager = nullptr;
 

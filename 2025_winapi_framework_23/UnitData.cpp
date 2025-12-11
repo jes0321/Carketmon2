@@ -12,7 +12,8 @@ static const wchar_t* ToCategory(UnitCategory t)
 	{
 	case UnitCategory::DEALER:  return L"µô·¯";
 	case UnitCategory::SUPPORT: return L"¼­Æ÷ÅÍ";
-	case UnitCategory::MULTI:   return L"º¹ÇÕ";
+	case UnitCategory::MULTI:   return L"¹ë·±½º";
+	case UnitCategory::TANK: return L"ÅÊÄ¿";
 	default:                 return L"Unknown";
 	}
 }
