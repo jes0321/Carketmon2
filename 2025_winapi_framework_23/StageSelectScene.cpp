@@ -21,12 +21,19 @@ void StageSelectScene::Init()
 {
 	srand((unsigned int)time(NULL));
 
-	m_LifeCount = GET_SINGLE(CombatManager)->GetLifeCount();
 
 	if (GET_SINGLE(StageManager)->IsReset()) {
+		m_currentSelectStageLength = 0;
+		m_currentStageIndex = 0;
+		m_currentStageLength = 0;
+		
+		GET_SINGLE(CombatManager)->ResetLife();
+
 		m_stages = GET_SINGLE(StageManager)->GenerateStageMap();
+
 		SetCurrentStage(m_stages[0][0]);
 	}
+	m_LifeCount = GET_SINGLE(CombatManager)->GetLifeCount();
 
 	LifeUI* lifeUI = new LifeUI;
 	lifeUI->Init();
@@ -53,6 +60,11 @@ void StageSelectScene::Update()
 		m_currentStage->IsCompelet = true;
 		m_currentStageLength = m_currentSelectStageLength;
 		MoveStage();
+
+		if (stageType == StageType::Boss) {
+			GET_SINGLE(SceneManager)->LoadScene(L"BattleScene");
+			return;
+		}
 
 		for (int i = 0; i < m_stages.size(); i++)
 		{

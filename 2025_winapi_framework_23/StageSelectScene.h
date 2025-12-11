@@ -39,7 +39,7 @@ private:
 	}
 	bool ChangeStage(int _stageIndex)
 	{
-		if (_stageIndex > StageLength - 1)
+		if (_stageIndex > StageLength-1)
 		{
 			m_currentStageLength = StageLength - 1;
 			return false;

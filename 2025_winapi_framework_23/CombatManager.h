@@ -30,6 +30,7 @@ public:
     UnitObject* GetUnit(UnitType type);
     vector<CardData*> GetHandCard();
 	int GetLifeCount() const { return m_lifeCount; }
+	void ResetLife() { m_lifeCount = 3; }
 
 private:
 	void CatchEnemy();

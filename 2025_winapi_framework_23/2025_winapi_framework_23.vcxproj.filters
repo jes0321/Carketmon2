@@ -208,7 +208,9 @@
     <ClInclude Include="StageManager.h">
       <Filter>Engine\02. Manager</Filter>
     </ClInclude>
-    <ClInclude Include="EndingScene.h" />
+    <ClInclude Include="EndingScene.h">
+      <Filter>Engine\04. Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2025_winapi_framework_23.rc">
@@ -220,6 +222,12 @@
       <Filter>리소스 파일</Filter>
     </Image>
     <Image Include="2025_winapi_framework_23.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="icon1.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Water_SquidGirl.ico">
       <Filter>리소스 파일</Filter>
     </Image>
   </ItemGroup>
@@ -359,6 +367,11 @@
     <ClCompile Include="StageManager.cpp">
       <Filter>Engine\02. Manager</Filter>
     </ClCompile>
-    <ClCompile Include="EndingScene.cpp" />
+    <ClCompile Include="EndingScene.cpp">
+      <Filter>Engine\04. Scene</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>
